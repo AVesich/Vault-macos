@@ -11,45 +11,27 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @State var searchQuery: String = ""
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
+        VStack {
+            HStack(spacing: 20.0) {
+                Image(systemName: "magnifyingglass")
+                    .imageScale(.large)
+                TextField(text: $searchQuery,
+                          prompt: Text("Search for a file...")) {}
+                    .font(.system(size: 24.0))
+                    .textFieldStyle(.plain)
+                Spacer()
             }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
+            .padding(.horizontal, 20.0)
+            .padding(.bottom, 12.0)
+            
+            Divider()
+                .padding(.horizontal, 20.0)
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+        .offset(y: -10.0)
+        .background(Material.thin)
     }
 }
 

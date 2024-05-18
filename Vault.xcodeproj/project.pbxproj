@@ -15,6 +15,7 @@
 		D94CAF892BF82804009AC3E1 /* VaultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF882BF82804009AC3E1 /* VaultTests.swift */; };
 		D94CAF932BF82804009AC3E1 /* VaultUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF922BF82804009AC3E1 /* VaultUITests.swift */; };
 		D94CAF952BF82804009AC3E1 /* VaultUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */; };
+		D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		D94CAF8E2BF82804009AC3E1 /* VaultUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaultUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF922BF82804009AC3E1 /* VaultUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITests.swift; sourceTree = "<group>"; };
 		D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyLoop.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		D94CAF732BF82801009AC3E1 /* Vault */ = {
 			isa = PBXGroup;
 			children = (
+				D94CAFA12BF95123009AC3E1 /* Services */,
 				D94CAF742BF82801009AC3E1 /* VaultApp.swift */,
 				D94CAF762BF82801009AC3E1 /* ContentView.swift */,
 				D94CAF782BF82801009AC3E1 /* Item.swift */,
@@ -130,6 +133,14 @@
 				D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */,
 			);
 			path = VaultUITests;
+			sourceTree = "<group>";
+		};
+		D94CAFA12BF95123009AC3E1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94CAF772BF82801009AC3E1 /* ContentView.swift in Sources */,
+				D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */,
 				D94CAF792BF82801009AC3E1 /* Item.swift in Sources */,
 				D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */,
 			);
@@ -433,6 +445,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -461,6 +474,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
