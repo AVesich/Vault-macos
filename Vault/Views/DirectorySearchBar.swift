@@ -22,7 +22,7 @@ struct DirectorySearchBar: View {
                 .font(.manrope(14.0))
                 .textFieldStyle(.plain)
                 .onChange(of: currentDirectory) {
-                    directorySearch.getDirectoryPaths(fromSearch: currentDirectory)
+                    directorySearch.getSuggestedDirectory(forDirectorySearch: currentDirectory)
                 }
         }
         .padding(.vertical, 4.0)
