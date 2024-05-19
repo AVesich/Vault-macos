@@ -13,14 +13,19 @@ struct DirectorySearchBar: View {
     let directorySearch = DirectorySearch()
     
     var body: some View {
-        TextField(text: $currentDirectory,
-                  prompt: Text("/Users/")) {}
-            .font(.manrope(14.0))
-            .textFieldStyle(.plain)
-            .padding(.vertical, 4.0)
-            .onChange(of: currentDirectory) {
-                directorySearch.getDirectoryPaths(fromSearch: currentDirectory)
-            }
+        HStack(spacing: 2.0) {
+            Text("Working Directory: ")
+                .font(.manrope(14.0))
+            
+            TextField(text: $currentDirectory,
+                      prompt: Text("/Users/")) {}
+                .font(.manrope(14.0))
+                .textFieldStyle(.plain)
+                .onChange(of: currentDirectory) {
+                    directorySearch.getDirectoryPaths(fromSearch: currentDirectory)
+                }
+        }
+        .padding(.vertical, 4.0)
     }
 }
 

@@ -24,7 +24,7 @@ struct MainSearch: View {
             .padding(.horizontal, 16.0)
         }
         .background(Material.thin)
-        .frame(width: 780.0)
+        .frame(width: 600.0)
         
     }
 }

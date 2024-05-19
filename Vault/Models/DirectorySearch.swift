@@ -10,10 +10,14 @@ import Foundation
 struct DirectorySearch {
     public func getDirectoryPaths(fromSearch searchedPath: String) {
         if let currentDirectoryURL = URL(string: searchedPath) {
-            let childrenDirectories = try? FileManager.default.contentsOfDirectory(at: currentDirectoryURL,
-                                                                                   includingPropertiesForKeys: [.isDirectoryKey],
-                                                                                   options: [.skipsHiddenFiles]) ?? [URL]()
-            print(childrenDirectories)
+            do {
+                let childrenDirectories = try FileManager.default.contentsOfDirectory(at: currentDirectoryURL,
+                                                                                      includingPropertiesForKeys: [.isDirectoryKey],
+                                                                                      options: [.skipsHiddenFiles])
+                print(childrenDirectories)
+            } catch {
+                print(error)
+            }
         }
     }
 }
