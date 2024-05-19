@@ -17,8 +17,14 @@
 		D94CAF952BF82804009AC3E1 /* VaultUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */; };
 		D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */; };
 		D94CAFAA2BF95AB6009AC3E1 /* .gitignore.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFA92BF95AB6009AC3E1 /* .gitignore.rtf */; };
-		D94CAFB22BF99DBE009AC3E1 /* DirectorySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFB12BF99DBE009AC3E1 /* DirectorySearch.swift */; };
+		D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFB12BF99DBE009AC3E1 /* DirectorySearchBar.swift */; };
 		D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFB32BF99E7F009AC3E1 /* SearchBar.swift */; };
+		D94CAFB72BF9A2C5009AC3E1 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFB62BF9A2C5009AC3E1 /* SearchModel.swift */; };
+		D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFB82BF9A2CC009AC3E1 /* DirectorySearch.swift */; };
+		D94CAFBE2BF9C672009AC3E1 /* billy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFBD2BF9C672009AC3E1 /* billy.ttf */; };
+		D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFBC2BF9C5C7009AC3E1 /* Manrope-Bold.otf */; };
+		D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFBB2BF9C5C1009AC3E1 /* Manrope-Regular.otf */; };
+		D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +59,14 @@
 		D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyLoop.swift; sourceTree = "<group>"; };
 		D94CAFA92BF95AB6009AC3E1 /* .gitignore.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = .gitignore.rtf; sourceTree = "<group>"; };
-		D94CAFB12BF99DBE009AC3E1 /* DirectorySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorySearch.swift; sourceTree = "<group>"; };
+		D94CAFB12BF99DBE009AC3E1 /* DirectorySearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorySearchBar.swift; sourceTree = "<group>"; };
 		D94CAFB32BF99E7F009AC3E1 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		D94CAFB62BF9A2C5009AC3E1 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		D94CAFB82BF9A2CC009AC3E1 /* DirectorySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorySearch.swift; sourceTree = "<group>"; };
+		D94CAFBB2BF9C5C1009AC3E1 /* Manrope-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.otf"; sourceTree = "<group>"; };
+		D94CAFBC2BF9C5C7009AC3E1 /* Manrope-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.otf"; sourceTree = "<group>"; };
+		D94CAFBD2BF9C672009AC3E1 /* billy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billy.ttf; sourceTree = "<group>"; };
+		D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,10 +119,13 @@
 		D94CAF732BF82801009AC3E1 /* Vault */ = {
 			isa = PBXGroup;
 			children = (
+				D94CAFC12BF9C6E1009AC3E1 /* Extensions */,
+				D94CAFB52BF9A28F009AC3E1 /* Models */,
 				D94CAFAE2BF99D4C009AC3E1 /* Views */,
 				D94CAFA12BF95123009AC3E1 /* Services */,
 				D94CAF742BF82801009AC3E1 /* VaultApp.swift */,
 				D94CAF782BF82801009AC3E1 /* Item.swift */,
+				D94CAFBA2BF9C5B5009AC3E1 /* Fonts */,
 				D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */,
 				D94CAF7F2BF82803009AC3E1 /* Vault.entitlements */,
 				D94CAF7C2BF82803009AC3E1 /* Preview Content */,
@@ -162,10 +177,37 @@
 			isa = PBXGroup;
 			children = (
 				D94CAF762BF82801009AC3E1 /* MainSearch.swift */,
-				D94CAFB12BF99DBE009AC3E1 /* DirectorySearch.swift */,
+				D94CAFB12BF99DBE009AC3E1 /* DirectorySearchBar.swift */,
 				D94CAFB32BF99E7F009AC3E1 /* SearchBar.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D94CAFB52BF9A28F009AC3E1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D94CAFB62BF9A2C5009AC3E1 /* SearchModel.swift */,
+				D94CAFB82BF9A2CC009AC3E1 /* DirectorySearch.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D94CAFBA2BF9C5B5009AC3E1 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D94CAFBD2BF9C672009AC3E1 /* billy.ttf */,
+				D94CAFBC2BF9C5C7009AC3E1 /* Manrope-Bold.otf */,
+				D94CAFBB2BF9C5C1009AC3E1 /* Manrope-Regular.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		D94CAFC12BF9C6E1009AC3E1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,8 +320,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94CAF7E2BF82803009AC3E1 /* Preview Assets.xcassets in Resources */,
+				D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */,
+				D94CAFBE2BF9C672009AC3E1 /* billy.ttf in Resources */,
 				D94CAFAA2BF95AB6009AC3E1 /* .gitignore.rtf in Resources */,
 				D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */,
+				D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,8 +371,11 @@
 				D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */,
 				D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */,
 				D94CAF792BF82801009AC3E1 /* Item.swift in Sources */,
+				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
 				D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */,
-				D94CAFB22BF99DBE009AC3E1 /* DirectorySearch.swift in Sources */,
+				D94CAFB72BF9A2C5009AC3E1 /* SearchModel.swift in Sources */,
+				D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */,
+				D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */,
 				D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

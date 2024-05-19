@@ -17,7 +17,7 @@ struct SearchBar: View {
                 .imageScale(.large)
             TextField(text: $searchQuery,
                       prompt: Text("Search for a file...")) {}
-                .font(.system(size: 20.0))
+                .font(.manrope(20.0))
                 .textFieldStyle(.plain)
             Spacer()
         }

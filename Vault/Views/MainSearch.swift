@@ -15,19 +15,17 @@ struct MainSearch: View {
     var body: some View {
         VStack {
             VStack {
-                DirectorySearch()
-                
+                DirectorySearchBar()
                 Divider()
-                
                 SearchBar()
-                
                 Divider()
             }
             .offset(y: -20.0)
             .padding(.horizontal, 16.0)
         }
-        .frame(width: 780.0)
         .background(Material.thin)
+        .frame(width: 780.0)
+        
     }
 }
 
