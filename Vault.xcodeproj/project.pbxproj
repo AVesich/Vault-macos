@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8BE817E2C7D25225FD6CB62 /* VaultTests-VaultMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E8697EE0DBCBF16A8E3847 /* VaultTests-VaultMocks.generated.swift */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* ContentView.swift */; };
 		D94CAF792BF82801009AC3E1 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF782BF82801009AC3E1 /* Item.swift */; };
 		D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */; };
 		D94CAF7E2BF82803009AC3E1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7D2BF82803009AC3E1 /* Preview Assets.xcassets */; };
-		D94CAF892BF82804009AC3E1 /* VaultTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF882BF82804009AC3E1 /* VaultTests.swift */; };
+		D94CAF892BF82804009AC3E1 /* HotkeyLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF882BF82804009AC3E1 /* HotkeyLoop.swift */; };
 		D94CAF932BF82804009AC3E1 /* VaultUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF922BF82804009AC3E1 /* VaultUITests.swift */; };
 		D94CAF952BF82804009AC3E1 /* VaultUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */; };
 		D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */; };
+		D94CAFAA2BF95AB6009AC3E1 /* .gitignore.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFA92BF95AB6009AC3E1 /* .gitignore.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		47E8697EE0DBCBF16A8E3847 /* VaultTests-VaultMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = "VaultTests-VaultMocks.generated.swift"; path = "MockingbirdMocks/VaultTests-VaultMocks.generated.swift"; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
 		D94CAF762BF82801009AC3E1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,11 +47,12 @@
 		D94CAF7D2BF82803009AC3E1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D94CAF7F2BF82803009AC3E1 /* Vault.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Vault.entitlements; sourceTree = "<group>"; };
 		D94CAF842BF82804009AC3E1 /* VaultTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaultTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D94CAF882BF82804009AC3E1 /* VaultTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultTests.swift; sourceTree = "<group>"; };
+		D94CAF882BF82804009AC3E1 /* HotkeyLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyLoop.swift; sourceTree = "<group>"; };
 		D94CAF8E2BF82804009AC3E1 /* VaultUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VaultUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF922BF82804009AC3E1 /* VaultUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITests.swift; sourceTree = "<group>"; };
 		D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyLoop.swift; sourceTree = "<group>"; };
+		D94CAFA92BF95AB6009AC3E1 /* .gitignore.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = .gitignore.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,13 +80,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B7ED8CDA4BF4E2566A824FE /* Generated Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				47E8697EE0DBCBF16A8E3847 /* VaultTests-VaultMocks.generated.swift */,
+			);
+			name = "Generated Mocks";
+			sourceTree = "<group>";
+		};
 		D94CAF682BF82801009AC3E1 = {
 			isa = PBXGroup;
 			children = (
+				D94CAFA92BF95AB6009AC3E1 /* .gitignore.rtf */,
 				D94CAF732BF82801009AC3E1 /* Vault */,
 				D94CAF872BF82804009AC3E1 /* VaultTests */,
 				D94CAF912BF82804009AC3E1 /* VaultUITests */,
 				D94CAF722BF82801009AC3E1 /* Products */,
+				5B7ED8CDA4BF4E2566A824FE /* Generated Mocks */,
+				D94CAFAB2BF95BE6009AC3E1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,7 +136,7 @@
 		D94CAF872BF82804009AC3E1 /* VaultTests */ = {
 			isa = PBXGroup;
 			children = (
-				D94CAF882BF82804009AC3E1 /* VaultTests.swift */,
+				D94CAF882BF82804009AC3E1 /* HotkeyLoop.swift */,
 			);
 			path = VaultTests;
 			sourceTree = "<group>";
@@ -141,6 +156,13 @@
 				D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		D94CAFAB2BF95BE6009AC3E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,6 +189,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D94CAF9B2BF82804009AC3E1 /* Build configuration list for PBXNativeTarget "VaultTests" */;
 			buildPhases = (
+				A0B95C22BBB8E5C13FF01CF5 /* Generate Mockingbird Mocks */,
 				D94CAF802BF82804009AC3E1 /* Sources */,
 				D94CAF812BF82804009AC3E1 /* Frameworks */,
 				D94CAF822BF82804009AC3E1 /* Resources */,
@@ -177,6 +200,8 @@
 				D94CAF862BF82804009AC3E1 /* PBXTargetDependency */,
 			);
 			name = VaultTests;
+			packageProductDependencies = (
+			);
 			productName = VaultTests;
 			productReference = D94CAF842BF82804009AC3E1 /* VaultTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -231,6 +256,8 @@
 				Base,
 			);
 			mainGroup = D94CAF682BF82801009AC3E1;
+			packageReferences = (
+			);
 			productRefGroup = D94CAF722BF82801009AC3E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -248,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94CAF7E2BF82803009AC3E1 /* Preview Assets.xcassets in Resources */,
+				D94CAFAA2BF95AB6009AC3E1 /* .gitignore.rtf in Resources */,
 				D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +296,25 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A0B95C22BBB8E5C13FF01CF5 /* Generate Mockingbird Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Mockingbird Mocks";
+			outputPaths = (
+				"$(SRCROOT)/MockingbirdMocks/VaultTests-VaultMocks.generated.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n\n# Prevent Xcode 13 from running this script while indexing.\n[[ \"${ACTION}\" == \"indexbuild\" ]] && exit 0\n\n# Infer the derived data location from the build environment.\n[[ -z \"${DERIVED_DATA+x}\" ]] && DERIVED_DATA=\"$(echo \"${BUILD_ROOT}\" | sed -n 's|\\(.*\\)/Build/.*|\\1|p')\"\n\n\"${DERIVED_DATA}/SourcePackages/checkouts/mockingbird/mockingbird\" generate --targets \"Vault\" --outputs \"${SRCROOT}/MockingbirdMocks/VaultTests-VaultMocks.generated.swift\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D94CAF6D2BF82801009AC3E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -284,7 +331,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D94CAF892BF82804009AC3E1 /* VaultTests.swift in Sources */,
+				D94CAF892BF82804009AC3E1 /* HotkeyLoop.swift in Sources */,
+				B8BE817E2C7D25225FD6CB62 /* VaultTests-VaultMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +398,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -413,7 +461,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -437,6 +485,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Vault/Vault.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -466,6 +515,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Vault/Vault.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
