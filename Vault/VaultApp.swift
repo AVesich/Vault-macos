@@ -10,11 +10,13 @@ import SwiftData
 import CoreGraphics
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    let hotkeyService = HotkeyLoop()
+        
+    var hotkeyLoop: HotkeyLoop!
     
     internal func applicationDidFinishLaunching(_ notification: Notification) {
         prepareWindow()
+        hotkeyLoop = HotkeyLoop()
+        print("after")
     }
     
     private func prepareWindow() {
@@ -34,7 +36,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private func makeBackgroundClear(from window: NSWindow) {
         // Make background clear
         window.backgroundColor = .clear
-    }
+    }    
 }
 
 @main
@@ -53,13 +55,13 @@ struct VaultApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
-
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainSearch()
         }
-        .windowResizability(.contentSize)
         .windowStyle(.hiddenTitleBar)
+        .windowResizability(.contentSize)
         .modelContainer(sharedModelContainer)
     }
 }

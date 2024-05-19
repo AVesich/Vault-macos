@@ -8,8 +8,15 @@
 import SwiftUI
 
 struct DirectorySearch: View {
+    
+    @State var currentDirectory: String = ""
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TextField(text: $currentDirectory,
+                  prompt: Text("/Users/")) {}
+            .font(.system(size: 16.0))
+            .textFieldStyle(.plain)
+            .padding(.vertical, 4.0)
     }
 }
 

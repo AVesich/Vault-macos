@@ -8,41 +8,23 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct MainSearch: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    @State var currentDirectory: String = ""
-    @State var searchQuery: String = ""
 
     var body: some View {
         VStack {
             VStack {
-                TextField(text: $searchQuery,
-                          prompt: Text("/Users/")) {}
-                    .font(.system(size: 16.0))
-                    .textFieldStyle(.plain)
-                    .padding(.horizontal, 16.0)
-                    .padding(.vertical, 4.0)
+                DirectorySearch()
                 
                 Divider()
-                    .padding(.horizontal, 16.0)
                 
-                HStack(spacing: 14.0) {
-                    Image(systemName: "magnifyingglass")
-                        .imageScale(.large)
-                    TextField(text: $searchQuery,
-                              prompt: Text("Search for a file...")) {}
-                        .font(.system(size: 20.0))
-                        .textFieldStyle(.plain)
-                    Spacer()
-                }
-                .padding(.vertical, 8.0)
-                .padding(.horizontal, 16.0)
+                SearchBar()
                 
                 Divider()
-                    .padding(.horizontal, 16.0)
             }
-            .offset(y: -209.0)
+            .offset(y: -20.0)
+            .padding(.horizontal, 16.0)
         }
         .frame(width: 780.0)
         .background(Material.thin)
@@ -50,6 +32,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    MainSearch()
         .modelContainer(for: Item.self, inMemory: true)
 }

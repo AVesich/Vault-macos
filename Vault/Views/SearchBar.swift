@@ -8,8 +8,20 @@
 import SwiftUI
 
 struct SearchBar: View {
+    
+    @State var searchQuery: String = ""
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 14.0) {
+            Image(systemName: "magnifyingglass")
+                .imageScale(.large)
+            TextField(text: $searchQuery,
+                      prompt: Text("Search for a file...")) {}
+                .font(.system(size: 20.0))
+                .textFieldStyle(.plain)
+            Spacer()
+        }
+        .padding(.vertical, 8.0)
     }
 }
 

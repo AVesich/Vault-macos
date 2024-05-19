@@ -8,7 +8,7 @@
 import CoreGraphics
 
 class HotkeyLoop {
-        
+    
     init() {
         setupSearchHotkey()
     }
@@ -18,7 +18,7 @@ class HotkeyLoop {
             startRunLoopForHotkeyEvent(event)
         } else {
             // TODO: - Show oops dialog
-            fatalError("shits clapped")
+            fatalError("Error setting up hotkey event")
         }
     }
     
