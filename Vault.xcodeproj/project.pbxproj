@@ -25,6 +25,7 @@
 		D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFBC2BF9C5C7009AC3E1 /* Manrope-Bold.otf */; };
 		D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFBB2BF9C5C1009AC3E1 /* Manrope-Regular.otf */; };
 		D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */; };
+		D94CAFC52BFAD3C7009AC3E1 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFC42BFAD3C7009AC3E1 /* StringExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		D94CAFBC2BF9C5C7009AC3E1 /* Manrope-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Bold.otf"; sourceTree = "<group>"; };
 		D94CAFBD2BF9C672009AC3E1 /* billy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billy.ttf; sourceTree = "<group>"; };
 		D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
+		D94CAFC42BFAD3C7009AC3E1 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */,
+				D94CAFC42BFAD3C7009AC3E1 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			files = (
 				D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */,
 				D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */,
+				D94CAFC52BFAD3C7009AC3E1 /* StringExtension.swift in Sources */,
 				D94CAF792BF82801009AC3E1 /* Item.swift in Sources */,
 				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
 				D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */,

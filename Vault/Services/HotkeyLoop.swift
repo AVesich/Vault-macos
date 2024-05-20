@@ -39,8 +39,8 @@ class HotkeyLoop {
 
 func checkButtonDownEventForOptS(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     let sPressed = event.getIntegerValueField(.keyboardEventKeycode) == 1
-    let commandPressed = event.flags.contains(.maskAlternate)
-    if type == .keyDown, sPressed, commandPressed {
+    let optionPressed = event.flags.contains(.maskAlternate)
+    if type == .keyDown, sPressed, optionPressed {
         print("alt-s is working!")
     }
     return Unmanaged.passUnretained(event)

@@ -9,14 +9,18 @@ import Foundation
 
 struct DirectorySearch {
     
-    public func getSuggestedDirectory(forDirectorySearch typedPath: String) -> [String] {
-        let pathResultURLs = getDirectoryPathResults(forPath: typedPath)
-        let pathResultStrings = pathResultURLs.map { $0.relativePath }
-        let pathEndParts = pathResultStrings.compactMap { $0.components(separatedBy: "/").last }
-                
-        print(pathEndParts)
-
-        return pathEndParts
+    public func getSuggestedDirectory(forDirectorySearch typedPath: String) -> String {
+        guard let typedPathEnd = typedPath.components(separatedBy: "/").last else {
+            return ""
+        }
+        let possiblePaths = getAllPossibleDirectoryPathHeads(forDirectorySearch: typedPath)
+        var indexScorePairs = possiblePaths.enumerated().map { ($0.offset, typedPathEnd.similarity(to: $0.element)) }
+        indexScorePairs.sort { $0.1 < $1.1 }
+        
+        if let closestMatchIndex = indexScorePairs.first?.0 {
+            return possiblePaths[closestMatchIndex] + "/"
+        }
+        return ""
     }
     
     private func getDirectoryPathResults(forPath path: String) -> [URL] {
@@ -39,5 +43,13 @@ struct DirectorySearch {
             return childrenDirectories ?? [URL]()
         }
         return [URL]()
+    }
+    
+    private func getAllPossibleDirectoryPathHeads(forDirectorySearch typedPath: String) -> [String] {
+        let pathResultURLs = getDirectoryPathResults(forPath: typedPath)
+        let pathResultStrings = pathResultURLs.map { $0.relativePath }
+        let pathEndParts = pathResultStrings.compactMap { $0.components(separatedBy: "/").last }
+                
+        return pathEndParts
     }
 }
