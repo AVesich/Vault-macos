@@ -5,10 +5,10 @@
 //  Created by Austin Vesich on 5/20/24.
 //
 
-import Foundation
+import SwiftUI
 import GoogleGenerativeAI
 
-struct GenerativeAI {
+@Observable class GenerativeAI {
     private var apiKey: String {
         get {
             guard let filePath = Bundle.main.path(forResource: "AI", ofType: "plist") else {
@@ -22,6 +22,7 @@ struct GenerativeAI {
         }
     }
     private var model: GenerativeModel!
+    public var response: String = ""
     
     init() {
         model = GenerativeModel(name: "gemini-flash", apiKey: apiKey)

@@ -5,4 +5,8 @@
 //  Created by Austin Vesich on 5/18/24.
 //
 
-import Foundation
+import SwiftUI
+
+@Observable class SearchModel {
+    private let generativeAI: GenerativeAI = GenerativeAI()
+}

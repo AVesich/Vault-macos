@@ -9,9 +9,7 @@ import SwiftUI
 
 struct DirectorySearchBar: View {
     
-    @State var currentDirectory: String = FileManager.default.homeDirectoryForCurrentUser.relativePath
-    @State var currentSuggestion: String = ""
-    let directorySearch = DirectorySearch()
+    @State private var directorySearch = DirectorySearch()
     
     var body: some View {
         HStack(spacing: 14.0) {
@@ -19,19 +17,16 @@ struct DirectorySearchBar: View {
                 .imageScale(.small)
                 .opacity(0.4)
             
-            TextField(text: $currentDirectory,
+            TextField(text: $directorySearch.currentPrompt,
                       prompt: Text("/Users/")) {}
                 .textFieldStyle(.plain)
-                .onChange(of: currentDirectory) {
-                    currentSuggestion = directorySearch.getSuggestedDirectory(forDirectorySearch: currentDirectory)
-                }
             
             HStack(spacing: 16.0) {
-                Text(currentSuggestion)
+                Text(directorySearch.suggestedDirectory)
                 
-                if (!currentSuggestion.isEmpty) {
+                if (!directorySearch.suggestedDirectory.isEmpty) {
                     Button() {
-                        autofillCurrentSuggestion()
+                        directorySearch.autofillCurrentSuggestion()
                     } label: {
                         Text("Enter")
                         Image(systemName: "return")
@@ -46,11 +41,6 @@ struct DirectorySearchBar: View {
         }
         .font(.manrope(14.0))
         .padding(.vertical, 4.0)
-    }
-    
-    func autofillCurrentSuggestion() {
-        let lastSlashIndex = currentDirectory.lastIndex(of: "/") ?? currentDirectory.startIndex
-        currentDirectory = currentDirectory[...lastSlashIndex] + currentSuggestion
     }
 }
 

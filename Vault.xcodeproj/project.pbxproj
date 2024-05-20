@@ -16,7 +16,6 @@
 		D94CAF932BF82804009AC3E1 /* VaultUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF922BF82804009AC3E1 /* VaultUITests.swift */; };
 		D94CAF952BF82804009AC3E1 /* VaultUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */; };
 		D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */; };
-		D94CAFAA2BF95AB6009AC3E1 /* .gitignore.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFA92BF95AB6009AC3E1 /* .gitignore.rtf */; };
 		D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFB12BF99DBE009AC3E1 /* DirectorySearchBar.swift */; };
 		D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFB32BF99E7F009AC3E1 /* SearchBar.swift */; };
 		D94CAFB72BF9A2C5009AC3E1 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFB62BF9A2C5009AC3E1 /* SearchModel.swift */; };
@@ -62,7 +61,6 @@
 		D94CAF922BF82804009AC3E1 /* VaultUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITests.swift; sourceTree = "<group>"; };
 		D94CAF942BF82804009AC3E1 /* VaultUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D94CAFA22BF9513B009AC3E1 /* HotkeyLoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotkeyLoop.swift; sourceTree = "<group>"; };
-		D94CAFA92BF95AB6009AC3E1 /* .gitignore.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = .gitignore.rtf; sourceTree = "<group>"; };
 		D94CAFB12BF99DBE009AC3E1 /* DirectorySearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorySearchBar.swift; sourceTree = "<group>"; };
 		D94CAFB32BF99E7F009AC3E1 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		D94CAFB62BF9A2C5009AC3E1 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 		D94CAF682BF82801009AC3E1 = {
 			isa = PBXGroup;
 			children = (
-				D94CAFA92BF95AB6009AC3E1 /* .gitignore.rtf */,
 				D94CAF732BF82801009AC3E1 /* Vault */,
 				D94CAF872BF82804009AC3E1 /* VaultTests */,
 				D94CAF912BF82804009AC3E1 /* VaultUITests */,
@@ -338,7 +335,6 @@
 				D94CAFC72BFB94D6009AC3E1 /* AI.plist in Resources */,
 				D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */,
 				D94CAFBE2BF9C672009AC3E1 /* billy.ttf in Resources */,
-				D94CAFAA2BF95AB6009AC3E1 /* .gitignore.rtf in Resources */,
 				D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */,
 				D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */,
 			);
