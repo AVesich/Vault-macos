@@ -12,10 +12,11 @@ struct DirectorySearch {
     public func getSuggestedDirectory(forDirectorySearch typedPath: String) -> [String] {
         let pathResultURLs = getDirectoryPathResults(forPath: typedPath)
         let pathResultStrings = pathResultURLs.map { $0.relativePath }
-        
-        print(pathResultStrings)
-        
-        return pathResultStrings
+        let pathEndParts = pathResultStrings.compactMap { $0.components(separatedBy: "/").last }
+                
+        print(pathEndParts)
+
+        return pathEndParts
     }
     
     private func getDirectoryPathResults(forPath path: String) -> [URL] {
