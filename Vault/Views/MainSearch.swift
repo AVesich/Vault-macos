@@ -11,13 +11,14 @@ import SwiftData
 struct MainSearch: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @State private var usingAI = false
 
     var body: some View {
         VStack {
             VStack {
-                DirectorySearchBar()
+                DirectorySearchBar(usingAI: $usingAI)
                 Divider()
-                SearchBar()
+                SearchBar(usingAI: $usingAI)
                 Divider()
             }
             .offset(y: -20.0)
@@ -25,7 +26,6 @@ struct MainSearch: View {
         }
         .background(Material.thin)
         .frame(width: 600.0)
-        
     }
 }
 

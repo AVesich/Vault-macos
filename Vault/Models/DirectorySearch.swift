@@ -12,7 +12,7 @@ import Foundation
     // MARK: - Properties
     public var currentPrompt: String = FileManager.default.homeDirectoryForCurrentUser.relativePath {
         didSet {
-            suggestedDirectory = getSuggestedDirectory(forDirectorySearch: currentPrompt ?? "")
+            suggestedDirectory = getSuggestedDirectory(forDirectorySearch: currentPrompt)
         }
     }
     public var suggestedDirectory: String = ""

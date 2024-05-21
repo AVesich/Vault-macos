@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DirectorySearchBar: View {
     
+    @Binding var usingAI: Bool
     @State private var directorySearch = DirectorySearch()
     
     var body: some View {
@@ -45,5 +46,5 @@ struct DirectorySearchBar: View {
 }
 
 #Preview {
-    DirectorySearchBar()
+    DirectorySearchBar(usingAI: .constant(false))
 }

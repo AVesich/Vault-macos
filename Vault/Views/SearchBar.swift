@@ -9,8 +9,9 @@ import SwiftUI
 
 struct SearchBar: View {
     
-    @State var searchQuery: String = ""
-    @State var aiEnabled: Bool = false
+    @Binding var usingAI: Bool
+    @State private var searchQuery = ""
+    @State private var searchModel = SearchModel()
 
     var body: some View {
         HStack(spacing: 14.0) {
@@ -22,7 +23,7 @@ struct SearchBar: View {
                 .textFieldStyle(.plain)
             Spacer()
             Button {
-                aiEnabled.toggle()
+                usingAI.toggle()
             } label: {
                 Image(systemName: "sparkles")
                     .imageScale(.large)
@@ -31,14 +32,14 @@ struct SearchBar: View {
             .buttonStyle(.borderless)
             .font(.manrope(10.0, weight: .bold))
             .keyboardShortcut("a", modifiers: [.command])
-            .scaleEffect(aiEnabled ? 1.2 : 1.0)
-            .tint(aiEnabled ? .purple : nil)
-            .animation(.spring(Spring(response: 0.2, dampingRatio: 0.4)), value: aiEnabled)
+            .scaleEffect(usingAI ? 1.2 : 1.0)
+            .tint(usingAI ? .purple : nil)
+            .animation(.spring(Spring(response: 0.2, dampingRatio: 0.4)), value: usingAI)
         }
         .padding(.vertical, 6.0)
     }
 }
 
 #Preview {
-    SearchBar()
+    SearchBar(usingAI: .constant(false))
 }

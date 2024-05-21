@@ -28,6 +28,7 @@
 		D94CAFC72BFB94D6009AC3E1 /* AI.plist in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFC62BFB94D6009AC3E1 /* AI.plist */; };
 		D94CAFCA2BFB95F7009AC3E1 /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = D94CAFC92BFB95F7009AC3E1 /* GoogleGenerativeAI */; };
 		D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFCB2BFB9613009AC3E1 /* GenerativeAI.swift */; };
+		D94CAFCE2BFCF99C009AC3E1 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFCD2BFCF99C009AC3E1 /* SearchResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		D94CAFC42BFAD3C7009AC3E1 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		D94CAFC62BFB94D6009AC3E1 /* AI.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = AI.plist; sourceTree = "<group>"; };
 		D94CAFCB2BFB9613009AC3E1 /* GenerativeAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerativeAI.swift; sourceTree = "<group>"; };
+		D94CAFCD2BFCF99C009AC3E1 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				D94CAFB62BF9A2C5009AC3E1 /* SearchModel.swift */,
 				D94CAFB82BF9A2CC009AC3E1 /* DirectorySearch.swift */,
 				D94CAFCB2BFB9613009AC3E1 /* GenerativeAI.swift */,
+				D94CAFCD2BFCF99C009AC3E1 /* SearchResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */,
 				D94CAFB72BF9A2C5009AC3E1 /* SearchModel.swift in Sources */,
 				D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */,
+				D94CAFCE2BFCF99C009AC3E1 /* SearchResponse.swift in Sources */,
 				D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */,
 				D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */,
 				D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */,
