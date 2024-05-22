@@ -12,14 +12,16 @@ struct MainSearch: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     @State private var usingAI = false
+    @State private var searchModel = SearchModel()
 
     var body: some View {
         VStack {
             VStack {
                 DirectorySearchBar(usingAI: $usingAI)
                 Divider()
-                SearchBar(usingAI: $usingAI)
+                SearchBar(usingAI: $usingAI, searchModel: $searchModel)
                 Divider()
+                ResultsList(results: $searchModel.responses)
             }
             .offset(y: -20.0)
             .padding(.horizontal, 16.0)

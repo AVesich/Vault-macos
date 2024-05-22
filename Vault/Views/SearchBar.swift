@@ -10,8 +10,8 @@ import SwiftUI
 struct SearchBar: View {
     
     @Binding var usingAI: Bool
+    @Binding var searchModel: SearchModel
     @State private var searchQuery = ""
-    @State private var searchModel = SearchModel()
 
     var body: some View {
         HStack(spacing: 14.0) {
@@ -47,5 +47,5 @@ struct SearchBar: View {
 }
 
 #Preview {
-    SearchBar(usingAI: .constant(false))
+    SearchBar(usingAI: .constant(false), searchModel: .constant(SearchModel()))
 }
