@@ -21,6 +21,12 @@ struct SearchBar: View {
                       prompt: Text("Search...")) {}
                 .font(.manrope(18.0))
                 .textFieldStyle(.plain)
+                .onSubmit {
+                    Task {
+                        await searchModel.search(withQuery: searchQuery)
+                        print(searchModel.responses[0].text)
+                    }
+                }
             Spacer()
             Button {
                 usingAI.toggle()
@@ -33,7 +39,7 @@ struct SearchBar: View {
             .font(.manrope(10.0, weight: .bold))
             .keyboardShortcut("a", modifiers: [.command])
             .scaleEffect(usingAI ? 1.2 : 1.0)
-            .tint(usingAI ? .purple : nil)
+            .tint(usingAI ? .pink : nil)
             .animation(.spring(Spring(response: 0.2, dampingRatio: 0.4)), value: usingAI)
         }
         .padding(.vertical, 6.0)

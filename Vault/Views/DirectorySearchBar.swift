@@ -24,6 +24,7 @@ struct DirectorySearchBar: View {
             
             HStack(spacing: 16.0) {
                 Text(directorySearch.suggestedDirectory)
+                    .foregroundStyle(.white)
                 
                 if (!directorySearch.suggestedDirectory.isEmpty) {
                     Button() {

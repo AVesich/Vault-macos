@@ -25,7 +25,7 @@ import GoogleGenerativeAI
     public var response: String = ""
     
     init() {
-        model = GenerativeModel(name: "gemini-flash", apiKey: apiKey)
+        model = GenerativeModel(name: "gemini-pro", apiKey: apiKey)
     }
     
     public func getResponse(to prompt: String) async -> String {

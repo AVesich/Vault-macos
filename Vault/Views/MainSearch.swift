@@ -24,7 +24,7 @@ struct MainSearch: View {
             .offset(y: -20.0)
             .padding(.horizontal, 16.0)
         }
-        .background(Material.thin)
+        .background(Material.regular)
         .frame(width: 600.0)
     }
 }
