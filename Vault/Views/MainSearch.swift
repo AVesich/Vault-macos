@@ -10,7 +10,7 @@ import SwiftData
 
 struct MainSearch: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var directoryConfigs: [DirectoryConfig]
     @State private var usingAI = false
     @State private var searchModel = SearchModel()
 
@@ -33,5 +33,5 @@ struct MainSearch: View {
 
 #Preview {
     MainSearch()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: DirectoryConfig.self, inMemory: true)
 }

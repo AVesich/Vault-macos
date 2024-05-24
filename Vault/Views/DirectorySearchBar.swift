@@ -10,36 +10,39 @@ import SwiftUI
 struct DirectorySearchBar: View {
     
     @Binding var usingAI: Bool
+    @State private var directoryConfigIndex = -1
     @State private var directorySearch = DirectorySearch()
     
     var body: some View {
-        HStack(spacing: 14.0) {
-            Image(systemName: "folder.fill")
-                .imageScale(.small)
-                .opacity(0.4)
-            
-            TextField(text: $directorySearch.currentPrompt,
-                      prompt: Text("/Users/")) {}
-                .textFieldStyle(.plain)
-            
-            HStack(spacing: 16.0) {
-                Text(directorySearch.suggestedDirectory)
-                    .foregroundStyle(.white)
+        VStack(alignment: .leading, spacing: 4.0) {
+            HStack (spacing: 14.0) {
+                Image(systemName: "folder.fill")
+                    .imageScale(.small)
+                    .opacity(0.4)
                 
-                if (!directorySearch.suggestedDirectory.isEmpty) {
+                TextField(text: $directorySearch.currentPrompt,
+                          prompt: Text("/Users/")) {}
+                    .textFieldStyle(.plain)
+                
+                DirectoryProfileSelector()
+            }
+            
+            if (!directorySearch.suggestedDirectory.isEmpty) {
+                HStack(spacing: 14.0) {
                     Button() {
                         directorySearch.autofillCurrentSuggestion()
                     } label: {
-                        Text("Enter")
                         Image(systemName: "return")
                             .imageScale(.medium)
                     }
                     .buttonStyle(.borderless)
                     .font(.manrope(10.0, weight: .bold))
                     .keyboardShortcut(.return, modifiers: [])
+
+                    Text(directorySearch.suggestedDirectory)
+                        .foregroundStyle(.white)
                 }
             }
-            .opacity(0.4)
         }
         .font(.manrope(14.0))
         .padding(.vertical, 4.0)
