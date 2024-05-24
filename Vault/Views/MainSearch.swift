@@ -9,8 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct MainSearch: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var directoryConfigs: [DirectoryConfig]
     @State private var usingAI = false
     @State private var searchModel = SearchModel()
 

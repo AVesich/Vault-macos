@@ -24,7 +24,7 @@ struct DirectorySearchBar: View {
                           prompt: Text("/Users/")) {}
                     .textFieldStyle(.plain)
                 
-                DirectoryProfileSelector()
+                DirectoryProfileSelector(selectedIndex: $directoryConfigIndex)
             }
             
             if (!directorySearch.suggestedDirectory.isEmpty) {

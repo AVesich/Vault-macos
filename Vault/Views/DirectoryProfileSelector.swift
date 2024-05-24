@@ -6,40 +6,97 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DirectoryProfileSelector: View {
     
-    @State private var profiles = [DirectoryConfig(directoryPath: "/Users/austin",
-                                                   directoryEmoji: "👨🏻",
-                                                   isFavorited: true)]
+    @Environment(\.modelContext) private var modelContext
+    @Query private var directoryConfigs: [DirectoryConfig]
+    @Binding var selectedIndex: Int
+    private let thing = DirectoryConfig(directoryPath: "/Users/austin",
+                                directoryEmoji: "👨🏻",
+                                isFavorited: true)
+    private let NEW_CONFIG_INDEX = -1
+    private var indexIsNew: Bool {
+        return selectedIndex == NEW_CONFIG_INDEX
+    }
+    private var favoriteButtonColor: Color {
+        if indexIsNew {
+            return .secondary
+        } else {
+            return directoryConfigs[selectedIndex].isFavorited ? .yellow : .secondary
+        }
+    }
     
     var body: some View {
         HStack {
-            Toggle(isOn: $profiles[0].isFavorited) {}
-                .toggleStyle(FavoriteStyle())
+            Button {
+                if indexIsNew {
+                    addDirectoryConfig()
+                } else {
+                    if directoryConfigs[selectedIndex].isFavorited {
+                        removeDirectoryConfig()
+                    } else {
+                        directoryConfigs[selectedIndex].isFavorited.toggle()
+                    }
+                }
+            } label: {
+                Image(systemName: "star.fill")
+                    .foregroundStyle(favoriteButtonColor)
+            }
             
             Divider()
-                .frame(width: 1.0, height: 10.0)
+                .frame(width: 1.0, height: 14.0)
                 .padding(.horizontal, 4.0)
             
             HStack(spacing: 8.0) {
-                ForEach(profiles) { profile in
-                    Text(profile.directoryEmoji)
-                        .font(.system(size: 10.0))
+                ForEach(Array(directoryConfigs.enumerated()),
+                        id: \.offset) { i, config in
+                    ZStack {
+                        Button {
+                            selectedIndex = i
+                        } label: {
+                            Text(config.directoryEmoji)
+                                .font(.system(size: 14.0))
+                                .frame(width: 16.0, height: 16.0)
+                                .padding(4.0)
+                                .background(selectedIndex == i ? Color.secondary : .clear)
+                                .clipShape(RoundedRectangle(cornerRadius: 6.0))
+                        }
+                    }
                 }
                 
-                Button {
-                    
-                } label: {
-                    Image(systemName: "plus")
+                if selectedIndex >= 0 {
+                    Button {
+                        addDirectoryConfig()
+                    } label: {
+                        Image(systemName: "plus")
+                    }
                 }
-                .buttonStyle(.borderless)
             }
+        }
+        .buttonStyle(.borderless)
+        .onAppear {
+            if !directoryConfigs.isEmpty {
+                selectedIndex = 0
+            }
+        }
+    }
+    
+    private func addDirectoryConfig() {
+        modelContext.insert(thing)
+        selectedIndex = directoryConfigs.count-1
+    }
+    
+    private func removeDirectoryConfig() {
+        modelContext.delete(directoryConfigs[selectedIndex])
+        if selectedIndex > directoryConfigs.count-1 {
+            selectedIndex = (selectedIndex-1 >= 0) ? selectedIndex-1 : NEW_CONFIG_INDEX
         }
     }
 }
 
 #Preview {
-    DirectoryProfileSelector()
-//        .modelContainer(for: DirectoryConfig.self, inMemory: true)
+    DirectoryProfileSelector(selectedIndex: .constant(0))
+        .modelContainer(for: DirectoryConfig.self, inMemory: true)
 }
