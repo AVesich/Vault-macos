@@ -9,13 +9,31 @@ import SwiftUI
 
 struct DirectoryRecommendationView: View {
     
-    @Binding var queryText: String
+    // MARK: - Constants
+    private let TEMP_PROFILE_INDEX_OFFSET = 1
+
+    // MARK: - Properties
+    public var profiles: [DirectoryProfile]
+    @Binding var tempProfile: DirectoryProfile
+    @Binding var selectedProfileIndex: Int?
     @State private var directorySearch = DirectorySearch()
-    
+
+    // MARK: - Computed Properties
+    private var tempProfileIsActive: Bool {
+        return selectedProfileIndex == 0
+    }
+    private var currentSearch: String {
+        if tempProfileIsActive {
+            return tempProfile.directoryPath
+        }
+        return profiles[selectedProfileIndex! - TEMP_PROFILE_INDEX_OFFSET].directoryPath
+    }
+            
+    // MARK: - UI
     var body: some View {
         HStack(spacing: 14.0) {
             Button() {
-                queryText = directorySearch.autofilledCurrentQuery()
+                autofillCurrentQuery()
             } label: {
                 Image(systemName: "return")
                     .imageScale(.medium)
@@ -28,16 +46,33 @@ struct DirectoryRecommendationView: View {
                 .foregroundStyle(.white)
                 .frame(height: 16.0)
         }
-        .onAppear {
-            directorySearch.currentPrompt = queryText
+        .onChange(of: selectedProfileIndex, initial: true) {
+            updateDirectorySearchQuery()
         }
-        .onChange(of: queryText) {
-            directorySearch.currentPrompt = queryText
+        .onChange(of: tempProfileIsActive) {
+            updateDirectorySearchQuery()
+        }
+        .onChange(of: currentSearch) {
+            updateDirectorySearchQuery()
         }
         .font(.manrope(14.0))
+    }
+    
+    private func autofillCurrentQuery() {
+        if tempProfileIsActive {
+            tempProfile.directoryPath = directorySearch.autofilledCurrentQuery()
+        } else {
+            profiles[selectedProfileIndex! - TEMP_PROFILE_INDEX_OFFSET].directoryPath = directorySearch.autofilledCurrentQuery()
+        }
+    }
+    
+    private func updateDirectorySearchQuery() {
+        directorySearch.currentPrompt = currentSearch
     }
 }
 
 #Preview {
-    DirectoryRecommendationView(queryText: .constant(""))
+    DirectoryRecommendationView(profiles: [],
+                                tempProfile: .constant(.temporaryProfile),
+                                selectedProfileIndex: .constant(0))
 }

@@ -10,24 +10,21 @@ import SwiftData
 
 struct DirectoryUI: View {
     
+    // MARK: - Constants
+    private let TEMP_PROFILE_INDEX_OFFSET = 1
+    
     // MARK: - Properties
     @Environment(\.modelContext) private var modelContext
     @Binding var usingAI: Bool
     @Query private var directoryProfiles: [DirectoryProfile]
     @State private var temporaryProfile: DirectoryProfile = .temporaryProfile
-    @State private var tempProfileIsActive: Bool = true
-    @State private var selectedProfileIndex: Int = 0
+    @State private var selectedProfileIndex: Int? = 0
     
-    // MARK: - Methods & Computed properties
     private var currentProfile: DirectoryProfile {
-        if tempProfileIsActive {
+        if selectedProfileIndex == 0 {
             return temporaryProfile
         }
-        return directoryProfiles[selectedProfileIndex]
-    }
-    
-    private var currentProfileDirectoryPath: String {
-        return currentProfile.directoryPath
+        return directoryProfiles[selectedProfileIndex! - TEMP_PROFILE_INDEX_OFFSET]
     }
     
     // MARK: - UI
@@ -36,15 +33,18 @@ struct DirectoryUI: View {
             HStack {
                 DirectorySearchBar(usingAI: $usingAI,
                                    tempProfile: $temporaryProfile,
-                                   profiles: directoryProfiles)
+                                   profiles: directoryProfiles,
+                                   selectedProfileIndex: $selectedProfileIndex)
                 DirectoryProfileSelector(profiles: directoryProfiles,
-                                         tempProfileIsActive: $tempProfileIsActive,
                                          selectedProfileIndex: $selectedProfileIndex)
             }
-            if !usingAI && !currentProfileDirectoryPath.isEmpty {
-                DirectoryRecommendationView(queryText: Bindable(wrappedValue: currentProfile).directoryPath)
+            if !usingAI && !currentProfile.directoryPath.isEmpty {
+                DirectoryRecommendationView(profiles: directoryProfiles,
+                                            tempProfile: $temporaryProfile,
+                                            selectedProfileIndex: $selectedProfileIndex)
             }
         }
+        
     }
 }
 

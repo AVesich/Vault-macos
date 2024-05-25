@@ -9,13 +9,16 @@ import SwiftUI
 
 struct DirectorySearchBar: View {
     
+    // MARK: - Constants
+    private let FOLDER_ICON_SIZE = 30.0
+
+    // MARK: - Properties
     @Binding var usingAI: Bool
     @Binding var tempProfile: DirectoryProfile
     public var profiles: [DirectoryProfile]
-    @State private var tabViewSelectedIndex: Int = 0
+    @Binding var selectedProfileIndex: Int?
     
-    private let FOLDER_ICON_SIZE = 30.0
-
+    // MARK: - UI
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 4.0) {
@@ -30,16 +33,19 @@ struct DirectorySearchBar: View {
                                       prompt: Text("/Users/")) {}
                                 .textFieldStyle(.plain)
                                 .frame(width: geometry.size.width - FOLDER_ICON_SIZE, height: 16.0)
+                                .id(0)
                             ForEach(Array(profiles.enumerated()), id: \.offset) { i, profile in
                                 TextField(text: Bindable(profile).directoryPath,
                                           prompt: Text("/Users/")) {}
                                     .textFieldStyle(.plain)
                                     .frame(width: geometry.size.width - FOLDER_ICON_SIZE, height: 16.0)
+                                    .id(i+1)
                             }
                         }
                         .scrollTargetLayout()
                     }
                     .scrollTargetBehavior(.viewAligned)
+                    .scrollPosition(id: $selectedProfileIndex)
                     .scrollIndicators(.hidden)
                 }
             }
@@ -52,5 +58,6 @@ struct DirectorySearchBar: View {
 #Preview {
     DirectorySearchBar(usingAI: .constant(false),
                        tempProfile: .constant(.temporaryProfile),
-                       profiles: [.temporaryProfile, .temporaryProfile])
+                       profiles: [.temporaryProfile, .temporaryProfile],
+                       selectedProfileIndex: .constant(0))
 }
