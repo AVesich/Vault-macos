@@ -26,6 +26,10 @@ struct DirectoryRecommendationView: View {
             
             Text(directorySearch.suggestedDirectory)
                 .foregroundStyle(.white)
+                .frame(height: 16.0)
+        }
+        .onAppear {
+            directorySearch.currentPrompt = queryText
         }
         .onChange(of: queryText) {
             directorySearch.currentPrompt = queryText
