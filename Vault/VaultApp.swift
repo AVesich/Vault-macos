@@ -45,7 +45,7 @@ struct VaultApp: App {
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            DirectoryConfig.self,
+            DirectoryProfile.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

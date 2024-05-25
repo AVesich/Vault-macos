@@ -10,7 +10,7 @@ import Foundation
 @Observable class DirectorySearch {
     
     // MARK: - Properties
-    public var currentPrompt: String = FileManager.default.homeDirectoryForCurrentUser.relativePath {
+    public var currentPrompt: String = "" {
         didSet {
             suggestedDirectory = getSuggestedDirectory(forDirectorySearch: currentPrompt)
         }
@@ -18,9 +18,9 @@ import Foundation
     public var suggestedDirectory: String = ""
     
     // MARK: - Methods
-    public func autofillCurrentSuggestion() {
+    public func autofilledCurrentQuery() -> String {
         let lastSlashIndex = currentPrompt.lastIndex(of: "/") ?? currentPrompt.startIndex
-        currentPrompt = currentPrompt[...lastSlashIndex] + suggestedDirectory
+        return currentPrompt[...lastSlashIndex] + suggestedDirectory
     }
     
     private func getSuggestedDirectory(forDirectorySearch typedPath: String) -> String {

@@ -6,9 +6,10 @@
 //
 
 import SwiftData
+import Foundation
 
 @Model
-final class DirectoryConfig {
+final class DirectoryProfile {
     var directoryPath: String
     var directoryEmoji: String
     var isFavorited: Bool
@@ -18,4 +19,8 @@ final class DirectoryConfig {
         self.directoryEmoji = directoryEmoji
         self.isFavorited = isFavorited
     }
+    
+    static var temporaryProfile = DirectoryProfile(directoryPath: FileManager.default.homeDirectoryForCurrentUser.relativePath,
+                                                   directoryEmoji: "🚀",
+                                                   isFavorited: false)
 }

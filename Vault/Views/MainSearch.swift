@@ -15,7 +15,7 @@ struct MainSearch: View {
     var body: some View {
         VStack {
             VStack {
-                DirectorySearchBar(usingAI: $usingAI)
+                DirectoryUI(usingAI: $usingAI)
                 Divider()
                 SearchBar(usingAI: $usingAI, searchModel: $searchModel)
                 Divider()
@@ -31,5 +31,5 @@ struct MainSearch: View {
 
 #Preview {
     MainSearch()
-        .modelContainer(for: DirectoryConfig.self, inMemory: true)
+        .modelContainer(for: DirectoryProfile.self, inMemory: true)
 }

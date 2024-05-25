@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D9079F392C0049510055BC7E /* DirectoryProfileSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F382C0049510055BC7E /* DirectoryProfileSelector.swift */; };
-		D9079F3C2C0049ED0055BC7E /* DirectoryConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F3B2C0049ED0055BC7E /* DirectoryConfig.swift */; };
+		D9079F3C2C0049ED0055BC7E /* DirectoryProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F3B2C0049ED0055BC7E /* DirectoryProfile.swift */; };
 		D9079F3F2C004AB50055BC7E /* ToggleStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F3E2C004AB50055BC7E /* ToggleStyles.swift */; };
+		D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F402C01B4520055BC7E /* DirectoryUI.swift */; };
+		D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */; };
 		D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92192D22BFE4E8D002D5A7F /* ResultsList.swift */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* MainSearch.swift */; };
@@ -53,8 +55,10 @@
 
 /* Begin PBXFileReference section */
 		D9079F382C0049510055BC7E /* DirectoryProfileSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryProfileSelector.swift; sourceTree = "<group>"; };
-		D9079F3B2C0049ED0055BC7E /* DirectoryConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryConfig.swift; sourceTree = "<group>"; };
+		D9079F3B2C0049ED0055BC7E /* DirectoryProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryProfile.swift; sourceTree = "<group>"; };
 		D9079F3E2C004AB50055BC7E /* ToggleStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleStyles.swift; sourceTree = "<group>"; };
+		D9079F402C01B4520055BC7E /* DirectoryUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUI.swift; sourceTree = "<group>"; };
+		D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryRecommendationView.swift; sourceTree = "<group>"; };
 		D92192D22BFE4E8D002D5A7F /* ResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsList.swift; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
@@ -112,7 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				D94CAFCD2BFCF99C009AC3E1 /* SearchResponse.swift */,
-				D9079F3B2C0049ED0055BC7E /* DirectoryConfig.swift */,
+				D9079F3B2C0049ED0055BC7E /* DirectoryProfile.swift */,
 			);
 			path = "Data Structures";
 			sourceTree = "<group>";
@@ -213,6 +217,8 @@
 				D94CAFB32BF99E7F009AC3E1 /* SearchBar.swift */,
 				D92192D22BFE4E8D002D5A7F /* ResultsList.swift */,
 				D9079F382C0049510055BC7E /* DirectoryProfileSelector.swift */,
+				D9079F402C01B4520055BC7E /* DirectoryUI.swift */,
+				D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -410,7 +416,8 @@
 			files = (
 				D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */,
 				D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */,
-				D9079F3C2C0049ED0055BC7E /* DirectoryConfig.swift in Sources */,
+				D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */,
+				D9079F3C2C0049ED0055BC7E /* DirectoryProfile.swift in Sources */,
 				D9079F3F2C004AB50055BC7E /* ToggleStyles.swift in Sources */,
 				D94CAFC52BFAD3C7009AC3E1 /* StringExtension.swift in Sources */,
 				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
@@ -423,6 +430,7 @@
 				D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */,
 				D9079F392C0049510055BC7E /* DirectoryProfileSelector.swift in Sources */,
 				D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */,
+				D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

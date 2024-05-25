@@ -10,8 +10,7 @@ import SwiftUI
 struct DirectorySearchBar: View {
     
     @Binding var usingAI: Bool
-    @State private var directoryConfigIndex = -1
-    @State private var directorySearch = DirectorySearch()
+    @Binding var searchQuery: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
@@ -20,28 +19,9 @@ struct DirectorySearchBar: View {
                     .imageScale(.small)
                     .opacity(0.4)
                 
-                TextField(text: $directorySearch.currentPrompt,
+                TextField(text: $searchQuery,
                           prompt: Text("/Users/")) {}
                     .textFieldStyle(.plain)
-                
-                DirectoryProfileSelector(selectedIndex: $directoryConfigIndex)
-            }
-            
-            if (!directorySearch.suggestedDirectory.isEmpty) {
-                HStack(spacing: 14.0) {
-                    Button() {
-                        directorySearch.autofillCurrentSuggestion()
-                    } label: {
-                        Image(systemName: "return")
-                            .imageScale(.medium)
-                    }
-                    .buttonStyle(.borderless)
-                    .font(.manrope(10.0, weight: .bold))
-                    .keyboardShortcut(.return, modifiers: [])
-
-                    Text(directorySearch.suggestedDirectory)
-                        .foregroundStyle(.white)
-                }
             }
         }
         .font(.manrope(14.0))
@@ -50,5 +30,5 @@ struct DirectorySearchBar: View {
 }
 
 #Preview {
-    DirectorySearchBar(usingAI: .constant(false))
+    DirectorySearchBar(usingAI: .constant(false), searchQuery: .constant(""))
 }
