@@ -44,25 +44,24 @@ struct DirectoryProfileSelector: View {
                 Image(systemName: "star.fill")
                     .foregroundStyle(favoriteButtonColor)
             }
+            .keyboardShortcut("f", modifiers: [.command])
             
             Divider()
                 .frame(width: 1.0, height: 14.0)
                 .padding(.horizontal, 4.0)
             
-            HStack(spacing: 8.0) {
+            HStack(spacing: 12.0) {
                 ForEach(Array(directoryConfigs.enumerated()),
                         id: \.offset) { i, config in
-                    ZStack {
-                        Button {
-                            selectedIndex = i
-                        } label: {
-                            Text(config.directoryEmoji)
-                                .font(.system(size: 14.0))
-                                .frame(width: 16.0, height: 16.0)
-                                .padding(4.0)
-                                .background(selectedIndex == i ? Color.secondary : .clear)
-                                .clipShape(RoundedRectangle(cornerRadius: 6.0))
-                        }
+                    Button {
+                        selectedIndex = i
+                    } label: {
+                        Text(config.directoryEmoji)
+                            .font(.system(size: 14.0))
+                            .frame(width: 16.0, height: 16.0)
+                            .opacity(selectedIndex == i ? 1.0 : 0.5)
+                            .shadow(color: .black.opacity(selectedIndex == i ? 0.4 : 0.0),
+                                    radius: 4.0)
                     }
                 }
                 
