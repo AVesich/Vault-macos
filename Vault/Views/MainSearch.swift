@@ -17,6 +17,7 @@ struct MainSearch: View {
             VStack {
                 DirectoryUI(usingAI: $usingAI)
                 Divider()
+                    .padding(.top, 2.0)
                 SearchBar(usingAI: $usingAI, searchModel: $searchModel)
                 Divider()
                 ResultsList(results: $searchModel.responses)

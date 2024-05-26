@@ -84,16 +84,12 @@ struct DirectoryProfileSelector: View {
         
     private func addDirectoryConfig() {
         modelContext.insert(DirectoryProfile.temporaryProfile)
-        selectedProfileIndex = profiles.count - 1 + TEMP_PROFILE_INDEX_OFFSET
+        selectedProfileIndex = 1
     }
     
     private func removeDirectoryConfig() {
         modelContext.delete(profiles[selectedProfileIndex! - TEMP_PROFILE_INDEX_OFFSET])
-        saveSelectedIndex()
-    }
-    
-    private func saveSelectedIndex() {
-        UserDefaults.standard.setValue(selectedProfileIndex, forKey: "selectedProfileIndex")
+        selectedProfileIndex = 0
     }
 }
 

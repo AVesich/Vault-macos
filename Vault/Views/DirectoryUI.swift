@@ -44,7 +44,6 @@ struct DirectoryUI: View {
                                             selectedProfileIndex: $selectedProfileIndex)
             }
         }
-        
     }
 }
 
