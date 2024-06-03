@@ -15,7 +15,7 @@ struct FilePathResultView: View {
             searchResult.filePath!.fileImage
                 .resizable()
                 .aspectRatio(1.0, contentMode: .fit)
-                .frame(width: 24.0, height: 24.0)
+                .frame(width: 20.0, height: 20.0)
             Text(searchResult.filePath!.lastPathComponent)
                 .font(.manrope(14.0))
         }

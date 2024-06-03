@@ -35,6 +35,7 @@ struct MainSearch: View {
                 ResultsList(results: $searchModel.responses)
             }
             .offset(y: -20.0)
+            .padding(.horizontal, 16.0)
         }
         .background(Material.regular)
         .frame(width: 600.0)

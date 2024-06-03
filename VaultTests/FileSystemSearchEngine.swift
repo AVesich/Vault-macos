@@ -65,8 +65,32 @@ final class FileSystemSearchEngineTests: XCTestCase {
     // MARK: - Test recommendations
     func testSimilarityOneItem() async {
         let searchEngine = FileSystemSearchEngine(activeDirectory: "/Users/austin/Documents/Vault-macos/Sample-Directory/Dir-1-items/")
-        let results = await searchEngine.search(withQuery: "TextFile")
+        let results = await searchEngine.search(withQuery: "Text")
         XCTAssertEqual(results.count, 1)
         XCTAssertEqual(results[0].filePath!.lastPathComponent, "TextFile.txt")
+    }
+    
+    func testSimilarityOneItemInMany() async {
+        let searchEngine = FileSystemSearchEngine(activeDirectory: "/Users/austin/Documents/Vault-macos/Sample-Directory/Dir-6-items/")
+        let results = await searchEngine.search(withQuery: "Text")
+        XCTAssertEqual(results.count, 5)
+        XCTAssertEqual(results[0].filePath!.lastPathComponent, "TextFile.txt")
+    }
+    
+    func testSimilarityTwoItemsInMany() async {
+        let searchEngine = FileSystemSearchEngine(activeDirectory: "/Users/austin/Documents/Vault-macos/Sample-Directory/Dir-5-items/")
+        let results = await searchEngine.search(withQuery: "Fill")
+        XCTAssertEqual(results.count, 5)
+        XCTAssertTrue(results[0].filePath!.lastPathComponent.contains("Filler"))
+        XCTAssertTrue(results[1].filePath!.lastPathComponent.contains("Filler"))
+    }
+
+    func testSimilarityThreeItemsInMany() async {
+        let searchEngine = FileSystemSearchEngine(activeDirectory: "/Users/austin/Documents/Vault-macos/Sample-Directory/Dir-6-items/")
+        let results = await searchEngine.search(withQuery: "Fill")
+        XCTAssertEqual(results.count, 5)
+        XCTAssertTrue(results[0].filePath!.lastPathComponent.contains("Filler"))
+        XCTAssertTrue(results[1].filePath!.lastPathComponent.contains("Filler"))
+        XCTAssertTrue(results[2].filePath!.lastPathComponent.contains("Filler"))
     }
 }

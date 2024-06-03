@@ -44,7 +44,7 @@ struct FileSystemSearchEngine: Engine {
     }
     
     private func getRecommendedFilePaths(withQuery queryString: String, outOfAllPaths allFilePaths: [URL]) async -> [URL] {
-        var indexScorePairs = allFilePaths.enumerated().map { ($0.offset, queryString.similarity(to: $0.element.relativePath.lastFilePathComponent())) }
+        var indexScorePairs = allFilePaths.enumerated().map { ($0.offset, queryString.similarity(to: $0.element.lastPathComponent)) }
         indexScorePairs.sort { $0.1 < $1.1 }
         let lastIndex = indexScorePairs.index(indexScorePairs.startIndex, offsetBy: min(MAX_RESULTS, indexScorePairs.count))
         let top5Paths = indexScorePairs[..<lastIndex].map { allFilePaths[$0.0] }
