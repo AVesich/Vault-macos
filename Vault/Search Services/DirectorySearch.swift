@@ -19,8 +19,7 @@ import Foundation
     
     // MARK: - Methods
     public func autofilledCurrentQuery() -> String {
-        let lastSlashIndex = currentPrompt.lastIndex(of: "/") ?? currentPrompt.startIndex
-        return currentPrompt[...lastSlashIndex] + suggestedDirectory
+        return currentPrompt.largestCompleteFilePath() + suggestedDirectory
     }
     
     private func getSuggestedDirectory(forDirectorySearch typedPath: String) -> String {

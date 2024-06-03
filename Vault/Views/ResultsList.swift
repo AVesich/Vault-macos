@@ -9,18 +9,31 @@ import SwiftUI
 
 struct ResultsList: View {
     
-    @Binding var results: [SearchResponse]
+    @Binding var results: [SearchResult]
     
     var body: some View {
         if !results.isEmpty {
-            ScrollView(.vertical) {
-                Text(results[0].text ?? "No response.")
-                    .font(.manrope(14.0))
+            List($results) { searchResult in
+                searchResultView(for: searchResult.wrappedValue)
+                    .listRowSeparator(.hidden)
             }
+            .scrollContentBackground(.hidden)
+            .deleteDisabled(true)
+        }
+    }
+    
+    @ViewBuilder private func searchResultView(for searchResult: SearchResult) -> some View {
+        switch searchResult.resultStyle {
+        case .systemFile:
+            FilePathResultView(searchResult: searchResult)
+        default:
+            Text("text result")
         }
     }
 }
 
 #Preview {
-    ResultsList(results: .constant([]))
+    ResultsList(results: .constant([SearchResult(filePath: URL(string: "url 1")!),
+                                    SearchResult(filePath: URL(string: "url 2")!),
+                                    SearchResult(filePath: URL(string: "url 3")!)]))
 }

@@ -14,11 +14,10 @@ struct DirectoryUI: View {
     private let TEMP_PROFILE_INDEX_OFFSET = 1
     
     // MARK: - Properties
-    @Environment(\.modelContext) private var modelContext
     @Binding var usingAI: Bool
-    @Query private var directoryProfiles: [DirectoryProfile]
-    @State private var temporaryProfile: DirectoryProfile = .temporaryProfile
-    @State private var selectedProfileIndex: Int? = 0
+    var directoryProfiles: [DirectoryProfile]
+    @Binding var temporaryProfile: DirectoryProfile
+    @Binding var selectedProfileIndex: Int?
     
     private var currentProfile: DirectoryProfile {
         if selectedProfileIndex == 0 {
@@ -48,6 +47,8 @@ struct DirectoryUI: View {
 }
 
 #Preview {
-    DirectoryUI(usingAI: .constant(false))
-        .modelContainer(for: DirectoryProfile.self, inMemory: true)
+    DirectoryUI(usingAI: .constant(false),
+                directoryProfiles: [],
+                temporaryProfile: .constant(.temporaryProfile),
+                selectedProfileIndex: .constant(0))
 }

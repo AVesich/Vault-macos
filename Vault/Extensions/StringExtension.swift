@@ -21,4 +21,14 @@ extension String {
         }
         return score
     }
+    
+    func largestCompleteFilePath() -> String {
+        let lastSlashIndex = self.lastIndex(of: "/") ?? self.startIndex
+        return String(self[...lastSlashIndex])
+    }
+    
+    func lastFilePathComponent() -> String {
+        let lastSlashIndex = self.lastIndex(of: "/") ?? self.startIndex
+        return String(self[lastSlashIndex...])
+    }
 }

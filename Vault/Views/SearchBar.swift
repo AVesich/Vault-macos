@@ -9,10 +9,25 @@ import SwiftUI
 
 struct SearchBar: View {
     
+    // MARK: - Constants
+    private let TEMP_PROFILE_INDEX_OFFSET = 1
+
+    // MARK: - Properties
     @Binding var usingAI: Bool
-    @Binding var searchModel: SearchModel
+    @Binding var searchModel: Search
+    var directoryProfiles: [DirectoryProfile]
+    @Binding var temporaryProfile: DirectoryProfile
+    @Binding var selectedProfileIndex: Int?
     @State private var searchQuery = ""
 
+    private var currentProfile: DirectoryProfile {
+        if selectedProfileIndex == 0 {
+            return temporaryProfile
+        }
+        return directoryProfiles[selectedProfileIndex! - TEMP_PROFILE_INDEX_OFFSET]
+    }
+
+    // MARK: - UI
     var body: some View {
         HStack(spacing: 14.0) {
             Image(systemName: "magnifyingglass")
@@ -23,8 +38,7 @@ struct SearchBar: View {
                 .textFieldStyle(.plain)
                 .onSubmit {
                     Task {
-                        await searchModel.search(withQuery: searchQuery)
-                        print(searchModel.responses[0].text)
+                        await searchModel.search(withQuery: searchQuery, withActiveDirectory: currentProfile.directoryPath)
                     }
                 }
             Spacer()
@@ -40,12 +54,15 @@ struct SearchBar: View {
             .keyboardShortcut("a", modifiers: [.command])
             .scaleEffect(usingAI ? 1.2 : 1.0)
             .tint(usingAI ? .pink : nil)
-            .animation(.spring(Spring(response: 0.2, dampingRatio: 0.4)), value: usingAI)
         }
         .padding(.vertical, 6.0)
     }
 }
 
 #Preview {
-    SearchBar(usingAI: .constant(false), searchModel: .constant(SearchModel()))
+    SearchBar(usingAI: .constant(false),
+              searchModel: .constant(Search()),
+              directoryProfiles: [],
+              temporaryProfile: .constant(.temporaryProfile),
+              selectedProfileIndex: .constant(0))
 }
