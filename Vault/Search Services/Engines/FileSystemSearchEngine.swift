@@ -60,7 +60,6 @@ class FileSystemSearchEngine: Engine {
     private var queryResults = [CSSearchableItem]()
     
     private func oneTimeQueryConfig() {
-        query.predicate = NSPredicate(format: "%K ==[cd] '*'", NSMetadataItemFSNameKey)
         query.operationQueue = OperationQueue.current
         query.enableUpdates()
     }
@@ -68,11 +67,13 @@ class FileSystemSearchEngine: Engine {
     private func oneTimeQueryNotificationSetup() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification1), name: NSNotification.Name.NSMetadataQueryDidStartGathering, object: query)
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification2), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: query)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification3), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: query)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification3), name: NSNotification.Name.NSMetadataQueryGatheringProgress, object: query)
     }
 
     private func indexedFileSearch(withQuery queryString: String, inActiveDirectory activeDirectory: String) {
-        query.searchScopes = [activeDirectory]
+        // Display names are indexed by MacOS, this key must be used for the fastest search times
+        query.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [NSMetadataItemDisplayNameKey, queryString])
+        query.searchScopes = [NSString(string: activeDirectory)]
         DispatchQueue.main.sync {
             query.start()
         }
@@ -80,7 +81,6 @@ class FileSystemSearchEngine: Engine {
     
     @objc func handleQueryNotification1() {
         print("start")
-        print(query.results)
     }
 
     @objc func handleQueryNotification2() {
@@ -90,7 +90,7 @@ class FileSystemSearchEngine: Engine {
     }
 
     @objc func handleQueryNotification3() {
-        print("update")
+        print("gathering")
         print(query.results)
     }
 }
