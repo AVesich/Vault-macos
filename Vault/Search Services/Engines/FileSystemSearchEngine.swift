@@ -6,25 +6,28 @@
 //
 
 import Foundation
+import CoreSpotlight
 
-struct FileSystemSearchEngine: Engine {
+class FileSystemSearchEngine: Engine {
     
     // MARK: - Properties
-    internal var activeDirectory: String
+    private var query = NSMetadataQuery()
     private let MAX_RESULTS = 5
     
-    // MARK: - Initialization
-    init(activeDirectory: String) {
-        self.activeDirectory = activeDirectory
+    deinit {
+        print("Deinit fs search engine")
     }
     
     // MARK: - Methods
-    public func search(withQuery queryString: String) async -> [SearchResult] {
-        return await searchFileSystem(withQuery: queryString)
+    public func search(withQuery queryString: String, inActiveDirectory activeDirectory: String) async -> [SearchResult] {
+        indexedFileSearch(withQuery: queryString, inActiveDirectory: activeDirectory)
+        return [SearchResult]()
+//        return await searchFileSystem(withQuery: queryString)
     }
     
-    private func searchFileSystem(withQuery queryString: String) async -> [SearchResult] {
-        if let filePaths = getAllFilePathsFromActiveDirectory() {
+    private func searchFileSystem(withQuery queryString: String, inActiveDirectory activeDirectory: String) async -> [SearchResult] {
+        if let filePaths = getAllFilePathsFromActiveDirectory(activeDirectory) {
+            print(filePaths)
             let recommendedFilePaths = await getRecommendedFilePaths(withQuery: queryString, outOfAllPaths: filePaths)
             return recommendedFilePaths.map { SearchResult(filePath: $0) }
         }
@@ -32,7 +35,7 @@ struct FileSystemSearchEngine: Engine {
         return [SearchResult]()
     }
     
-    private func getAllFilePathsFromActiveDirectory() -> [URL]? {
+    private func getAllFilePathsFromActiveDirectory(_ activeDirectory: String) -> [URL]? {
         let largestFilePath = activeDirectory.largestCompleteFilePath()
         if let filePathURL = URL(string: largestFilePath) {
             let filePathEnumerator = FileManager.default.enumerator(at: filePathURL,
@@ -49,5 +52,41 @@ struct FileSystemSearchEngine: Engine {
         let lastIndex = indexScorePairs.index(indexScorePairs.startIndex, offsetBy: min(MAX_RESULTS, indexScorePairs.count))
         let top5Paths = indexScorePairs[..<lastIndex].map { allFilePaths[$0.0] }
         return top5Paths
+    }
+    
+    
+    
+    private var queryResults = [CSSearchableItem]()
+
+    private func indexedFileSearch(withQuery queryString: String, inActiveDirectory activeDirectory: String) {
+        query.searchScopes = [NSMetadataQueryUserHomeScope]
+        query.predicate = NSPredicate(format: "%K ==[cd] '*'", NSMetadataItemFSNameKey)
+        query.operationQueue = OperationQueue.current
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification1), name: NSNotification.Name.NSMetadataQueryDidStartGathering, object: query)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification2), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: query)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification3), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: query)
+
+        query.enableUpdates()
+        
+        DispatchQueue.main.sync {
+            query.start()
+        }
+    }
+    
+    @objc func handleQueryNotification1() {
+        print("start")
+        print(query.results)
+    }
+
+    @objc func handleQueryNotification2() {
+        print("finish")
+        print(query.results)
+        query.stop()
+    }
+
+    @objc func handleQueryNotification3() {
+        print("update")
+        print(query.results)
     }
 }

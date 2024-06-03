@@ -9,6 +9,7 @@ import SwiftUI
 
 @Observable class Search {
     
+    private let fileSystemEngine = FileSystemSearchEngine()
     private let generativeAI = GenerativeAI()
     public var responses = [SearchResult]()
     
@@ -17,8 +18,7 @@ import SwiftUI
     }
     
     private func fileManagerSearch(withQuery query: String, withActiveDirectory activeDirectory: String) async -> [SearchResult] {
-        let searchEngine = FileSystemSearchEngine(activeDirectory: activeDirectory)
-        return await searchEngine.search(withQuery: query)
+        return await fileSystemEngine.search(withQuery: query, inActiveDirectory: activeDirectory)
     }
     
     private func aiSearch(withQuery query: String) async -> [SearchResult] {

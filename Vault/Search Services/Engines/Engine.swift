@@ -8,7 +8,5 @@
 import Foundation
 
 protocol Engine {
-    var activeDirectory: String { get }
-    
-    func search(withQuery queryString: String) async -> [SearchResult]
+    func search(withQuery queryString: String, inActiveDirectory activeDirectory: String) async -> [SearchResult]
 }
