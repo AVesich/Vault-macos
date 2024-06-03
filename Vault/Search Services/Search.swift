@@ -18,7 +18,7 @@ import SwiftUI
     }
     
     private func fileManagerSearch(withQuery query: String, withActiveDirectory activeDirectory: String) async -> [SearchResult] {
-        return await fileSystemEngine.search(withQuery: query, inActiveDirectory: activeDirectory)
+        return [SearchResult]()//await fileSystemEngine.search(withQuery: query, inActiveDirectory: activeDirectory)
     }
     
     private func aiSearch(withQuery query: String) async -> [SearchResult] {

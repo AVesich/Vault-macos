@@ -8,5 +8,11 @@
 import Foundation
 
 protocol Engine {
-    func search(withQuery queryString: String, inActiveDirectory activeDirectory: String) async -> [SearchResult]
+    var delegate: EngineDelegate? { get set }
+    var searchResults: [SearchResult] { get set }
+    func search(withQuery queryString: String, inActiveDirectory activeDirectory: String) async
+}
+
+protocol EngineDelegate {
+    func engineDidFindResults(results: [SearchResult])
 }
