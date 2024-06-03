@@ -11,10 +11,19 @@ import SwiftUI
     
     private let fileSystemEngine = FileSystemSearchEngine()
     private let generativeAI = GenerativeAI()
-    public var responses = [SearchResult]()
+    public var results = [SearchResult]()
+    
+    init() {
+        setupDelegates()
+    }
+    
+    // MARK: - Methods
+    private func setupDelegates() {
+        fileSystemEngine.delegate = self
+    }
     
     public func search(withQuery query: String, withActiveDirectory activeDirectory: String) async {
-        responses = await fileManagerSearch(withQuery: query, withActiveDirectory: activeDirectory)
+        await fileManagerSearch(withQuery: query, withActiveDirectory: activeDirectory)
     }
     
     private func fileManagerSearch(withQuery query: String, withActiveDirectory activeDirectory: String) async -> [SearchResult] {
@@ -28,5 +37,11 @@ import SwiftUI
             return [aiResponseData]
         }
         return [SearchResult]()
+    }
+}
+
+extension Search: FileSystemSearchEngineDelegate {
+    func engineDidFindResults(results: [SearchResult]) {
+        self.results = results
     }
 }

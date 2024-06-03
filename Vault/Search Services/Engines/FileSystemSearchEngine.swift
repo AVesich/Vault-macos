@@ -62,7 +62,7 @@ class FileSystemSearchEngine: Engine {
     @objc func handleQueryFinishNotification() {
         print("finish")
         if let resultMetadata = query.results as? [NSMetadataItem] {
-            
+            delegate?.engineDidFindResults(results: getSearchResults(fromMetadata: resultMetadata))
         }
         query.stop()
     }

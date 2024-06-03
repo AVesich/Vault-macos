@@ -32,7 +32,7 @@ struct MainSearch: View {
                           temporaryProfile: $temporaryProfile,
                           selectedProfileIndex: $selectedProfileIndex)
                 Divider()
-                ResultsList(results: $searchModel.responses)
+                ResultsList(results: $searchModel.results)
             }
             .offset(y: -20.0)
             .padding(.horizontal, 16.0)
