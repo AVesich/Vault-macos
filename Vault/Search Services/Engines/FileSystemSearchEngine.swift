@@ -14,8 +14,9 @@ class FileSystemSearchEngine: Engine {
     private var query = NSMetadataQuery()
     private let MAX_RESULTS = 5
     
-    deinit {
-        print("Deinit fs search engine")
+    init() {
+        oneTimeQueryConfig()
+        oneTimeQueryNotificationSetup()
     }
     
     // MARK: - Methods
@@ -57,18 +58,21 @@ class FileSystemSearchEngine: Engine {
     
     
     private var queryResults = [CSSearchableItem]()
-
-    private func indexedFileSearch(withQuery queryString: String, inActiveDirectory activeDirectory: String) {
-        query.searchScopes = [NSMetadataQueryUserHomeScope]
+    
+    private func oneTimeQueryConfig() {
         query.predicate = NSPredicate(format: "%K ==[cd] '*'", NSMetadataItemFSNameKey)
         query.operationQueue = OperationQueue.current
+        query.enableUpdates()
+    }
     
+    private func oneTimeQueryNotificationSetup() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification1), name: NSNotification.Name.NSMetadataQueryDidStartGathering, object: query)
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification2), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: query)
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryNotification3), name: NSNotification.Name.NSMetadataQueryDidUpdate, object: query)
+    }
 
-        query.enableUpdates()
-        
+    private func indexedFileSearch(withQuery queryString: String, inActiveDirectory activeDirectory: String) {
+        query.searchScopes = [activeDirectory]
         DispatchQueue.main.sync {
             query.start()
         }
