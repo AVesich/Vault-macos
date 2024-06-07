@@ -58,10 +58,16 @@ struct VaultApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainSearch()
+            RoundedRectangle(cornerRadius: 8.0)
+                .fill(.red)
+                .frame(width: .infinity, height: .infinity)
+                .allowsHitTesting(false)
+                .overlay {
+                    MainSearch()
+                }
         }
         .windowStyle(.hiddenTitleBar)
-        .windowResizability(.contentSize)
+        .defaultPosition(.center)
         .modelContainer(sharedModelContainer)
     }
 }

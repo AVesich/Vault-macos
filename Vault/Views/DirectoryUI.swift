@@ -29,7 +29,7 @@ struct DirectoryUI: View {
     // MARK: - UI
     var body: some View {
         VStack(alignment: .leading, spacing: 4.0) {
-            HStack {
+            HStack(alignment: .center) {
                 DirectorySearchBar(usingAI: $usingAI,
                                    tempProfile: $temporaryProfile,
                                    profiles: directoryProfiles,

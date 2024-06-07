@@ -22,23 +22,23 @@ struct DirectorySearchBar: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .leading, spacing: 4.0) {
-                HStack (spacing: 14.0) {
+                HStack (alignment: .center, spacing: 14.0) {
                     Image(systemName: "folder.fill")
                         .imageScale(.small)
                         .opacity(0.4)
                     
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack() {
                             TextField(text: $tempProfile.directoryPath,
                                       prompt: Text("/Users/")) {}
                                 .textFieldStyle(.plain)
-                                .frame(width: geometry.size.width - FOLDER_ICON_SIZE, height: 16.0)
+                                .frame(width: geometry.size.width - FOLDER_ICON_SIZE)
                                 .id(0)
                             ForEach(Array(profiles.enumerated()), id: \.offset) { i, profile in
                                 TextField(text: Bindable(profile).directoryPath,
                                           prompt: Text("/Users/")) {}
                                     .textFieldStyle(.plain)
-                                    .frame(width: geometry.size.width - FOLDER_ICON_SIZE, height: 16.0)
+                                    .frame(width: geometry.size.width - FOLDER_ICON_SIZE)
                                     .id(i+1)
                             }
                         }
@@ -46,7 +46,6 @@ struct DirectorySearchBar: View {
                     }
                     .scrollTargetBehavior(.viewAligned)
                     .scrollPosition(id: $selectedProfileIndex)
-                    .scrollIndicators(.hidden)
                 }
             }
             .font(.manrope(14.0))

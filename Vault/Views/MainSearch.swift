@@ -34,10 +34,11 @@ struct MainSearch: View {
                 Divider()
                 ResultsList(results: $searchModel.results)
             }
-            .offset(y: -20.0)
             .padding(.horizontal, 16.0)
+            .padding(.vertical, 20.0)
         }
         .background(Material.regular)
+        .clipShape(RoundedRectangle(cornerRadius: 16.0))
         .frame(width: 600.0)
     }
 }

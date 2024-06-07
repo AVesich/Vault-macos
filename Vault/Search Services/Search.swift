@@ -10,7 +10,7 @@ import SwiftUI
 @Observable class Search {
     
     private let fileSystemEngine = FileSystemSearchEngine()
-    private let generativeAI = GenerativeAI()
+//    private let generativeAI = GenerativeAI()
     public var results = [SearchResult]()
     
     init() {
@@ -30,14 +30,14 @@ import SwiftUI
         return [SearchResult]()//await fileSystemEngine.search(withQuery: query, inActiveDirectory: activeDirectory)
     }
     
-    private func aiSearch(withQuery query: String) async -> [SearchResult] {
-        let aiResponse = await generativeAI.getResponse(to: query)
-        if !aiResponse.isEmpty {
-            let aiResponseData = SearchResult(text: aiResponse)
-            return [aiResponseData]
-        }
-        return [SearchResult]()
-    }
+//    private func aiSearch(withQuery query: String) async -> [SearchResult] {
+//        let aiResponse = await generativeAI.getResponse(to: query)
+//        if !aiResponse.isEmpty {
+//            let aiResponseData = SearchResult(text: aiResponse)
+//            return [aiResponseData]
+//        }
+//        return [SearchResult]()
+//    }
 }
 
 extension Search: FileSystemSearchEngineDelegate {
