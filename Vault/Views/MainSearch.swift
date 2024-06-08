@@ -9,12 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct MainSearch: View {
-    
     @Environment(\.modelContext) private var modelContext
+    @Binding var usingAI: Bool
     @Query private var directoryProfiles: [DirectoryProfile]
     @State private var temporaryProfile: DirectoryProfile = .temporaryProfile
     @State private var selectedProfileIndex: Int? = 0
-    @State private var usingAI = false
     @State private var searchModel = Search()
 
     var body: some View {
@@ -34,8 +33,7 @@ struct MainSearch: View {
                 Divider()
                 ResultsList(results: $searchModel.results)
             }
-            .padding(.horizontal, 16.0)
-            .padding(.vertical, 20.0)
+            .padding([.horizontal, .vertical], 16.0)
         }
         .background(Material.regular)
         .clipShape(RoundedRectangle(cornerRadius: 16.0))
@@ -44,6 +42,6 @@ struct MainSearch: View {
 }
 
 #Preview {
-    MainSearch()
+    MainSearch(usingAI: .constant(false))
         .modelContainer(for: DirectoryProfile.self, inMemory: true)
 }

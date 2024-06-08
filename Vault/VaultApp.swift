@@ -56,16 +56,42 @@ struct VaultApp: App {
         }
     }()
     
+    @State private var usingAI: Bool = false
+    @State private var showAIGradient: Bool = false
+    
     var body: some Scene {
         WindowGroup {
-            RoundedRectangle(cornerRadius: 8.0)
-                .fill(.red)
-                .frame(width: .infinity, height: .infinity)
-                .allowsHitTesting(false)
-                .overlay {
-                    MainSearch()
+            ZStack {
+                RoundedRectangle(cornerRadius: 8.0)
+                    .fill(.white)
+                    .frame(width: .infinity, height: .infinity)
+                    .allowsHitTesting(false)
+                ZStack {
+                    MainSearch(usingAI: $usingAI)
+//                        .animation(.spring(response: 0.35, dampingFraction: 0.5, blendDuration: 1.0))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 16.0)
+                                .fill(.clear)
+                                .stroke(usingAI ? .purple : .clear, lineWidth: 8.0)
+                                .shadow(color: .black.opacity(0.3), radius: 7.0)
+                                .clipShape(RoundedRectangle(cornerRadius: 16.0))
+                        }
                 }
+                .onChange(of: usingAI) {
+                    if usingAI {
+                        DispatchQueue.main.async {
+                            showAIGradient = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            showAIGradient = false
+                        }
+                    }
+                }
+                .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
+                .animation(showAIGradient ? .easeOut(duration: 0.5) : .none)
+            }
         }
+        .windowResizability(.contentSize)
         .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
         .modelContainer(sharedModelContainer)

@@ -28,12 +28,13 @@ struct DirectoryUI: View {
     
     // MARK: - UI
     var body: some View {
-        VStack(alignment: .leading, spacing: 4.0) {
-            HStack(alignment: .center) {
+        VStack(alignment: .leading, spacing: 8.0) {
+            HStack(alignment: .center, spacing: 4.0) {
                 DirectorySearchBar(usingAI: $usingAI,
                                    tempProfile: $temporaryProfile,
                                    profiles: directoryProfiles,
                                    selectedProfileIndex: $selectedProfileIndex)
+                .padding(.bottom, 8.0)
                 DirectoryProfileSelector(profiles: directoryProfiles,
                                          selectedProfileIndex: $selectedProfileIndex)
             }
