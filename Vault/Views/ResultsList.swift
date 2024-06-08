@@ -13,12 +13,15 @@ struct ResultsList: View {
     
     var body: some View {
         if !results.isEmpty {
-            List($results) { searchResult in
-                searchResultView(for: searchResult.wrappedValue)
-                    .listRowSeparator(.hidden)
+            LazyVStack {
+                ForEach($results) { searchResult in
+                    HStack {
+                        searchResultView(for: searchResult.wrappedValue)
+                            .listRowSeparator(.hidden)
+                        Spacer()
+                    }
+                }
             }
-            .scrollContentBackground(.hidden)
-            .deleteDisabled(true)
         }
     }
     

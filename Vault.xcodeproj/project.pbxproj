@@ -38,6 +38,7 @@
 		D9A8770E2C0D370A001EAA1C /* FileSystemSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */; };
 		D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */; };
 		D9A877132C0D5B15001EAA1C /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877122C0D5B15001EAA1C /* URLExtension.swift */; };
+		D9A877152C150114001EAA1C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877142C150114001EAA1C /* ArrayExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemSearchEngine.swift; sourceTree = "<group>"; };
 		D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePathResultView.swift; sourceTree = "<group>"; };
 		D9A877122C0D5B15001EAA1C /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
+		D9A877142C150114001EAA1C /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 				D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */,
 				D94CAFC42BFAD3C7009AC3E1 /* StringExtension.swift */,
 				D9A877122C0D5B15001EAA1C /* URLExtension.swift */,
+				D9A877142C150114001EAA1C /* ArrayExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				D9079F392C0049510055BC7E /* DirectoryProfileSelector.swift in Sources */,
 				D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */,
 				D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */,
+				D9A877152C150114001EAA1C /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

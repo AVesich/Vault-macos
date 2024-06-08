@@ -59,6 +59,7 @@ struct DirectoryProfileSelector: View {
                         .shadow(color: .black.opacity(tempProfileIsActive ? 0.4 : 0.0),
                                 radius: 4.0)
                 }
+                .keyboardShortcut("f", modifiers: [.command])
                 
                 ForEach(Array(profiles.enumerated()),
                         id: \.offset) { i, config in

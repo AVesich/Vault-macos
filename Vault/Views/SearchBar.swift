@@ -51,7 +51,9 @@ struct SearchBar: View {
             }
             .buttonStyle(.borderless)
             .font(.manrope(10.0, weight: .bold))
+            .foregroundStyle(usingAI ? Color.purple : .secondary)
             .keyboardShortcut("a", modifiers: [.command])
+            .shadow(color: usingAI ? .black.opacity(0.3) : .clear, radius: 3.0)
         }
         .padding(.vertical, 6.0)
     }
