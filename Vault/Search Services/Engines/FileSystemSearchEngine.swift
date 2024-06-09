@@ -15,6 +15,7 @@ class FileSystemSearchEngine: Engine {
     internal var searchResults = [SearchResult]()
     private var query = NSMetadataQuery()
     private let MAX_RESULTS = 5
+    private let FILE_PREFIX = "File://"
     
     init() {
         oneTimeQueryConfig()
@@ -71,7 +72,7 @@ class FileSystemSearchEngine: Engine {
     private func getSearchResults(fromMetadata metadata: [NSMetadataItem]) -> [SearchResult] {
         let fileURLs: [URL] = metadata.compactMap {
             if let pathString = $0.value(forKey: NSMetadataItemPathKey) as? String {
-                return URL(string: pathString)
+                return URL(string: FILE_PREFIX+pathString)
             }
             return nil
         }

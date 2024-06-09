@@ -13,4 +13,8 @@ extension URL {
         let fileIcon = NSWorkspace.shared.icon(forFile: self.relativePath)
         return Image(nsImage: fileIcon)
     }
+    
+    var fileNSImage: NSImage {
+        return NSWorkspace.shared.icon(forFile: self.relativePath)
+    }
 }

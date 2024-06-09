@@ -88,7 +88,7 @@ struct VaultApp: App {
         .defaultPosition(.center)
         .modelContainer(sharedModelContainer)
     }
-
+    
     private func activateAIChangeStates() {
         DispatchQueue.main.async {
             showAIGradient = true
@@ -97,5 +97,4 @@ struct VaultApp: App {
             showAIGradient = false
         }
     }
-
 }

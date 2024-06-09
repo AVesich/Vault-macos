@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct FilePathResultView: View {
     var searchResult: SearchResult
@@ -20,6 +21,11 @@ struct FilePathResultView: View {
                 .font(.manrope(14.0))
             Spacer()
         }
+        .asDraggable(url: searchResult.filePath!)
+//        .onDrag {
+//            return NSItemProvider(item: searchResult.filePath! as NSSecureCoding,
+//                                  typeIdentifier: UTType.fileURL.identifier)
+//        }
     }
 }
 

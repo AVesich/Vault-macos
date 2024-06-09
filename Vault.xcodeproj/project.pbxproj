@@ -13,6 +13,7 @@
 		D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F402C01B4520055BC7E /* DirectoryUI.swift */; };
 		D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */; };
 		D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92192D22BFE4E8D002D5A7F /* ResultsList.swift */; };
+		D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FB62C16613300BA309E /* PasteboardView.swift */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* MainSearch.swift */; };
 		D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		D9079F402C01B4520055BC7E /* DirectoryUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUI.swift; sourceTree = "<group>"; };
 		D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryRecommendationView.swift; sourceTree = "<group>"; };
 		D92192D22BFE4E8D002D5A7F /* ResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsList.swift; sourceTree = "<group>"; };
+		D93E1FB62C16613300BA309E /* PasteboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardView.swift; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
 		D94CAF762BF82801009AC3E1 /* MainSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearch.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				D9079F382C0049510055BC7E /* DirectoryProfileSelector.swift */,
 				D9079F402C01B4520055BC7E /* DirectoryUI.swift */,
 				D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */,
+				D93E1FB62C16613300BA309E /* PasteboardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */,
 				D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */,
 				D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */,
+				D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */,
 				D9079F392C0049510055BC7E /* DirectoryProfileSelector.swift in Sources */,
 				D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */,
 				D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */,
