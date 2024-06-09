@@ -39,6 +39,8 @@
 		D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */; };
 		D9A877132C0D5B15001EAA1C /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877122C0D5B15001EAA1C /* URLExtension.swift */; };
 		D9A877152C150114001EAA1C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877142C150114001EAA1C /* ArrayExtension.swift */; };
+		D9A877192C154DCF001EAA1C /* ColorResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877182C154DCF001EAA1C /* ColorResultView.swift */; };
+		D9A8771B2C164216001EAA1C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8771A2C164216001EAA1C /* ColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +96,8 @@
 		D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePathResultView.swift; sourceTree = "<group>"; };
 		D9A877122C0D5B15001EAA1C /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
 		D9A877142C150114001EAA1C /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		D9A877182C154DCF001EAA1C /* ColorResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorResultView.swift; sourceTree = "<group>"; };
+		D9A8771A2C164216001EAA1C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +266,7 @@
 				D94CAFC42BFAD3C7009AC3E1 /* StringExtension.swift */,
 				D9A877122C0D5B15001EAA1C /* URLExtension.swift */,
 				D9A877142C150114001EAA1C /* ArrayExtension.swift */,
+				D9A8771A2C164216001EAA1C /* ColorExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */,
+				D9A877182C154DCF001EAA1C /* ColorResultView.swift */,
 			);
 			path = "Search Result Views";
 			sourceTree = "<group>";
@@ -428,6 +434,7 @@
 				D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */,
 				D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */,
 				D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */,
+				D9A8771B2C164216001EAA1C /* ColorExtension.swift in Sources */,
 				D9079F3C2C0049ED0055BC7E /* DirectoryProfile.swift in Sources */,
 				D9079F3F2C004AB50055BC7E /* ToggleStyles.swift in Sources */,
 				D9A8770E2C0D370A001EAA1C /* FileSystemSearchEngine.swift in Sources */,
@@ -438,6 +445,7 @@
 				D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */,
 				D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */,
 				D94CAFB72BF9A2C5009AC3E1 /* Search.swift in Sources */,
+				D9A877192C154DCF001EAA1C /* ColorResultView.swift in Sources */,
 				D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */,
 				D94CAFCE2BFCF99C009AC3E1 /* SearchResult.swift in Sources */,
 				D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */,

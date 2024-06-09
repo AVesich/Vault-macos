@@ -16,7 +16,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     internal func applicationDidFinishLaunching(_ notification: Notification) {
         prepareWindow()
         hotkeyLoop = HotkeyLoop()
-        print("after")
     }
     
     private func prepareWindow() {

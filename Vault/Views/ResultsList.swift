@@ -18,7 +18,7 @@ struct ResultsList: View {
                     HStack {
                         searchResultView(for: searchResult.wrappedValue)
                             .listRowSeparator(.hidden)
-                        Spacer()
+                            .frame(width: .infinity)
                     }
                 }
             }
@@ -29,6 +29,8 @@ struct ResultsList: View {
         switch searchResult.resultStyle {
         case .systemFile:
             FilePathResultView(searchResult: searchResult)
+        case .colorGroup:
+            ColorResultView(searchResult: searchResult)
         default:
             Text("text result")
         }
