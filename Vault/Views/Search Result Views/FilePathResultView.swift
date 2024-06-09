@@ -18,6 +18,7 @@ struct FilePathResultView: View {
                 .frame(width: 20.0, height: 20.0)
             Text(searchResult.filePath!.lastPathComponent)
                 .font(.manrope(14.0))
+            Spacer()
         }
     }
 }

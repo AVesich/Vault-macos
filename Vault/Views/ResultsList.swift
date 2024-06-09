@@ -18,7 +18,6 @@ struct ResultsList: View {
                     HStack {
                         searchResultView(for: searchResult.wrappedValue)
                             .listRowSeparator(.hidden)
-                            .frame(width: .infinity)
                     }
                 }
             }
@@ -40,5 +39,5 @@ struct ResultsList: View {
 #Preview {
     ResultsList(results: .constant([SearchResult(filePath: URL(string: "url 1")!),
                                     SearchResult(filePath: URL(string: "url 2")!),
-                                    SearchResult(filePath: URL(string: "url 3")!)]))
+                                    SearchResult(colors: [.red, .pink, .orange, .yellow, .green])]))
 }
