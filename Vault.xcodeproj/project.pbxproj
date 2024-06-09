@@ -41,6 +41,7 @@
 		D9A877152C150114001EAA1C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877142C150114001EAA1C /* ArrayExtension.swift */; };
 		D9A877192C154DCF001EAA1C /* ColorResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877182C154DCF001EAA1C /* ColorResultView.swift */; };
 		D9A8771B2C164216001EAA1C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8771A2C164216001EAA1C /* ColorExtension.swift */; };
+		D9A8771D2C164CA0001EAA1C /* FontResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8771C2C164CA0001EAA1C /* FontResultView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +99,7 @@
 		D9A877142C150114001EAA1C /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		D9A877182C154DCF001EAA1C /* ColorResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorResultView.swift; sourceTree = "<group>"; };
 		D9A8771A2C164216001EAA1C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		D9A8771C2C164CA0001EAA1C /* FontResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +287,7 @@
 			children = (
 				D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */,
 				D9A877182C154DCF001EAA1C /* ColorResultView.swift */,
+				D9A8771C2C164CA0001EAA1C /* FontResultView.swift */,
 			);
 			path = "Search Result Views";
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9A8771D2C164CA0001EAA1C /* FontResultView.swift in Sources */,
 				D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */,
 				D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */,
 				D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */,

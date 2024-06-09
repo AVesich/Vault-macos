@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ColorResultView: View {
+    
     @State private var hovering: Bool = false
     var searchResult: SearchResult
     

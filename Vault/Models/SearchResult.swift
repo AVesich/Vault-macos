@@ -12,6 +12,7 @@ enum SearchResultStyle {
     case text
     case systemFile
     case colorGroup
+    case font
 }
 
 struct SearchResult: Identifiable {
@@ -21,6 +22,7 @@ struct SearchResult: Identifiable {
     var text: String?
     var filePath: URL?
     var colors: [Color]?
+    var font: Font?
 }
 
 // MARK: - Initializers
@@ -46,4 +48,11 @@ extension SearchResult {
         self.colors = colors
     }
 
+    init(text: String? = nil, filePath: URL? = nil, colors: [Color]? = nil, font: Font) {
+        self.resultStyle = .font
+        self.text = text
+        self.filePath = filePath
+        self.colors = colors
+        self.font = font
+    }
 }

@@ -30,6 +30,8 @@ struct ResultsList: View {
             FilePathResultView(searchResult: searchResult)
         case .colorGroup:
             ColorResultView(searchResult: searchResult)
+        case .font:
+            FontResultView(searchResult: searchResult)
         default:
             Text("text result")
         }
@@ -38,6 +40,6 @@ struct ResultsList: View {
 
 #Preview {
     ResultsList(results: .constant([SearchResult(filePath: URL(string: "url 1")!),
-                                    SearchResult(filePath: URL(string: "url 2")!),
-                                    SearchResult(colors: [.red, .pink, .orange, .yellow, .green])]))
+                                    SearchResult(colors: [.red, .pink, .orange, .yellow, .green]),
+                                    SearchResult(font: .system(size: 24.0))]))
 }
