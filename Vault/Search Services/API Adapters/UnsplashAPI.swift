@@ -9,9 +9,15 @@ import Foundation
 import SwiftUI
 
 struct UnsplashAPI {
-    func searchPhotos(withQuery query: String) async -> [Image] {
-        if let url = URL(string: "https://api.unsplash.com/search/photos?page=1&query=\(query)"),
-           let (data, _) = try? await URLSession.shared.data(from: url) {
+    private let API_URL = "https://api.unsplash.com"
+    private let SEARCH_PARAMS: Dictionary<String, String> = [
+        "page" : "1",
+        "per_page" : "10"
+    ]
+    
+    public func searchPhotos(withQuery query: String) async -> [Image] {
+        if let url = URL(string: API_URL+"/search/photos"),
+           let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURL: url, withQuery: query)) {
             let decoder = APIDecoder<UnsplashPhotoSearchResult>()
             let decodedResult = decoder.decodeValueFromData(data)
             if let decodedResult {
@@ -20,6 +26,14 @@ struct UnsplashAPI {
         }
         
         return [Image]()
+    }
+    
+    private func getSearchPhotosRequest(forURL url: URL, withQuery query: String) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("query", forHTTPHeaderField: query)
+        APIJSONHelpers.addHeadersToURLRequest(&request, headers: SEARCH_PARAMS)
+        return request
     }
     
     private func getImagesFromSearchResult(_ searchResult: UnsplashPhotoSearchResult) -> [Image] {

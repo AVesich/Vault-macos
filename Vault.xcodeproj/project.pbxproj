@@ -18,6 +18,8 @@
 		D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */; };
 		D93E1FC42C16903700BA309E /* UnsplashResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC32C16903700BA309E /* UnsplashResults.swift */; };
 		D93E1FC72C16930E00BA309E /* APIDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC62C16930E00BA309E /* APIDecoder.swift */; };
+		D93E1FC92C16A4E900BA309E /* PlistHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC82C16A4E900BA309E /* PlistHelper.swift */; };
+		D93E1FCB2C16A64000BA309E /* APIJSONHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FCA2C16A64000BA309E /* APIJSONHelpers.swift */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* MainSearch.swift */; };
 		D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */; };
@@ -35,7 +37,7 @@
 		D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFBB2BF9C5C1009AC3E1 /* Manrope-Regular.otf */; };
 		D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */; };
 		D94CAFC52BFAD3C7009AC3E1 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFC42BFAD3C7009AC3E1 /* StringExtension.swift */; };
-		D94CAFC72BFB94D6009AC3E1 /* AI.plist in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFC62BFB94D6009AC3E1 /* AI.plist */; };
+		D94CAFC72BFB94D6009AC3E1 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = D94CAFC62BFB94D6009AC3E1 /* APIKeys.plist */; };
 		D94CAFCA2BFB95F7009AC3E1 /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = D94CAFC92BFB95F7009AC3E1 /* GoogleGenerativeAI */; };
 		D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFCB2BFB9613009AC3E1 /* GenerativeAI.swift */; };
 		D94CAFCE2BFCF99C009AC3E1 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAFCD2BFCF99C009AC3E1 /* SearchResult.swift */; };
@@ -78,6 +80,8 @@
 		D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
 		D93E1FC32C16903700BA309E /* UnsplashResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashResults.swift; sourceTree = "<group>"; };
 		D93E1FC62C16930E00BA309E /* APIDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoder.swift; sourceTree = "<group>"; };
+		D93E1FC82C16A4E900BA309E /* PlistHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistHelper.swift; sourceTree = "<group>"; };
+		D93E1FCA2C16A64000BA309E /* APIJSONHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIJSONHelpers.swift; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
 		D94CAF762BF82801009AC3E1 /* MainSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearch.swift; sourceTree = "<group>"; };
@@ -99,7 +103,7 @@
 		D94CAFBD2BF9C672009AC3E1 /* billy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = billy.ttf; sourceTree = "<group>"; };
 		D94CAFC22BF9C707009AC3E1 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		D94CAFC42BFAD3C7009AC3E1 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		D94CAFC62BFB94D6009AC3E1 /* AI.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = AI.plist; sourceTree = "<group>"; };
+		D94CAFC62BFB94D6009AC3E1 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = APIKeys.plist; sourceTree = "<group>"; };
 		D94CAFCB2BFB9613009AC3E1 /* GenerativeAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerativeAI.swift; sourceTree = "<group>"; };
 		D94CAFCD2BFCF99C009AC3E1 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		D9A8770B2C0D3343001EAA1C /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
@@ -176,6 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				D93E1FC62C16930E00BA309E /* APIDecoder.swift */,
+				D93E1FC82C16A4E900BA309E /* PlistHelper.swift */,
+				D93E1FCA2C16A64000BA309E /* APIJSONHelpers.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -215,7 +221,7 @@
 				D94CAFBA2BF9C5B5009AC3E1 /* Fonts */,
 				D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */,
 				D94CAF7F2BF82803009AC3E1 /* Vault.entitlements */,
-				D94CAFC62BFB94D6009AC3E1 /* AI.plist */,
+				D94CAFC62BFB94D6009AC3E1 /* APIKeys.plist */,
 				D94CAF7C2BF82803009AC3E1 /* Preview Content */,
 			);
 			path = Vault;
@@ -444,7 +450,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94CAF7E2BF82803009AC3E1 /* Preview Assets.xcassets in Resources */,
-				D94CAFC72BFB94D6009AC3E1 /* AI.plist in Resources */,
+				D94CAFC72BFB94D6009AC3E1 /* APIKeys.plist in Resources */,
 				D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */,
 				D94CAFBE2BF9C672009AC3E1 /* billy.ttf in Resources */,
 				D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */,
@@ -492,8 +498,10 @@
 				D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */,
 				D94CAFB72BF9A2C5009AC3E1 /* Search.swift in Sources */,
 				D9A877192C154DCF001EAA1C /* ColorResultView.swift in Sources */,
+				D93E1FC92C16A4E900BA309E /* PlistHelper.swift in Sources */,
 				D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */,
 				D94CAFCE2BFCF99C009AC3E1 /* SearchResult.swift in Sources */,
+				D93E1FCB2C16A64000BA309E /* APIJSONHelpers.swift in Sources */,
 				D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */,
 				D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */,
 				D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */,
