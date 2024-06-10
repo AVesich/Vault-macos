@@ -14,6 +14,7 @@
 		D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */; };
 		D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92192D22BFE4E8D002D5A7F /* ResultsList.swift */; };
 		D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FB62C16613300BA309E /* PasteboardView.swift */; };
+		D93E1FBE2C168A8800BA309E /* TestFileSystemEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* MainSearch.swift */; };
 		D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */; };
@@ -70,6 +71,7 @@
 		D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryRecommendationView.swift; sourceTree = "<group>"; };
 		D92192D22BFE4E8D002D5A7F /* ResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsList.swift; sourceTree = "<group>"; };
 		D93E1FB62C16613300BA309E /* PasteboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardView.swift; sourceTree = "<group>"; };
+		D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileSystemEngineDelegate.swift; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
 		D94CAF762BF82801009AC3E1 /* MainSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearch.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 		D9A8770A2C0D332C001EAA1C /* Engines */ = {
 			isa = PBXGroup;
 			children = (
+				D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */,
 				D9A8770B2C0D3343001EAA1C /* Engine.swift */,
 				D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */,
 			);
@@ -446,6 +449,7 @@
 				D9079F3F2C004AB50055BC7E /* ToggleStyles.swift in Sources */,
 				D9A8770E2C0D370A001EAA1C /* FileSystemSearchEngine.swift in Sources */,
 				D94CAFC52BFAD3C7009AC3E1 /* StringExtension.swift in Sources */,
+				D93E1FBE2C168A8800BA309E /* TestFileSystemEngineDelegate.swift in Sources */,
 				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
 				D9A877132C0D5B15001EAA1C /* URLExtension.swift in Sources */,
 				D9A8770C2C0D3343001EAA1C /* Engine.swift in Sources */,

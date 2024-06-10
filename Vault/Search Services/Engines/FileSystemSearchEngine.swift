@@ -33,7 +33,6 @@ class FileSystemSearchEngine: Engine {
     }
     
     private func oneTimeQueryNotificationSetup() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleQueryStartNotification), name: NSNotification.Name.NSMetadataQueryDidStartGathering, object: query)
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryGatheringNotification), name: NSNotification.Name.NSMetadataQueryDidFinishGathering, object: query)
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryFinishNotification), name: NSNotification.Name.NSMetadataQueryGatheringProgress, object: query)
     }
@@ -49,10 +48,6 @@ class FileSystemSearchEngine: Engine {
         DispatchQueue.main.sync {
             query.start()
         }
-    }
-    
-    @objc func handleQueryStartNotification() {
-        print("start")
     }
     
     @objc func handleQueryGatheringNotification() {

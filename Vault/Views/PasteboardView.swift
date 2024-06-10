@@ -30,9 +30,7 @@ struct DragDropView: NSViewRepresentable  {
 
 class DragDropNSView: NSView, NSDraggingSource  {
     let url: URL
-    
-//    let imgMove: NSImage = NSImage(named: "arrow.down.doc.fill_cust")!
-    
+        
     init(url: URL) {
         self.url = url
         
