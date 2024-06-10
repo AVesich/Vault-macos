@@ -20,6 +20,7 @@
 		D93E1FC72C16930E00BA309E /* APIDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC62C16930E00BA309E /* APIDecoder.swift */; };
 		D93E1FC92C16A4E900BA309E /* PlistHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC82C16A4E900BA309E /* PlistHelper.swift */; };
 		D93E1FCB2C16A64000BA309E /* APIJSONHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FCA2C16A64000BA309E /* APIJSONHelpers.swift */; };
+		D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* MainSearch.swift */; };
 		D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		D93E1FC62C16930E00BA309E /* APIDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoder.swift; sourceTree = "<group>"; };
 		D93E1FC82C16A4E900BA309E /* PlistHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistHelper.swift; sourceTree = "<group>"; };
 		D93E1FCA2C16A64000BA309E /* APIJSONHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIJSONHelpers.swift; sourceTree = "<group>"; };
+		D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchEngine.swift; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
 		D94CAF762BF82801009AC3E1 /* MainSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearch.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */,
 				D9A8770B2C0D3343001EAA1C /* Engine.swift */,
 				D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */,
+				D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */,
 			);
 			path = Engines;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */,
 				D9A877152C150114001EAA1C /* ArrayExtension.swift in Sources */,
 				D93E1FC42C16903700BA309E /* UnsplashResults.swift in Sources */,
+				D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

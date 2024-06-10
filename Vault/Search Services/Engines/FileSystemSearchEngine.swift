@@ -37,16 +37,16 @@ class FileSystemSearchEngine: Engine {
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryFinishNotification), name: NSNotification.Name.NSMetadataQueryGatheringProgress, object: query)
     }
     
-    public func search(withQuery queryString: String, inActiveDirectory activeDirectory: String) async {
-        indexedFileSearch(withQuery: queryString, inActiveDirectory: activeDirectory)
+    public func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {
+        indexedFileSearch(withQuery: query, inActiveDirectory: activeDirectory)
     }
 
-    private func indexedFileSearch(withQuery queryString: String, inActiveDirectory activeDirectory: String) {
+    private func indexedFileSearch(withQuery query: String, inActiveDirectory activeDirectory: String) {
         // Display names are indexed by MacOS, this key must be used for the fastest search times
-        query.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [NSMetadataItemDisplayNameKey, queryString])
-        query.searchScopes = [NSString(string: activeDirectory)]
+        self.query.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [NSMetadataItemDisplayNameKey, query])
+        self.query.searchScopes = [NSString(string: activeDirectory)]
         DispatchQueue.main.sync {
-            query.start()
+            self.query.start()
         }
     }
     

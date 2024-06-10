@@ -13,6 +13,7 @@ enum SearchResultStyle {
     case systemFile
     case colorGroup
     case font
+    case image
 }
 
 struct SearchResult: Identifiable {
@@ -23,36 +24,33 @@ struct SearchResult: Identifiable {
     var filePath: URL?
     var colors: [Color]?
     var font: Font?
+    var image: Image?
 }
 
 // MARK: - Initializers
 extension SearchResult {
-    init(text: String, filePath: URL? = nil, colors: [Color]? = nil) {
+    init(text: String) {
         self.resultStyle = .text
         self.text = text
-        self.filePath = filePath
-        self.colors = colors
     }
     
-    init(text: String? = nil, filePath: URL, colors: [Color]? = nil) {
+    init(filePath: URL) {
         self.resultStyle = .systemFile
-        self.text = text
         self.filePath = filePath
-        self.colors = colors
     }
     
-    init(text: String? = nil, filePath: URL? = nil, colors: [Color]) {
+    init(colors: [Color]) {
         self.resultStyle = .colorGroup
-        self.text = text
-        self.filePath = filePath
         self.colors = colors
     }
 
-    init(text: String? = nil, filePath: URL? = nil, colors: [Color]? = nil, font: Font) {
+    init(font: Font) {
         self.resultStyle = .font
-        self.text = text
-        self.filePath = filePath
-        self.colors = colors
         self.font = font
+    }
+    
+    init (image: Image) {
+        self.resultStyle = .image
+        self.image = image
     }
 }
