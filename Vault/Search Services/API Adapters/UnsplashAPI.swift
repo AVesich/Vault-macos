@@ -10,11 +10,6 @@ import SwiftUI
 
 struct UnsplashAPI {
     private let API_URL = "https://api.unsplash.com"
-    private var SEARCH_PARAMS: Dictionary<String, String> = [
-        PlistHelper.getAPIPlistValue(forKey: "UnsplashKey") : "client_id",
-        "page" : "1",
-        "per_page" : "10"
-    ]
     
     public func searchPhotos(withQuery query: String) async -> [Image] {
         if let url = URL(string: API_URL+"/search/photos/?client_id=\(PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))"),
