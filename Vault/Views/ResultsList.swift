@@ -13,14 +13,17 @@ struct ResultsList: View {
     
     var body: some View {
         if !results.isEmpty {
-            LazyVStack {
-                ForEach($results) { searchResult in
-                    HStack {
-                        searchResultView(for: searchResult.wrappedValue)
-                            .listRowSeparator(.hidden)
+            ScrollView {
+                LazyVStack {
+                    ForEach($results) { searchResult in
+                        HStack {
+                            searchResultView(for: searchResult.wrappedValue)
+                                .listRowSeparator(.hidden)
+                        }
                     }
                 }
             }
+            .frame(maxHeight: 256.0)
         }
     }
     
