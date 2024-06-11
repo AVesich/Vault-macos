@@ -27,11 +27,11 @@ struct ResultsList: View {
     @ViewBuilder private func searchResultView(for searchResult: SearchResult) -> some View {
         switch searchResult.resultStyle {
         case .systemFile:
-            FilePathResultView(searchResult: searchResult)
+            FilePathResult(searchResult: searchResult)
         case .colorGroup:
-            ColorResultView(searchResult: searchResult)
+            ColorResult(searchResult: searchResult)
         case .font:
-            FontResultView(searchResult: searchResult)
+            FontResult(searchResult: searchResult)
         default:
             Text("text result")
         }

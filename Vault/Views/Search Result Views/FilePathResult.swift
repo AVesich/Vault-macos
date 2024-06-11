@@ -8,7 +8,8 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct FilePathResultView: View {
+struct FilePathResult: View {
+    
     var searchResult: SearchResult
     
     var body: some View {
@@ -22,13 +23,9 @@ struct FilePathResultView: View {
             Spacer()
         }
         .asDraggable(url: searchResult.filePath!)
-//        .onDrag {
-//            return NSItemProvider(item: searchResult.filePath! as NSSecureCoding,
-//                                  typeIdentifier: UTType.fileURL.identifier)
-//        }
     }
 }
 
 #Preview {
-    FilePathResultView(searchResult: SearchResult(filePath: URL(string: "/Users/austin/Documents/Vault-macos/Vault/Vault.xcodeproj")!))
+    FilePathResult(searchResult: SearchResult(filePath: URL(string: "/Users/austin/Documents/Vault-macos/Vault/Vault.xcodeproj")!))
 }

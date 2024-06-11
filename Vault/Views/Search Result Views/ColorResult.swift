@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ColorResultView: View {
+struct ColorResult: View {
     
     @State private var hovering: Bool = false
     var searchResult: SearchResult
@@ -47,5 +47,5 @@ struct ColorResultView: View {
 }
 
 #Preview {
-    ColorResultView(searchResult: SearchResult(colors: [.red, .pink, .orange, .yellow, .green]))
+    ColorResult(searchResult: SearchResult(colors: [.red, .pink, .orange, .yellow, .green]))
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FontResultView: View {
+struct FontResult: View {
     
     @State private var hovering: Bool = false
     var searchResult: SearchResult
@@ -47,5 +47,5 @@ struct FontResultView: View {
 }
 
 #Preview {
-    FontResultView(searchResult: SearchResult(font: .manrope(24.0)))
+    FontResult(searchResult: SearchResult(font: .manrope(24.0)))
 }

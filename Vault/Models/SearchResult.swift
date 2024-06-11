@@ -13,7 +13,7 @@ enum SearchResultStyle {
     case systemFile
     case colorGroup
     case font
-    case image
+    case images
 }
 
 struct SearchResult: Identifiable {
@@ -24,7 +24,7 @@ struct SearchResult: Identifiable {
     var filePath: URL?
     var colors: [Color]?
     var font: Font?
-    var image: Image?
+    var images: [Image]?
 }
 
 // MARK: - Initializers
@@ -49,8 +49,8 @@ extension SearchResult {
         self.font = font
     }
     
-    init (image: Image) {
-        self.resultStyle = .image
-        self.image = image
+    init (images: [Image]) {
+        self.resultStyle = .images
+        self.images = images
     }
 }

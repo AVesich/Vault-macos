@@ -15,7 +15,7 @@ class UnsplashSearchEngine: Engine {
     
     func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {
         let resultImages = await API.searchPhotos(withQuery: query)
-        let searchResults = resultImages.map { SearchResult(image: $0) }
-        delegate?.engineDidFindResults(results: searchResults)
+        let result = SearchResult(images: resultImages)
+        delegate?.engineDidFindResults(results: [result])
     }
 }
