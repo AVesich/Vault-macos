@@ -11,9 +11,9 @@ struct ImagesResult: View {
     
     public var searchResult: SearchResult
     let columns: [GridItem] = [
-        GridItem(.adaptive(minimum: .infinity, maximum: .infinity)),
-        GridItem(.adaptive(minimum: .infinity, maximum: .infinity)),
-        GridItem(.adaptive(minimum: .infinity, maximum: .infinity))
+        GridItem(.flexible(minimum: 100.0, maximum: .infinity)),
+        GridItem(.flexible(minimum: 100.0, maximum: .infinity)),
+        GridItem(.flexible(minimum: 100.0, maximum: .infinity))
     ]
 
     var body: some View {
@@ -22,7 +22,6 @@ struct ImagesResult: View {
                 ResultImage(image: searchResult.images![index])
                     .frame(width: .infinity)
                     .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 8.0))
             }
         }
         .frame(width: .infinity)

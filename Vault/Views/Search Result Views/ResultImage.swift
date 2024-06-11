@@ -14,6 +14,7 @@ struct ResultImage: View {
     
     var body: some View {
         image
+            .clipShape(RoundedRectangle(cornerRadius: 8.0))
             .scaleEffect(CGSize(width: hovering ? 1.2 : 1.0,
                                 height: hovering ? 1.2 : 1.0))
             .onHover(perform: { hovering in

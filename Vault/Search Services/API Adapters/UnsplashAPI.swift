@@ -11,17 +11,23 @@ import SwiftUI
 struct UnsplashAPI {
     private let API_URL = "https://api.unsplash.com"
     private let SEARCH_PARAMS: Dictionary<String, String> = [
+//        PlistHelper.getAPIPlistValue(forKey: "UnsplashKey") : "Authorization",
         "page" : "1",
         "per_page" : "10"
     ]
     
     public func searchPhotos(withQuery query: String) async -> [Image] {
-        if let url = URL(string: API_URL+"/search/photos"),
-           let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURL: url, withQuery: query)) {
-            let decoder = APIDecoder<UnsplashPhotoSearchResult>()
-            let decodedResult = decoder.decodeValueFromData(data)
-            if let decodedResult {
-                return getImagesFromSearchResult(decodedResult)
+        if let url = URL(string: API_URL+"/search/photos/?client_id=\(PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))") {
+            do {
+                let (data, _) = try await URLSession.shared.data(for: getSearchPhotosRequest(forURL: url, withQuery: query))
+                print(String(data: data, encoding: .ascii))
+                let decoder = APIDecoder<UnsplashPhotoSearchResult>()
+                let decodedResult = decoder.decodeValueFromData(data)
+                if let decodedResult {
+                    return getImagesFromSearchResult(decodedResult)
+                }
+            } catch {
+                print(error)
             }
         }
         
@@ -29,10 +35,15 @@ struct UnsplashAPI {
     }
     
     private func getSearchPhotosRequest(forURL url: URL, withQuery query: String) -> URLRequest {
-        var request = URLRequest(url: url)
+        let components = NSURLComponents(string: API_URL+"/search/photos/")!
+        components.queryItems = [
+            URLQueryItem(name: "query" , value: query),
+            URLQueryItem(name: "client_id", value: PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))
+        ]
+        var request = URLRequest(url: components.url!)
         request.httpMethod = "GET"
-        request.addValue("query", forHTTPHeaderField: query)
-        APIJSONHelpers.addHeadersToURLRequest(&request, headers: SEARCH_PARAMS)
+//        request.addValue(query, forHTTPHeaderField: "query")
+//        APIJSONHelpers.addHeadersToURLRequest(&request, headers: SEARCH_PARAMS)
         return request
     }
     

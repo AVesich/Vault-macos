@@ -10,6 +10,7 @@ import SwiftUI
 @Observable class Search {
     
     private let fileSystemEngine = FileSystemSearchEngine()
+    private let unsplashEngine = UnsplashSearchEngine()
 //    private let generativeAI = GenerativeAI()
     public var results = [SearchResult]()
     
@@ -20,14 +21,20 @@ import SwiftUI
     // MARK: - Methods
     private func setupDelegates() {
         fileSystemEngine.delegate = self
+        unsplashEngine.delegate = self
     }
     
     public func search(withQuery query: String, withActiveDirectory activeDirectory: String) async {
-        await fileManagerSearch(withQuery: query, withActiveDirectory: activeDirectory)
+        //await fileManagerSearch(withQuery: query, withActiveDirectory: activeDirectory)
+        await unsplashSearch(withQuery: query, withActiveDirectory: activeDirectory)
     }
     
     private func fileManagerSearch(withQuery query: String, withActiveDirectory activeDirectory: String) async {
         await fileSystemEngine.search(withQuery: query, inActiveDirectory: activeDirectory)
+    }
+    
+    private func unsplashSearch(withQuery query: String, withActiveDirectory activeDirectory: String) async {
+        await unsplashEngine.search(withQuery: query, inActiveDirectory: activeDirectory)
     }
     
 //    private func aiSearch(withQuery query: String) async -> [SearchResult] {
@@ -40,8 +47,10 @@ import SwiftUI
 //    }
 }
 
-extension Search: FileSystemSearchEngineDelegate {
+extension Search: EngineDelegate {
     func engineDidFindResults(results: [SearchResult]) {
+        print(results)
         self.results = results
     }
 }
+

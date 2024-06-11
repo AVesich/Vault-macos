@@ -19,3 +19,5 @@ class UnsplashSearchEngine: Engine {
         delegate?.engineDidFindResults(results: [result])
     }
 }
+
+protocol UnsplashSearchEngineDelegate: EngineDelegate {}
