@@ -10,10 +10,14 @@ import SwiftUI
 
 struct UnsplashAPI {
     private let API_URL = "https://api.unsplash.com"
+    private let SEARCH_PARAMS: Dictionary<String, String> = [
+        PlistHelper.getAPIPlistValue(forKey: "UnsplashKey") : "client_id",
+        "page" : "1",
+        "per_page" : "10"
+    ]
     
     public func searchPhotos(withQuery query: String) async -> [Image] {
-        if let url = URL(string: API_URL+"/search/photos/?client_id=\(PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))"),
-           let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURL: url, withQuery: query)) {
+        if let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURLString: API_URL+"/search/photos/", withQuery: query)) {
             let decoder = APIDecoder<UnsplashPhotoSearchResult>()
             let decodedResult = decoder.decodeValueFromData(data)
             if let decodedResult {
@@ -23,15 +27,15 @@ struct UnsplashAPI {
         return [Image]()
     }
     
-    private func getSearchPhotosRequest(forURL url: URL, withQuery query: String) -> URLRequest {
-        let components = NSURLComponents(string: API_URL+"/search/photos/")!
-        components.queryItems = [
-            URLQueryItem(name: "query" , value: query),
-            URLQueryItem(name: "client_id", value: PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))
-        ]
-        var request = URLRequest(url: components.url!)
-        request.httpMethod = "GET"
-        return request
+    private func getSearchPhotosRequest(forURLString urlString: String, withQuery query: String) -> URLRequest {
+        var params = SEARCH_PARAMS
+        params["query"] = query
+        if var request = APIJSONHelpers.getURLRequest(withURLString: urlString, andParams: params) {
+            request.httpMethod = "GET"
+            return request
+        } else {
+            return URLRequest(url: URL(string: API_URL+"/search/photos/?client_id=\(PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))")!)
+        }
     }
     
     private func getImagesFromSearchResult(_ searchResult: UnsplashPhotoSearchResult) -> [Image] {

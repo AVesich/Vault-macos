@@ -49,7 +49,7 @@ import SwiftUI
 
 extension Search: EngineDelegate {
     func engineDidFindResults(results: [SearchResult]) {
-//        print(results)
+        print(results)
         self.results = results
     }
 }

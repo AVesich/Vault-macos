@@ -15,6 +15,7 @@
 		D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92192D22BFE4E8D002D5A7F /* ResultsList.swift */; };
 		D93062D12C17D3EF00CDB9FA /* ImagesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062D02C17D3EF00CDB9FA /* ImagesResult.swift */; };
 		D93062D32C17D75200CDB9FA /* ResultImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062D22C17D75200CDB9FA /* ResultImage.swift */; };
+		D93062D52C1801D200CDB9FA /* APIJSONHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062D42C1801D200CDB9FA /* APIJSONHelpers.swift */; };
 		D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FB62C16613300BA309E /* PasteboardView.swift */; };
 		D93E1FBE2C168A8800BA309E /* TestFileSystemEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */; };
 		D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */; };
@@ -79,6 +80,7 @@
 		D92192D22BFE4E8D002D5A7F /* ResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsList.swift; sourceTree = "<group>"; };
 		D93062D02C17D3EF00CDB9FA /* ImagesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesResult.swift; sourceTree = "<group>"; };
 		D93062D22C17D75200CDB9FA /* ResultImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultImage.swift; sourceTree = "<group>"; };
+		D93062D42C1801D200CDB9FA /* APIJSONHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIJSONHelpers.swift; sourceTree = "<group>"; };
 		D93E1FB62C16613300BA309E /* PasteboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardView.swift; sourceTree = "<group>"; };
 		D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileSystemEngineDelegate.swift; sourceTree = "<group>"; };
 		D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 			children = (
 				D93E1FC62C16930E00BA309E /* APIDecoder.swift */,
 				D93E1FC82C16A4E900BA309E /* PlistHelper.swift */,
+				D93062D42C1801D200CDB9FA /* APIJSONHelpers.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				D9A8770E2C0D370A001EAA1C /* FileSystemSearchEngine.swift in Sources */,
 				D94CAFC52BFAD3C7009AC3E1 /* StringExtension.swift in Sources */,
 				D93E1FBE2C168A8800BA309E /* TestFileSystemEngineDelegate.swift in Sources */,
+				D93062D52C1801D200CDB9FA /* APIJSONHelpers.swift in Sources */,
 				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
 				D9A877132C0D5B15001EAA1C /* URLExtension.swift in Sources */,
 				D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */,
