@@ -15,15 +15,13 @@ struct ResultsList: View {
         if !results.isEmpty {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
-                    ForEach($results) { searchResult in
-                        HStack {
-                            searchResultView(for: searchResult.wrappedValue)
-                                .listRowSeparator(.hidden)
-                        }
+                    ForEach(Array(results.enumerated()), id: \.offset) { (index, searchResult) in
+                        searchResultView(for: searchResult)
+                            .padding(.top, index == 0 ? 8.0 : 0.0)
                     }
                 }
             }
-            .frame(maxHeight: 256.0)
+            .frame(maxHeight: 512.0)
         }
     }
     
@@ -31,10 +29,13 @@ struct ResultsList: View {
         switch searchResult.resultStyle {
         case .systemFile:
             FilePathResult(searchResult: searchResult)
+                .padding(.horizontal, 16.0)
         case .colorGroup:
             ColorResult(searchResult: searchResult)
+                .padding(.horizontal, 16.0)
         case .font:
             FontResult(searchResult: searchResult)
+                .padding(.horizontal, 16.0)
         case .images:
             ImagesResult(searchResult: searchResult)
         default:
@@ -46,5 +47,10 @@ struct ResultsList: View {
 #Preview {
     ResultsList(results: .constant([SearchResult(filePath: URL(string: "url 1")!),
                                     SearchResult(colors: [.red, .pink, .orange, .yellow, .green]),
-                                    SearchResult(font: .system(size: 24.0))]))
+                                    SearchResult(font: .system(size: 24.0)),
+                                    SearchResult(images: [
+                                        Image("Test_Cat_1"),
+                                        Image("Test_Cat_2"),
+                                        Image("Test_Cat_3")
+                                    ])]))
 }

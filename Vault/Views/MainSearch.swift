@@ -31,10 +31,10 @@ struct MainSearch: View {
                           temporaryProfile: $temporaryProfile,
                           selectedProfileIndex: $selectedProfileIndex)
                 Divider()
-                ResultsList(results: $searchModel.results)
-                    .padding(.top, 4.0)
             }
-            .padding([.horizontal, .vertical], 16.0)
+            .padding([.horizontal, .top], 16.0)
+            ResultsList(results: $searchModel.results)
+                .padding(.bottom, 16.0)
         }
         .background(Material.regular)
         .clipShape(RoundedRectangle(cornerRadius: 16.0))

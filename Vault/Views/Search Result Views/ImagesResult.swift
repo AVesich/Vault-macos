@@ -23,16 +23,19 @@ struct ImagesResult: View {
             VStack {
                 ForEach(Array(stride(from: 1, to: searchResult.images!.count, by: 3)), id: \.self) { index in
                     ResultImage(image: searchResult.images![index])
+                        .padding(.bottom, 4.0)
                 }
                 Spacer()
             }
             VStack {
                 ForEach(Array(stride(from: 2, to: searchResult.images!.count, by: 3)), id: \.self) { index in
                     ResultImage(image: searchResult.images![index])
+                        .padding(.bottom, 4.0)
                 }
                 Spacer()
             }
         }
+        .padding(.horizontal, 16.0)
     }
 }
 

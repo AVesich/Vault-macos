@@ -17,12 +17,12 @@ struct ResultImage: View {
             .resizable()
             .scaledToFit()
             .clipShape(RoundedRectangle(cornerRadius: 8.0))
-//            .scaleEffect(CGSize(width: hovering ? 1.1 : 1.0,
-//                                height: hovering ? 1.1 : 1.0))
-//            .onHover(perform: { hovering in
-//                self.hovering = hovering
-//            })
-//            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.5), value: hovering)
+            .scaleEffect(CGSize(width: hovering ? 1.05 : 1.0,
+                                height: hovering ? 1.05 : 1.0))
+            .onHover(perform: { hovering in
+                self.hovering = hovering
+            })
+            .animation(.spring(response: 0.35, dampingFraction: 0.45, blendDuration: 0.5), value: hovering)
     }
 }
 
