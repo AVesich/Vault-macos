@@ -11,13 +11,14 @@ import SwiftUI
 struct UnsplashAPI {
     private let API_URL = "https://api.unsplash.com"
     private let SEARCH_PARAMS: Dictionary<String, String> = [
-        PlistHelper.getAPIPlistValue(forKey: "UnsplashKey") : "client_id",
+        "client_id" : PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"),
         "page" : "1",
         "per_page" : "10"
     ]
     
     public func searchPhotos(withQuery query: String) async -> [Image] {
-        if let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURLString: API_URL+"/search/photos/", withQuery: query)) {
+        if let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURLString: API_URL+"/search/photos/?client_id=\(PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))", withQuery: query)) {
+//            print(String(data: data, encoding: .ascii))
             let decoder = APIDecoder<UnsplashPhotoSearchResult>()
             let decodedResult = decoder.decodeValueFromData(data)
             if let decodedResult {
@@ -34,7 +35,7 @@ struct UnsplashAPI {
             request.httpMethod = "GET"
             return request
         } else {
-            return URLRequest(url: URL(string: API_URL+"/search/photos/?client_id=\(PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))")!)
+            return URLRequest(url: URL(string: "")!)
         }
     }
     

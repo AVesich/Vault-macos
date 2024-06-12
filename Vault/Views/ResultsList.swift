@@ -35,6 +35,8 @@ struct ResultsList: View {
             ColorResult(searchResult: searchResult)
         case .font:
             FontResult(searchResult: searchResult)
+        case .images:
+            ImagesResult(searchResult: searchResult)
         default:
             Text("text result")
         }
