@@ -32,6 +32,7 @@ struct MainSearch: View {
                           selectedProfileIndex: $selectedProfileIndex)
                 Divider()
                 ResultsList(results: $searchModel.results)
+                    .padding(.top, 4.0)
             }
             .padding([.horizontal, .vertical], 16.0)
         }

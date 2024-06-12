@@ -13,7 +13,7 @@ struct ResultsList: View {
     
     var body: some View {
         if !results.isEmpty {
-            ScrollView {
+            ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
                     ForEach($results) { searchResult in
                         HStack {

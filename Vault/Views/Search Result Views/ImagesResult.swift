@@ -10,30 +10,36 @@ import SwiftUI
 struct ImagesResult: View {
     
     public var searchResult: SearchResult
-    let columns: [GridItem] = [
-        GridItem(.flexible(minimum: 100.0, maximum: .infinity)),
-        GridItem(.flexible(minimum: 100.0, maximum: .infinity)),
-        GridItem(.flexible(minimum: 100.0, maximum: .infinity))
-    ]
 
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 8.0) {
-            ForEach(0..<searchResult.images!.count) { index in
-                ResultImage(image: searchResult.images![index])
-                    .frame(width: .infinity)
-                    .scaledToFit()
+        HStack(spacing: 12.0) {
+            VStack() {
+                ForEach(Array(stride(from: 0, to: searchResult.images!.count, by: 3)), id: \.self) { index in
+                    ResultImage(image: searchResult.images![index])
+                        .padding(.bottom, 4.0)
+                }
+                Spacer()
+            }
+            VStack {
+                ForEach(Array(stride(from: 1, to: searchResult.images!.count, by: 3)), id: \.self) { index in
+                    ResultImage(image: searchResult.images![index])
+                }
+                Spacer()
+            }
+            VStack {
+                ForEach(Array(stride(from: 2, to: searchResult.images!.count, by: 3)), id: \.self) { index in
+                    ResultImage(image: searchResult.images![index])
+                }
+                Spacer()
             }
         }
-        .frame(width: .infinity)
     }
 }
 
 #Preview {
     ImagesResult(searchResult: SearchResult(images: [
-        Image(systemName: "plus"),
-        Image(systemName: "person"),
-        Image(systemName: "person.fill"),
-        Image(systemName: "square.fill"),
-        Image(systemName: "circle.fill")
+        Image("Test_Cat_1"),
+        Image("Test_Cat_2"),
+        Image("Test_Cat_3")
     ]))
 }
