@@ -34,7 +34,6 @@ struct MainSearch: View {
             }
             .padding([.horizontal, .top], 16.0)
             ResultsList(results: $searchModel.results)
-                .padding(.bottom, 16.0)
         }
         .background(Material.regular)
         .clipShape(RoundedRectangle(cornerRadius: 16.0))

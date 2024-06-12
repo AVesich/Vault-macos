@@ -18,6 +18,7 @@ struct ResultsList: View {
                     ForEach(Array(results.enumerated()), id: \.offset) { (index, searchResult) in
                         searchResultView(for: searchResult)
                             .padding(.top, index == 0 ? 8.0 : 0.0)
+                            .padding(.bottom, (index == results.count-1) ? 8.0 : 0.0)
                     }
                 }
             }
