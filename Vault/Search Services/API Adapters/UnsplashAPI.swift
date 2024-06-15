@@ -17,7 +17,7 @@ struct UnsplashAPI {
     ]
     
     public func searchPhotos(withQuery query: String) async -> [Image] {
-        if let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURLString: API_URL+"/search/photos/?client_id=\(PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"))", withQuery: query)) {
+        if let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURLString: API_URL+"/search/photos/?", withQuery: query)) {
 //            print(String(data: data, encoding: .ascii))
             let decoder = APIDecoder<UnsplashPhotoSearchResult>()
             let decodedResult = decoder.decodeValueFromData(data)
@@ -33,6 +33,7 @@ struct UnsplashAPI {
         params["query"] = query
         if var request = APIJSONHelpers.getURLRequest(withURLString: urlString, andParams: params) {
             request.httpMethod = "GET"
+            print(request.url?.absoluteString)
             return request
         } else {
             return URLRequest(url: URL(string: "")!)
@@ -40,9 +41,8 @@ struct UnsplashAPI {
     }
     
     private func getImagesFromSearchResult(_ searchResult: UnsplashPhotoSearchResult) -> [Image] {
-        let smallURLs = searchResult.results.map { $0.urls.small }
-        let images: [Image] = smallURLs.compactMap { smallURL in
-            if let url = URL(string: smallURL),
+        let images: [Image] = searchResult.results.compactMap { result in
+            if let url = URL(string: result.urls.small),
                let data = try? Data(contentsOf: url),
                let nsImage = NSImage(data: data) {
                 return Image(nsImage: nsImage)
