@@ -20,7 +20,7 @@ enum SearchMode {
     private let fontEngine = FontSearchEngine()
 //    private let generativeAI = GenerativeAI()
     public var results = [SearchResult]()
-    public var searchMode: SearchMode = .fileSystem
+    public var searchMode: SearchMode = .localFont
     
     private var activeEngine: Engine {
         switch searchMode {

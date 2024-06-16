@@ -23,7 +23,7 @@ struct SearchResult: Identifiable {
     var text: String?
     var filePath: URL?
     var colors: [Color]?
-    var font: Font?
+    var font: NSFont?
     var images: [Image]?
 }
 
@@ -44,7 +44,7 @@ extension SearchResult {
         self.colors = colors
     }
 
-    init(font: Font) {
+    init(font: NSFont) {
         self.resultStyle = .font
         self.font = font
     }

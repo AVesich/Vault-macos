@@ -52,7 +52,6 @@ class FileSystemSearchEngine: Engine {
     
     @objc func handleQueryGatheringNotification() {
         print("gathering")
-        print(query.results)
     }
 
     @objc func handleQueryFinishNotification() {

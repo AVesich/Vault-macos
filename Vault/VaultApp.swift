@@ -73,7 +73,7 @@ struct VaultApp: App {
                             .stroke(usingAI ? .purple : .clear, lineWidth: 8.0)
                             .clipShape(RoundedRectangle(cornerRadius: 16.0))
                     }
-                    .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.65))
+//                    .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.65))
                     .onChange(of: usingAI) {
                         if usingAI {
                             activateAIChangeStates()

@@ -48,7 +48,7 @@ struct ResultsList: View {
 #Preview {
     ResultsList(results: .constant([SearchResult(filePath: URL(string: "url 1")!),
                                     SearchResult(colors: [.red, .pink, .orange, .yellow, .green]),
-                                    SearchResult(font: .system(size: 24.0)),
+                                    SearchResult(font: NSFont(name: "Helvetica", size: 24.0)!),
                                     SearchResult(images: [
                                         Image("Test_Cat_1"),
                                         Image("Test_Cat_2"),
