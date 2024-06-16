@@ -33,7 +33,6 @@ struct UnsplashAPI {
         params["query"] = query
         if var request = APIJSONHelpers.getURLRequest(withURLString: urlString, andParams: params) {
             request.httpMethod = "GET"
-            print(request.url?.absoluteString)
             return request
         } else {
             return URLRequest(url: URL(string: "")!)

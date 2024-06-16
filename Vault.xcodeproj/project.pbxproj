@@ -16,6 +16,7 @@
 		D93062D12C17D3EF00CDB9FA /* ImagesResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062D02C17D3EF00CDB9FA /* ImagesResult.swift */; };
 		D93062D32C17D75200CDB9FA /* ResultImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062D22C17D75200CDB9FA /* ResultImage.swift */; };
 		D93062D52C1801D200CDB9FA /* APIJSONHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062D42C1801D200CDB9FA /* APIJSONHelpers.swift */; };
+		D93062DB2C1D253300CDB9FA /* FontSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062DA2C1D253300CDB9FA /* FontSearchEngine.swift */; };
 		D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FB62C16613300BA309E /* PasteboardView.swift */; };
 		D93E1FBE2C168A8800BA309E /* TestFileSystemEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */; };
 		D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */; };
@@ -81,6 +82,7 @@
 		D93062D02C17D3EF00CDB9FA /* ImagesResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesResult.swift; sourceTree = "<group>"; };
 		D93062D22C17D75200CDB9FA /* ResultImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultImage.swift; sourceTree = "<group>"; };
 		D93062D42C1801D200CDB9FA /* APIJSONHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIJSONHelpers.swift; sourceTree = "<group>"; };
+		D93062DA2C1D253300CDB9FA /* FontSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSearchEngine.swift; sourceTree = "<group>"; };
 		D93E1FB62C16613300BA309E /* PasteboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardView.swift; sourceTree = "<group>"; };
 		D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileSystemEngineDelegate.swift; sourceTree = "<group>"; };
 		D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				D9A8770B2C0D3343001EAA1C /* Engine.swift */,
 				D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */,
 				D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */,
+				D93062DA2C1D253300CDB9FA /* FontSearchEngine.swift */,
 			);
 			path = Engines;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				D93E1FC92C16A4E900BA309E /* PlistHelper.swift in Sources */,
 				D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */,
 				D94CAFCE2BFCF99C009AC3E1 /* SearchResult.swift in Sources */,
+				D93062DB2C1D253300CDB9FA /* FontSearchEngine.swift in Sources */,
 				D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */,
 				D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */,
 				D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */,

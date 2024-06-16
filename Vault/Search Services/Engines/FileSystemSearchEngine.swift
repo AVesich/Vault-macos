@@ -58,21 +58,23 @@ class FileSystemSearchEngine: Engine {
     @objc func handleQueryFinishNotification() {
         print("finish")
         if let resultMetadata = query.results as? [NSMetadataItem] {
-            let trimmedResults = getSearchResults(fromMetadata: resultMetadata).trimmed(toLength: MAX_RESULTS)
+            let trimmedResults = getSearchResults(fromMetadata: resultMetadata)//.trimmed(toLength: MAX_RESULTS)
             delegate?.engineDidFindResults(results: trimmedResults)
         }
         query.stop()
     }
     
     private func getSearchResults(fromMetadata metadata: [NSMetadataItem]) -> [SearchResult] {
-        let fileURLs: [URL] = metadata.compactMap {
-            if let pathString = $0.value(forKey: NSMetadataItemPathKey) as? String {
-                return URL(string: FILE_PREFIX+pathString)
+        var results = [SearchResult]()
+        
+        for data in metadata {
+            if let pathString = data.value(forKey: NSMetadataItemPathKey) as? String,
+               let fileURL = URL(string: FILE_PREFIX+pathString) {
+                results.append(SearchResult(filePath: fileURL))
             }
-            return nil
         }
         
-        return fileURLs.map { SearchResult(filePath: $0) }
+        return results
     }
 }
 
