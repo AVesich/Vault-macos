@@ -75,7 +75,7 @@ class FontSearchEngine: Engine {
     @objc func handleUserQueryFinishNotification() {
         print("finish")
         if let resultMetadata = userQuery.results as? [NSMetadataItem] {
-            let trimmedResults = getSearchResults(fromMetadata: resultMetadata).trimmed(toLength: MAX_RESULTS)
+            let trimmedResults = getSearchResults(fromMetadata: resultMetadata)
             delegate?.engineDidFindResults(results: trimmedResults)
         }
         userQuery.stop()
@@ -84,7 +84,7 @@ class FontSearchEngine: Engine {
     @objc func handleSystemQueryFinishNotification() {
         print("finish")
         if let resultMetadata = systemQuery.results as? [NSMetadataItem] {
-            let trimmedResults = getSearchResults(fromMetadata: resultMetadata).trimmed(toLength: MAX_RESULTS)
+            let trimmedResults = getSearchResults(fromMetadata: resultMetadata)
             delegate?.engineDidFindResults(results: trimmedResults)
         }
         systemQuery.stop()
@@ -98,6 +98,9 @@ class FontSearchEngine: Engine {
          [2]:   Font style       (Examples: Regular, Bold, etc.)
          */
         for data in metadata {
+            if searchResults.count >= MAX_RESULTS {
+                break
+            }
             if let fontData = data.value(forKey: NSMetadataItemFontsKey) as? [String] {
                 if fontData.count >= 2 {
                     if let font = NSFont(name: fontData[1], size: 24.0) {
