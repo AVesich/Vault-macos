@@ -20,6 +20,15 @@ class FontSearchEngine: Engine {
     private let MAX_RESULTS = 15
     private let FONT_PATH_FROM_USER = "/Library/Fonts/"
     private let FONT_FILE_ENDINGS = [".ttf", ".otf"]
+    private var fontExtensionPredicate: NSPredicate {
+        var extensionPredicates = [NSPredicate]()
+        for fileExtension in FONT_FILE_ENDINGS {
+            let predicate = NSPredicate(format: "%K ENDSWITH[c] %@", argumentArray: [NSMetadataItemFSNameKey, fileExtension])
+            extensionPredicates.append(predicate)
+        }
+        let combinedPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: extensionPredicates)
+        return combinedPredicate
+    }
     
     init() {
         oneTimeQueryConfig()
@@ -32,14 +41,10 @@ class FontSearchEngine: Engine {
     
     // MARK: - Methods
     private func oneTimeQueryConfig() {
-        //        let fileExtensionPredicate = NSPredicate(format: "pathExtension IN %@", argumentArray: [FONT_FILE_ENDINGS])
-        let fileExtensionPredicate = NSPredicate(format: "%K ENDSWITH[cd] %@", argumentArray: [NSMetadataItemFSNameKey, ".ttf"])
-        userQuery.predicate = fileExtensionPredicate//NSCompoundPredicate(andPredicateWithSubpredicates: [containsPredicate, fileExtensionPredicate])
         userQuery.searchScopes = [NSString(string: FileManager.default.homeDirectoryForCurrentUser.relativePath+FONT_PATH_FROM_USER)]
         userQuery.operationQueue = OperationQueue.current
         userQuery.enableUpdates()
         
-        systemQuery.predicate = fileExtensionPredicate//NSCompoundPredicate(andPredicateWithSubpredicates: [containsPredicate, fileExtensionPredicate])
         systemQuery.searchScopes = [NSString(string: "/System/"+FONT_PATH_FROM_USER)]
         systemQuery.operationQueue = OperationQueue.current
         systemQuery.enableUpdates()
@@ -63,34 +68,37 @@ class FontSearchEngine: Engine {
         searchResults.removeAll()
         
         // Display names are indexed by MacOS, this key must be used for the fastest search times
-//        let containsPredicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [NSMetadataItemDisplayNameKey, query])
+        let containsPredicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [NSMetadataItemDisplayNameKey, query])
+        let extensionContainsPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fontExtensionPredicate, containsPredicate])
         DispatchQueue.main.sync {
+            userQuery.predicate = extensionContainsPredicate
             self.userQuery.start()
         }
         DispatchQueue.main.sync {
+            systemQuery.predicate = extensionContainsPredicate
             self.systemQuery.start()
         }
     }
     
     @objc func handleUserQueryFinishNotification() {
-        print("finish")
+        print("User finish")
         if let resultMetadata = userQuery.results as? [NSMetadataItem] {
-            let trimmedResults = getSearchResults(fromMetadata: resultMetadata)
-            delegate?.engineDidFindResults(results: trimmedResults)
+            updateSearchResults(fromMetadata: resultMetadata)
+            delegate?.engineDidFindResults(results: searchResults)
         }
         userQuery.stop()
     }
     
     @objc func handleSystemQueryFinishNotification() {
-        print("finish")
+        print("System finish")
         if let resultMetadata = systemQuery.results as? [NSMetadataItem] {
-            let trimmedResults = getSearchResults(fromMetadata: resultMetadata)
-            delegate?.engineDidFindResults(results: trimmedResults)
+            updateSearchResults(fromMetadata: resultMetadata)
+            delegate?.engineDidFindResults(results: searchResults)
         }
         systemQuery.stop()
     }
     
-    private func getSearchResults(fromMetadata metadata: [NSMetadataItem]) -> [SearchResult] {
+    private func updateSearchResults(fromMetadata metadata: [NSMetadataItem]) {
         /*
          Font metadata results seem to be arrays made of 3 components:
          [0]:   Font family name (Example: Arial)
@@ -98,9 +106,9 @@ class FontSearchEngine: Engine {
          [2]:   Font style       (Examples: Regular, Bold, etc.)
          */
         for data in metadata {
-            if searchResults.count >= MAX_RESULTS {
-                break
-            }
+//            if searchResults.count >= MAX_RESULTS {
+//                break
+//            }
             if let fontData = data.value(forKey: NSMetadataItemFontsKey) as? [String] {
                 if fontData.count >= 2 {
                     if let font = NSFont(name: fontData[1], size: 24.0) {
@@ -109,8 +117,6 @@ class FontSearchEngine: Engine {
                }
             }
         }
-        
-        return searchResults
     }
 }
 
