@@ -7,29 +7,26 @@
 
 import SwiftUI
 
-enum SearchMode {
-    case fileSystem
-    case image
-    case localFont
-}
-
 @Observable class Search {
     
     private let fileSystemEngine = FileSystemSearchEngine()
     private let unsplashEngine = UnsplashSearchEngine()
     private let fontEngine = FontSearchEngine()
+    private let modeEngine = ModeSearchEngine()
 //    private let generativeAI = GenerativeAI()
     public var results = [SearchResult]()
-    public var searchMode: SearchMode = .localFont
+    public var searchMode: SearchMode = .codeSnippets
     
     private var activeEngine: Engine {
         switch searchMode {
-        case .fileSystem:
+        case .files:
             return fileSystemEngine
-        case .image:
+        case .images:
             return unsplashEngine
-        case .localFont:
+        case .fonts:
             return fontEngine
+        default:
+            return modeEngine
         }
     }
     
@@ -42,6 +39,7 @@ enum SearchMode {
         fileSystemEngine.delegate = self
         unsplashEngine.delegate = self
         fontEngine.delegate = self
+        modeEngine.delegate = self
     }
     
     public func search(withQuery query: String, withActiveDirectory activeDirectory: String) async {

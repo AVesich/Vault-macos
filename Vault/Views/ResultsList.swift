@@ -39,6 +39,9 @@ struct ResultsList: View {
                 .padding(.horizontal, 16.0)
         case .images:
             ImagesResult(searchResult: searchResult)
+        case .text:
+            TextResult(searchResult: searchResult)
+                .padding(.horizontal, 16.0)
         default:
             Text("text result")
         }

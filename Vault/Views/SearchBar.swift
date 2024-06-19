@@ -36,6 +36,14 @@ struct SearchBar: View {
                       prompt: Text("Search...")) {}
                 .font(.manrope(18.0))
                 .textFieldStyle(.plain)
+                .onChange(of: searchQuery) {
+                    if let first = searchQuery.first,
+                       first == "/" {
+                        Task {
+                            await searchModel.search(withQuery: searchQuery, withActiveDirectory: currentProfile.directoryPath)
+                        }
+                    }
+                }
                 .onSubmit {
                     Task {
                         await searchModel.search(withQuery: searchQuery, withActiveDirectory: currentProfile.directoryPath)
