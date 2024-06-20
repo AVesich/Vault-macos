@@ -82,6 +82,7 @@ struct VaultApp: App {
                     .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
                     .animation(showAIGradient ? .easeOut(duration: 0.5) : .none)
             }
+            .environment(Search())
         }
         .windowResizability(.contentSize)
         .windowStyle(.hiddenTitleBar)

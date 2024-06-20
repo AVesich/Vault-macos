@@ -9,20 +9,24 @@ import SwiftUI
 
 struct ResultsList: View {
     
-    @Binding var results: [SearchResult]
+    @Environment(Search.self) var searchModel
+    @State var scrollViewSize: CGSize = .zero
     
     var body: some View {
-        if !results.isEmpty {
+        if !searchModel.results.isEmpty {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
-                    ForEach(Array(results.enumerated()), id: \.offset) { (index, searchResult) in
-                        searchResultView(for: searchResult)
-                            .padding(.top, index == 0 ? 8.0 : 0.0)
-                            .padding(.bottom, (index == results.count-1) ? 8.0 : 0.0)
+                    ForEach(Array(searchModel.results.enumerated()), id: \.offset) { (index, searchResult) in
+                        HStack {
+                            searchResultView(for: searchResult)
+                                .padding(.top, index == 0 ? 8.0 : 0.0)
+                                .padding(.bottom, (index == searchModel.results.count-1) ? 8.0 : 0.0)
+                        }
                     }
                 }
+                .getSize {scrollViewSize = $0}
             }
-            .frame(maxHeight: 512.0)
+            .frame(height: scrollViewSize.height<=512.0 ? scrollViewSize.height : 512.0)
         }
     }
     
@@ -49,12 +53,6 @@ struct ResultsList: View {
 }
 
 #Preview {
-    ResultsList(results: .constant([SearchResult(filePath: URL(string: "url 1")!),
-                                    SearchResult(colors: [.red, .pink, .orange, .yellow, .green]),
-                                    SearchResult(font: NSFont(name: "Helvetica", size: 24.0)!),
-                                    SearchResult(images: [
-                                        Image("Test_Cat_1"),
-                                        Image("Test_Cat_2"),
-                                        Image("Test_Cat_3")
-                                    ])]))
+    ResultsList()
+        .environment(Search())
 }

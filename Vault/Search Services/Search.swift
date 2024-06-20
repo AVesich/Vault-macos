@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@Observable class Search {
+@Observable
+class Search {
     
     private let fileSystemEngine = FileSystemSearchEngine()
     private let unsplashEngine = UnsplashSearchEngine()
