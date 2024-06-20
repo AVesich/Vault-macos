@@ -57,6 +57,8 @@ struct VaultApp: App {
     
     @State private var usingAI: Bool = false
     @State private var showAIGradient: Bool = false
+    @State private var searchModel: Search = Search()
+    @State private var showModeGradient: Bool = false
     
     var body: some Scene {
         WindowGroup {
@@ -76,13 +78,18 @@ struct VaultApp: App {
 //                    .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.65))
                     .onChange(of: usingAI) {
                         if usingAI {
-                            activateAIChangeStates()
+                            activateAIChangeGradient()
                         }
                     }
+                    .onChange(of: searchModel.searchMode) {
+                        activateModeChangeGradient()
+                    }
                     .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
-                    .animation(showAIGradient ? .easeOut(duration: 0.5) : .none)
+                    .shadow(color: showModeGradient ? .red.opacity(0.0) : .red, radius: showModeGradient ? 96.0 : 0.0)
+                    .animation(showAIGradient ? .easeOut(duration: 0.5) : .none, value: showAIGradient)
+                    .animation(showModeGradient ? .easeOut(duration: 0.5) : .none, value: showModeGradient)
             }
-            .environment(Search())
+            .environment(searchModel)
         }
         .windowResizability(.contentSize)
         .windowStyle(.hiddenTitleBar)
@@ -90,12 +97,21 @@ struct VaultApp: App {
         .modelContainer(sharedModelContainer)
     }
     
-    private func activateAIChangeStates() {
+    private func activateAIChangeGradient() {
         DispatchQueue.main.async {
             showAIGradient = true
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             showAIGradient = false
+        }
+    }
+    
+    private func activateModeChangeGradient() {
+        DispatchQueue.main.async {
+            showModeGradient = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            showModeGradient = false
         }
     }
 }

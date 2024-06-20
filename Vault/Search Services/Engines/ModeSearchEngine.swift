@@ -7,16 +7,16 @@
 
 import Foundation
 
-enum SearchMode {
-    case codeSnippets
-    case colors
-    case files
-    case fonts
-    case gitHub
-    case icons
-    case images
-    case math
-    case stackOverflow
+enum SearchMode: String {
+    case codeSnippets = "Code Snippets"
+    case colors = "Colors"
+    case files = "Files"
+    case fonts = "Fonts"
+    case gitHub = "GitHub"
+    case icons = "Icons"
+    case images = "Images"
+    case math = "Math"
+    case stackOverflow = "Stack Overflow"
 }
 
 class ModeSearchEngine: Engine {
@@ -42,9 +42,9 @@ class ModeSearchEngine: Engine {
         let pastSlashIndex = query.index(query.startIndex, offsetBy: 1)
         let queryWithoutSlash = query.lowercased()[pastSlashIndex...]
         
-        for mode in modes.keys {
-            if mode.lowercased().contains(queryWithoutSlash) {
-                results.append(SearchResult(text: mode))
+        for modeName in modes.keys {
+            if modeName.lowercased().contains(queryWithoutSlash) {
+                results.append(SearchResult(searchMode: modes[modeName]!))
             }
         }
         

@@ -10,17 +10,19 @@ import SwiftUI
 
 enum SearchResultStyle {
     case text
+    case searchMode
     case systemFile
     case colorGroup
     case font
     case images
 }
 
-struct SearchResult: Identifiable {
+struct SearchResult: Identifiable, Equatable {
     let id = UUID()
     
     var resultStyle: SearchResultStyle
     var text: String?
+    var searchMode: SearchMode?
     var filePath: URL?
     var colors: [Color]?
     var font: NSFont?
@@ -52,5 +54,10 @@ extension SearchResult {
     init (images: [Image]) {
         self.resultStyle = .images
         self.images = images
+    }
+    
+    init (searchMode: SearchMode) {
+        self.resultStyle = .searchMode
+        self.searchMode = searchMode
     }
 }
