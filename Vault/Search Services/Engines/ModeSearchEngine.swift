@@ -16,6 +16,7 @@ enum SearchMode: String {
     case icons = "Icons"
     case images = "Images"
     case math = "Math"
+    case modes = "Hidden to user"
     case stackOverflow = "Stack Overflow"
 }
 

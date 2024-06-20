@@ -82,7 +82,9 @@ struct VaultApp: App {
                         }
                     }
                     .onChange(of: searchModel.searchMode) {
-                        activateModeChangeGradient()
+                        if searchModel.searchMode != .modes {
+                            activateModeChangeGradient()
+                        }
                     }
                     .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
                     .shadow(color: showModeGradient ? .red.opacity(0.0) : .red, radius: showModeGradient ? 96.0 : 0.0)

@@ -15,6 +15,16 @@ class Search {
     private let fontEngine = FontSearchEngine()
     private let modeEngine = ModeSearchEngine()
 //    private let generativeAI = GenerativeAI()
+    public var query: String = "" {
+        didSet {
+            if let first = query.first,
+               first == "/" {
+                if searchMode != .modes {
+                    searchMode = .modes
+                }
+            }
+        }
+    }
     public var results = [SearchResult]()
     public var searchMode: SearchMode = .codeSnippets
     
@@ -26,6 +36,8 @@ class Search {
             return unsplashEngine
         case .fonts:
             return fontEngine
+        case .modes:
+            return modeEngine
         default:
             return modeEngine
         }
