@@ -14,22 +14,22 @@ struct ImagesResult: View {
     var body: some View {
         HStack(spacing: 12.0) {
             VStack() {
-                ForEach(Array(stride(from: 0, to: searchResult.images!.count, by: 3)), id: \.self) { index in
-                    ResultImage(image: searchResult.images![index])
+                ForEach(Array(stride(from: 0, to: searchResult.imageURLs!.count, by: 3)), id: \.self) { index in
+                    ResultImage(urls: searchResult.imageURLs![index])
                         .padding(.bottom, 4.0)
                 }
                 Spacer()
             }
             VStack {
-                ForEach(Array(stride(from: 1, to: searchResult.images!.count, by: 3)), id: \.self) { index in
-                    ResultImage(image: searchResult.images![index])
+                ForEach(Array(stride(from: 1, to: searchResult.imageURLs!.count, by: 3)), id: \.self) { index in
+                    ResultImage(urls: searchResult.imageURLs![index])
                         .padding(.bottom, 4.0)
                 }
                 Spacer()
             }
             VStack {
-                ForEach(Array(stride(from: 2, to: searchResult.images!.count, by: 3)), id: \.self) { index in
-                    ResultImage(image: searchResult.images![index])
+                ForEach(Array(stride(from: 2, to: searchResult.imageURLs!.count, by: 3)), id: \.self) { index in
+                    ResultImage(urls: searchResult.imageURLs![index])
                         .padding(.bottom, 4.0)
                 }
                 Spacer()
@@ -40,9 +40,5 @@ struct ImagesResult: View {
 }
 
 #Preview {
-    ImagesResult(searchResult: SearchResult(images: [
-        Image("Test_Cat_1"),
-        Image("Test_Cat_2"),
-        Image("Test_Cat_3")
-    ]))
+    ImagesResult(searchResult: SearchResult(imageURLs: []))
 }

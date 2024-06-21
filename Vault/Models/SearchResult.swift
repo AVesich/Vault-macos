@@ -26,7 +26,11 @@ struct SearchResult: Identifiable, Equatable {
     var filePath: URL?
     var colors: [Color]?
     var font: NSFont?
-    var images: [Image]?
+    var imageURLs: [PhotoURLs]?
+    
+    static func == (lhs: SearchResult, rhs: SearchResult) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 // MARK: - Initializers
@@ -51,9 +55,9 @@ extension SearchResult {
         self.font = font
     }
     
-    init (images: [Image]) {
+    init (imageURLs: [PhotoURLs]) {
         self.resultStyle = .images
-        self.images = images
+        self.imageURLs = imageURLs
     }
     
     init (searchMode: SearchMode) {

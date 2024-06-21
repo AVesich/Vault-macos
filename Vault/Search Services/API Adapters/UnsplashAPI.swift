@@ -16,16 +16,15 @@ struct UnsplashAPI {
         "per_page" : "10"
     ]
     
-    public func searchPhotos(withQuery query: String) async -> [Image] {
+    public func searchPhotos(withQuery query: String) async -> [PhotoURLs] {
         if let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURLString: API_URL+"/search/photos/?", withQuery: query)) {
-//            print(String(data: data, encoding: .ascii))
             let decoder = APIDecoder<UnsplashPhotoSearchResult>()
             let decodedResult = decoder.decodeValueFromData(data)
             if let decodedResult {
-                return getImagesFromSearchResult(decodedResult)
+                return getImagesURLsFromSearchResult(decodedResult)
             }
         }
-        return [Image]()
+        return [PhotoURLs]()
     }
     
     private func getSearchPhotosRequest(forURLString urlString: String, withQuery query: String) -> URLRequest {
@@ -39,16 +38,19 @@ struct UnsplashAPI {
         }
     }
     
-    private func getImagesFromSearchResult(_ searchResult: UnsplashPhotoSearchResult) -> [Image] {
-        let images: [Image] = searchResult.results.compactMap { result in
-            if let url = URL(string: result.urls.thumb),
-               let data = try? Data(contentsOf: url),
-               let nsImage = NSImage(data: data) {
-                return Image(nsImage: nsImage)
-            }
-            return nil
+    private func getImagesURLsFromSearchResult(_ searchResult: UnsplashPhotoSearchResult) -> [PhotoURLs] {
+        let photoURLs: [PhotoURLs] = searchResult.results.map { result in
+            return result.urls
         }
         
-        return images
+        return photoURLs
+    }
+    
+    public static func getImageDataForURL(_ urlString: String) async -> Data? {
+        if let url = URL(string: urlString),
+           let (data, _) = try? await URLSession.shared.data(from: url) {
+            return data
+        }
+        return nil
     }
 }
