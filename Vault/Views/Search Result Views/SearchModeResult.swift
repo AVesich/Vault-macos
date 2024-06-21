@@ -43,5 +43,6 @@ struct SearchModeResult: View {
 }
 
 #Preview {
-    SearchModeResult(searchResult: SearchResult(text: "/GitHub"))
+    SearchModeResult(searchResult: SearchResult(searchMode: .gitHub))
+        .environment(Search())
 }

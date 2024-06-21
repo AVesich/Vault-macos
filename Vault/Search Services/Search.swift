@@ -15,18 +15,35 @@ class Search {
     private let fontEngine = FontSearchEngine()
     private let modeEngine = ModeSearchEngine()
 //    private let generativeAI = GenerativeAI()
-    public var query: String = "" {
+    private var queryString: String = "" {
         didSet {
-            if let first = query.first,
+            if let first = queryString.first,
                first == "/" {
                 if searchMode != .modes {
                     searchMode = .modes
                 }
+                Task {
+                    await search(withActiveDirectory: "") // No directory needed in mode search
+                }
             }
         }
     }
+    public var queryBinding: Binding<String> {
+        Binding {
+            return self.queryString
+        } set: { newQuery in
+            self.queryString = newQuery
+        }
+    }
     public var results = [SearchResult]()
-    public var searchMode: SearchMode = .codeSnippets
+    public var searchMode: SearchMode = .codeSnippets {
+        didSet {
+            if searchMode != .modes {
+                queryString = ""
+                results.removeAll()
+            }
+        }
+    }
     
     private var activeEngine: Engine {
         switch searchMode {
@@ -55,8 +72,8 @@ class Search {
         modeEngine.delegate = self
     }
     
-    public func search(withQuery query: String, withActiveDirectory activeDirectory: String) async {
-        await activeEngine.search(withQuery: query, inActiveDirectory: activeDirectory)
+    public func search(withActiveDirectory activeDirectory: String) async {
+        await activeEngine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
     }
         
 //    private func aiSearch(withQuery query: String) async -> [SearchResult] {

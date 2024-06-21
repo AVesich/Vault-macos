@@ -41,7 +41,7 @@ struct UnsplashAPI {
     
     private func getImagesFromSearchResult(_ searchResult: UnsplashPhotoSearchResult) -> [Image] {
         let images: [Image] = searchResult.results.compactMap { result in
-            if let url = URL(string: result.urls.small),
+            if let url = URL(string: result.urls.thumb),
                let data = try? Data(contentsOf: url),
                let nsImage = NSImage(data: data) {
                 return Image(nsImage: nsImage)

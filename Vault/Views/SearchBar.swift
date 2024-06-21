@@ -32,18 +32,13 @@ struct SearchBar: View {
         HStack(spacing: 14.0) {
             Image(systemName: "magnifyingglass")
                 .imageScale(.large)
-            TextField(text: Bindable(wrappedValue: searchModel.query),
+            TextField(text: searchModel.queryBinding,
                       prompt: Text("Search...")) {}
                 .font(.manrope(18.0))
                 .textFieldStyle(.plain)
-                .onChange(of: searchModel.query) {
-                    Task {
-                        await searchModel.search(withQuery: searchQuery, withActiveDirectory: currentProfile.directoryPath)
-                    }
-                }
                 .onSubmit {
                     Task {
-                        await searchModel.search(withQuery: searchQuery, withActiveDirectory: currentProfile.directoryPath)
+                        await searchModel.search(withActiveDirectory: currentProfile.directoryPath)
                     }
                 }
             Spacer()

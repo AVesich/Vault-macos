@@ -19,7 +19,6 @@ struct ResultsList: View {
                     ForEach(Array(searchModel.results.enumerated()), id: \.offset) { (index, searchResult) in
                         HStack {
                             searchResultView(for: searchResult)
-//                                .padding(.top, index == 0 ? 8.0 : 0.0)
                                 .padding(.bottom, (index == searchModel.results.count-1) ? 8.0 : 0.0)
                         }
                     }
@@ -43,6 +42,7 @@ struct ResultsList: View {
                 .padding(.horizontal, 16.0)
         case .images:
             ImagesResult(searchResult: searchResult)
+                .padding(.top, 8.0)
         case .searchMode:
             SearchModeResult(searchResult: searchResult)
                 .padding(.horizontal, 16.0)
