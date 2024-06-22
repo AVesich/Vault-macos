@@ -304,7 +304,6 @@
 				D9A8770A2C0D332C001EAA1C /* Engines */,
 				D94CAFB62BF9A2C5009AC3E1 /* Search.swift */,
 				D94CAFB82BF9A2CC009AC3E1 /* DirectorySearch.swift */,
-				D94CAFCB2BFB9613009AC3E1 /* GenerativeAI.swift */,
 			);
 			path = "Search Services";
 			sourceTree = "<group>";
@@ -335,6 +334,7 @@
 		D9A8770A2C0D332C001EAA1C /* Engines */ = {
 			isa = PBXGroup;
 			children = (
+				D94CAFCB2BFB9613009AC3E1 /* GenerativeAI.swift */,
 				D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */,
 				D9A8770B2C0D3343001EAA1C /* Engine.swift */,
 				D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */,

@@ -30,14 +30,26 @@ struct ResultImage: View {
             })
             .animation(.spring(response: 0.35, dampingFraction: 0.45, blendDuration: 0.5), value: hovering)
             .onDrag {
-                if let data {
-                    return NSItemProvider(item: data as NSSecureCoding, typeIdentifier: UTType.image.identifier)
+                if let data,
+                   let imgTempURL = createTempImageFile(withImageData: data) {
+                    return NSItemProvider(item: imgTempURL as NSSecureCoding, typeIdentifier: UTType.fileURL.identifier)
                 }
                 return NSItemProvider(item: nil, typeIdentifier: nil)
             }
             .task {
                 data = await UnsplashAPI.getImageDataForURL(urls.raw)
             }
+    }
+    
+    private func createTempImageFile(withImageData imageData: Data) -> URL? {
+        let tempDirUrl = FileManager.default.temporaryDirectory
+        do {
+            let imgURL = tempDirUrl.appendingPathComponent("rockit_image_\(Date.now.description)", conformingTo: UTType.png)
+            try imageData.write(to: imgURL)
+            return imgURL
+        } catch {}
+        
+        return nil
     }
 }
 

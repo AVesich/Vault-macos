@@ -13,10 +13,12 @@ class UnsplashSearchEngine: Engine {
     internal var searchResults = [SearchResult]()
     private let API = UnsplashAPI()
     
-    func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {
-        let resultPhotoURLs = await API.searchPhotos(withQuery: query)
-        let result = SearchResult(imageURLs: resultPhotoURLs)
-        delegate?.engineDidFindResults(results: [result])
+    func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
+        Task {
+            let resultPhotoURLs = await API.searchPhotos(withQuery: query)
+            let result = SearchResult(imageURLs: resultPhotoURLs)
+            delegate?.engineDidFindResults(results: [result])
+        }
     }
 }
 

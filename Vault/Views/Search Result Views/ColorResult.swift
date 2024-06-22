@@ -42,7 +42,7 @@ struct ColorResult: View {
                 .buttonStyle(.borderless)
             }
         }
-        .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0))
+        .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: hovering)
     }
 }
 

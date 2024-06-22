@@ -22,9 +22,7 @@ class Search {
                 if searchMode != .modes {
                     searchMode = .modes
                 }
-                Task {
-                    await search(withActiveDirectory: "") // No directory needed in mode search
-                }
+                search(withActiveDirectory: "") // No directory needed in mode search
             }
         }
     }
@@ -72,8 +70,19 @@ class Search {
         modeEngine.delegate = self
     }
     
-    public func search(withActiveDirectory activeDirectory: String) async {
-        await activeEngine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+    private func search(withActiveDirectory activeDirectory: String) {
+        activeEngine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+    }
+    
+    public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
+        if searchMode == .modes {
+            if let result = results.first,
+               let mode = result.searchMode {
+                searchMode = mode
+            }
+        } else {
+            search(withActiveDirectory: activeDirectory)
+        }
     }
         
 //    private func aiSearch(withQuery query: String) async -> [SearchResult] {

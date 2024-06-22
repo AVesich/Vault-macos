@@ -60,7 +60,7 @@ class FontSearchEngine: Engine {
         NotificationCenter.default.addObserver(self, selector: #selector(handleSystemQueryFinishNotification), name: NSNotification.Name.NSMetadataQueryGatheringProgress, object: systemQuery)
     }
     
-    public func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {
+    public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
         indexedFontSearch(withQuery: query)
     }
 
@@ -70,14 +70,10 @@ class FontSearchEngine: Engine {
         // Display names are indexed by MacOS, this key must be used for the fastest search times
         let containsPredicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [NSMetadataItemDisplayNameKey, query])
         let extensionContainsPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fontExtensionPredicate, containsPredicate])
-        DispatchQueue.main.sync {
-            userQuery.predicate = extensionContainsPredicate
-            self.userQuery.start()
-        }
-        DispatchQueue.main.sync {
-            systemQuery.predicate = extensionContainsPredicate
-            self.systemQuery.start()
-        }
+        userQuery.predicate = extensionContainsPredicate
+        self.userQuery.start()
+        systemQuery.predicate = extensionContainsPredicate
+        self.systemQuery.start()
     }
     
     @objc func handleUserQueryFinishNotification() {

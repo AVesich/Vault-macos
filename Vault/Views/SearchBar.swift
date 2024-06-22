@@ -37,9 +37,7 @@ struct SearchBar: View {
                 .font(.manrope(18.0))
                 .textFieldStyle(.plain)
                 .onSubmit {
-                    Task {
-                        await searchModel.search(withActiveDirectory: currentProfile.directoryPath)
-                    }
+                    searchModel.enterPressedSearch(withActiveDirectory: currentProfile.directoryPath)
                 }
             Spacer()
             Button {
