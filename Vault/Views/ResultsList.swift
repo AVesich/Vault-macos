@@ -10,7 +10,7 @@ import SwiftUI
 struct ResultsList: View {
     
     @Environment(Search.self) var searchModel
-    @State var scrollViewSize: CGSize = .zero
+    @State private var scrollViewSize: CGSize = .zero
     
     var body: some View {
         if !searchModel.results.isEmpty {

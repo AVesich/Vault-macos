@@ -11,12 +11,20 @@ struct DirectorySearchBar: View {
     
     // MARK: - Constants
     private let FOLDER_ICON_SIZE = 30.0
+    private let TEMP_PROFILE_INDEX_OFFSET = 1
 
     // MARK: - Properties
     @Binding var usingAI: Bool
     @Binding var tempProfile: DirectoryProfile
     public var profiles: [DirectoryProfile]
     @Binding var selectedProfileIndex: Int?
+    @Binding var directorySearchModel: DirectorySearch
+    private var currentProfile: DirectoryProfile {
+        if selectedProfileIndex == 0 {
+            return tempProfile
+        }
+        return profiles[selectedProfileIndex! - TEMP_PROFILE_INDEX_OFFSET]
+    }
     
     // MARK: - UI
     var body: some View {
@@ -51,6 +59,18 @@ struct DirectorySearchBar: View {
             .padding(.vertical, 4.0)
         }
         .frame(height: 16.0)
+        .onChange(of: selectedProfileIndex, initial: true) {
+            if let selectedProfileIndex {
+                if selectedProfileIndex == 0 {
+                    directorySearchModel.queryText = $tempProfile.directoryPath
+                } else {
+                    directorySearchModel.queryText = Bindable(profiles[selectedProfileIndex - TEMP_PROFILE_INDEX_OFFSET]).directoryPath
+                }
+            }
+        }
+        .onChange(of: currentProfile.directoryPath, initial: true) {
+            directorySearchModel.updateSuggestedDirectories()
+        }
     }
 }
 
@@ -58,5 +78,6 @@ struct DirectorySearchBar: View {
     DirectorySearchBar(usingAI: .constant(false),
                        tempProfile: .constant(.temporaryProfile),
                        profiles: [.temporaryProfile, .temporaryProfile],
-                       selectedProfileIndex: .constant(0))
+                       selectedProfileIndex: .constant(0),
+                       directorySearchModel: .constant(DirectorySearch()))
 }

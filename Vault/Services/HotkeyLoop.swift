@@ -6,6 +6,7 @@
 //
 
 import CoreGraphics
+import AppKit
 
 class HotkeyLoop {
     
@@ -41,7 +42,8 @@ func checkButtonDownEventForOptS(proxy: CGEventTapProxy, type: CGEventType, even
     let sPressed = event.getIntegerValueField(.keyboardEventKeycode) == 1
     let optionPressed = event.flags.contains(.maskAlternate)
     if type == .keyDown, sPressed, optionPressed {
-        print("alt-s is working!")
+        NSApp.activate()
+        return nil
     }
     return Unmanaged.passUnretained(event)
 }

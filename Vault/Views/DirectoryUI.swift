@@ -18,7 +18,7 @@ struct DirectoryUI: View {
     var directoryProfiles: [DirectoryProfile]
     @Binding var temporaryProfile: DirectoryProfile
     @Binding var selectedProfileIndex: Int?
-    
+    @State private var directorySearch = DirectorySearch()
     private var currentProfile: DirectoryProfile {
         if selectedProfileIndex == 0 {
             return temporaryProfile
@@ -33,7 +33,8 @@ struct DirectoryUI: View {
                 DirectorySearchBar(usingAI: $usingAI,
                                    tempProfile: $temporaryProfile,
                                    profiles: directoryProfiles,
-                                   selectedProfileIndex: $selectedProfileIndex)
+                                   selectedProfileIndex: $selectedProfileIndex,
+                                   directorySearchModel: $directorySearch)
                 .padding(.bottom, 8.0)
                 DirectoryProfileSelector(profiles: directoryProfiles,
                                          selectedProfileIndex: $selectedProfileIndex)
@@ -41,7 +42,8 @@ struct DirectoryUI: View {
             if !usingAI && !currentProfile.directoryPath.isEmpty {
                 DirectoryRecommendationView(profiles: directoryProfiles,
                                             tempProfile: $temporaryProfile,
-                                            selectedProfileIndex: $selectedProfileIndex)
+                                            selectedProfileIndex: $selectedProfileIndex,
+                                            directorySearchModel: $directorySearch)
             }
         }
     }
