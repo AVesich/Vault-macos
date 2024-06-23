@@ -22,6 +22,7 @@ struct FilePathResult: View {
                 .font(.manrope(14.0))
             Spacer()
         }
+        .padding(.vertical, 4.0)
         .asDraggable(url: searchResult.filePath!)
     }
 }

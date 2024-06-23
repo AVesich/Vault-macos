@@ -28,6 +28,10 @@ import SwiftUI
     // MARK: - Methods
     public func autofillCurrentQuery() {
         if let suggestedDirectory {
+            let completingNewPathComponent = queryText.wrappedValue.lastFilePathComponent().first != suggestedDirectory.lastPathComponent.first
+            if completingNewPathComponent {
+                queryText.wrappedValue = queryText.wrappedValue.last=="/" ? queryText.wrappedValue : queryText.wrappedValue+"/"
+            }
             queryText.wrappedValue = queryText.wrappedValue.largestCompleteFilePath() + suggestedDirectory.lastPathComponent + "/"
         }
     }

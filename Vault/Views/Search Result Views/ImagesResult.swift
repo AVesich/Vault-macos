@@ -35,7 +35,7 @@ struct ImagesResult: View {
                 Spacer()
             }
         }
-        .padding(.horizontal, 16.0)
+        .padding(.horizontal, 8.0)
     }
 }
 

@@ -27,15 +27,6 @@ struct SearchModeResult: View {
             Spacer()
         }
         .frame(height: 28.0)
-        .padding(.leading, 8.0)
-        .background {
-            RoundedRectangle(cornerRadius: 4.0)
-                .fill(isHovering ? .white.opacity(0.1) : .clear)
-                .animation(.easeOut(duration: 0.1), value: isHovering)
-        }
-        .onHover { hovering in
-            isHovering = hovering
-        }
         .onTapGesture {
             searchModel.searchMode = searchResult.searchMode!
         }

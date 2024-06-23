@@ -19,21 +19,21 @@ struct MainSearch: View {
     @State private var scrollViewSize: CGSize = .zero
 
     var body: some View {
-            VStack {
+        VStack(spacing: 0.0) {
                 VStack {
-                    DirectoryUI(usingAI: $usingAI,
-                                directoryProfiles: directoryProfiles,
-                                temporaryProfile: $temporaryProfile,
-                                selectedProfileIndex: $selectedProfileIndex)
-                    Divider()
-                        .padding(.top, 2.0)
+//                    DirectoryUI(usingAI: $usingAI,
+//                                directoryProfiles: directoryProfiles,
+//                                temporaryProfile: $temporaryProfile,
+//                                selectedProfileIndex: $selectedProfileIndex)
+//                    Divider()
+//                        .padding(.top, 2.0)
                     SearchBar(usingAI: $usingAI, 
                               directoryProfiles: directoryProfiles,
                               temporaryProfile: $temporaryProfile,
                               selectedProfileIndex: $selectedProfileIndex)
-                    Divider()
                 }
-                .padding([.horizontal, .top], 16.0)
+                .padding(.horizontal, 16.0)
+                .padding(.vertical, 8.0)
                 ResultsList()
             }
             .background(Material.regular)

@@ -37,7 +37,7 @@ struct FontResult: View {
         }
         .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: hovering)
         .frame(height: 48.0)
-        .padding(.bottom, 8.0)
+        .padding(.vertical, 8.0)
         .onHover { hover in
             hovering = hover
         }
