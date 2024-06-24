@@ -39,6 +39,9 @@ class ModeSearchEngine: Engine {
 
     // Nothing crazy for the search algorithm here. Mode count should never end up exceeding 20-30, so there should be no performance issues doing a simple search
     public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
+        guard !query.isEmpty else {
+            return
+        }
         var results = [SearchResult]()
         let pastSlashIndex = query.index(query.startIndex, offsetBy: 1)
         let queryWithoutSlash = query.lowercased()[pastSlashIndex...]

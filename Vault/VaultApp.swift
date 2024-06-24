@@ -72,7 +72,7 @@ struct VaultApp: App {
                     .overlay {
                         RoundedRectangle(cornerRadius: 16.0)
                             .fill(.clear)
-                            .stroke(usingAI ? .purple : .clear, lineWidth: 8.0)
+                            .stroke(usingAI ? .purple : .clear, lineWidth: 6.0)
                             .clipShape(RoundedRectangle(cornerRadius: 16.0))
                     }
 //                    .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.65))
@@ -88,8 +88,8 @@ struct VaultApp: App {
                     }
                     .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
                     .shadow(color: showModeGradient ? .red.opacity(0.0) : .red, radius: showModeGradient ? 96.0 : 0.0)
-                    .animation(showAIGradient ? .easeOut(duration: 0.5) : .none, value: showAIGradient)
-                    .animation(showModeGradient ? .easeOut(duration: 0.5) : .none, value: showModeGradient)
+                    .animation(showAIGradient ? .easeOut(duration: 0.65) : .none, value: showAIGradient)
+                    .animation(showModeGradient ? .easeOut(duration: 0.65) : .none, value: showModeGradient)
             }
             .environment(searchModel)
         }
@@ -103,7 +103,7 @@ struct VaultApp: App {
         DispatchQueue.main.async {
             showAIGradient = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
             showAIGradient = false
         }
     }
@@ -112,7 +112,7 @@ struct VaultApp: App {
         DispatchQueue.main.async {
             showModeGradient = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
             showModeGradient = false
         }
     }
