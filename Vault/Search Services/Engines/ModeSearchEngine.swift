@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum SearchMode: String {
     case codeSnippets = "Code Snippets"
@@ -18,6 +19,31 @@ enum SearchMode: String {
     case math = "Math"
     case modes = "Hidden to user"
     case stackOverflow = "Stack Overflow"
+    
+    var icon: Image {
+        switch self {
+        case .codeSnippets:
+            return Image(systemName: "apple.terminal.fill")
+        case .colors:
+            return Image(systemName: "paintpalette.fill")
+        case .files:
+            return Image(systemName: "folder.fill")
+        case .fonts:
+            return Image(systemName: "textformat")
+        case .gitHub:
+            return Image(systemName: "cat.fill")
+        case .icons:
+            return Image(systemName: "star.fill")
+        case .images:
+            return Image(systemName: "photo.fill")
+        case .math:
+            return Image(systemName: "function")
+        case .stackOverflow:
+            return Image(systemName: "person.2.wave.2.fill")
+        default:
+            return Image(systemName: "app.fill")
+        }
+    }
 }
 
 class ModeSearchEngine: Engine {

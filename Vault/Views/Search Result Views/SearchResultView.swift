@@ -37,6 +37,8 @@ struct SearchResultView: View {
             FontResult(searchResult: searchResult)
         case .images:
             ImagesResult(searchResult: searchResult)
+        case .gitHubRepo:
+            GitHubResult(searchResult: searchResult)
         case .searchMode:
             SearchModeResult(searchResult: searchResult)
         default:

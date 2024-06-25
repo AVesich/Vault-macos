@@ -13,6 +13,7 @@ class Search {
     private let fileSystemEngine = FileSystemSearchEngine()
     private let unsplashEngine = UnsplashSearchEngine()
     private let fontEngine = FontSearchEngine()
+    private let githubEngine = GitHubSearchEngine()
     private let modeEngine = ModeSearchEngine()
 //    private let generativeAI = GenerativeAI()
     private var queryString: String = "" {
@@ -34,7 +35,7 @@ class Search {
         }
     }
     public var results = [SearchResult]()
-    public var searchMode: SearchMode = .codeSnippets {
+    public var searchMode: SearchMode = .modes {
         didSet {
             if searchMode != .modes {
                 queryString = ""
@@ -51,6 +52,8 @@ class Search {
             return unsplashEngine
         case .fonts:
             return fontEngine
+        case .gitHub:
+            return githubEngine
         case .modes:
             return modeEngine
         default:
@@ -67,6 +70,7 @@ class Search {
         fileSystemEngine.delegate = self
         unsplashEngine.delegate = self
         fontEngine.delegate = self
+        githubEngine.delegate = self
         modeEngine.delegate = self
     }
     

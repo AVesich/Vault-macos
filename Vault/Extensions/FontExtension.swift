@@ -12,6 +12,8 @@ extension Font {
         switch weight {
         case .bold:
             return Font.custom("Manrope-Bold", size: size)
+        case .medium, .semibold:
+            return Font.custom("Manrope-Medium", size: size)
         case .regular:
             return Font.custom("Manrope-Regular", size: size)
         default:

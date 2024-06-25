@@ -15,6 +15,7 @@ enum SearchResultStyle {
     case colorGroup
     case font
     case images
+    case gitHubRepo
 }
 
 struct SearchResult: Identifiable, Equatable {
@@ -27,6 +28,7 @@ struct SearchResult: Identifiable, Equatable {
     var colors: [Color]?
     var font: NSFont?
     var imageURLs: [PhotoURLs]?
+    var gitHubRepoResult: GitHubRepoSearchResult?
     
     static func == (lhs: SearchResult, rhs: SearchResult) -> Bool {
         return lhs.id == rhs.id
@@ -63,5 +65,10 @@ extension SearchResult {
     init (searchMode: SearchMode) {
         self.resultStyle = .searchMode
         self.searchMode = searchMode
+    }
+    
+    init (gitHubRepoResult: GitHubRepoSearchResult) {
+        self.resultStyle = .gitHubRepo
+        self.gitHubRepoResult = gitHubRepoResult
     }
 }

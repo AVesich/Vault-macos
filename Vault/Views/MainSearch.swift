@@ -27,7 +27,20 @@ struct MainSearch: View {
 //                                selectedProfileIndex: $selectedProfileIndex)
 //                    Divider()
 //                        .padding(.top, 2.0)
-                    SearchBar(usingAI: $usingAI, 
+                    if searchModel.searchMode != .modes {
+                        HStack(spacing: 8.0) {
+                            searchModel.searchMode.icon
+                                .imageScale(.medium)
+                            Text(searchModel.searchMode.rawValue)
+                                .font(.manrope(12.0, weight: .semibold))
+                            Spacer()
+                        }
+                        .foregroundColor(.white.opacity(0.6))
+                        .padding(.vertical, 2.0)
+                        Divider()
+                    }
+                    
+                    SearchBar(usingAI: $usingAI,
                               directoryProfiles: directoryProfiles,
                               temporaryProfile: $temporaryProfile,
                               selectedProfileIndex: $selectedProfileIndex)
