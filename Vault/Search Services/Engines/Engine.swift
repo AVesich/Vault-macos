@@ -10,6 +10,7 @@ import Foundation
 protocol Engine {
     var delegate: EngineDelegate? { get set }
     var searchResults: [SearchResult] { get set }
+    var searchFilters: [SearchFilter] { get }
     func search(withQuery query: String, inActiveDirectory activeDirectory: String)
 }
 

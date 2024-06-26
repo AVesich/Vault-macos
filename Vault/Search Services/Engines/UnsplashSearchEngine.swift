@@ -11,6 +11,7 @@ class UnsplashSearchEngine: Engine {
     
     public var delegate: EngineDelegate?
     internal var searchResults = [SearchResult]()
+    public var searchFilters = [SearchFilter]()
     private let API = UnsplashAPI()
     
     func search(withQuery query: String, inActiveDirectory activeDirectory: String) {

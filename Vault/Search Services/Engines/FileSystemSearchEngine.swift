@@ -13,6 +13,7 @@ class FileSystemSearchEngine: Engine {
     // MARK: - Properties
     public var delegate: EngineDelegate?
     internal var searchResults = [SearchResult]()
+    public var searchFilters = [SearchFilter]()
     private var query = NSMetadataQuery()
     private let MAX_RESULTS = 5
     private let FILE_PREFIX = "File://"

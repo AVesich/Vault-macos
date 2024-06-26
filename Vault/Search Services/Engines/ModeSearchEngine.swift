@@ -51,6 +51,7 @@ class ModeSearchEngine: Engine {
     // MARK: - Declaring properties
     public var delegate: EngineDelegate?
     internal var searchResults = [SearchResult]()
+    public var searchFilters = [SearchFilter]()
     private let modes: [String : SearchMode] = [
         "Code Snippets": .codeSnippets,
         "Colors": .colors,

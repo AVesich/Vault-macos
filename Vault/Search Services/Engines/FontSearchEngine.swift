@@ -15,8 +15,10 @@ class FontSearchEngine: Engine {
     // MARK: - Declaring properties
     public var delegate: EngineDelegate?
     internal var searchResults = [SearchResult]()
+    public var searchFilters = [SearchFilter]()
     private var userQuery = NSMetadataQuery()
     private var systemQuery = NSMetadataQuery()
+    private var selectedTrait: NSFontTraitMask?
     private let MAX_RESULTS = 15 // TODO: Keep or remove
     
     // MARK: - Methods
@@ -34,7 +36,8 @@ class FontSearchEngine: Engine {
     }
     
     private func getFontNameResults(forQuery query: String) -> [String] {
-        var containingFonts = NSFontManager.shared.availableFonts.compactMap { $0.contains(query) ? $0 : nil }
+        let fontNames = selectedTrait==nil ? NSFontManager.shared.availableFonts : (NSFontManager.shared.availableFontNames(with: selectedTrait!) ?? [String]())
+        var containingFonts = fontNames.compactMap { $0.contains(query) ? $0 : nil }
         containingFonts.sort {
             return $0.ranges(of: query)[0].lowerBound > $1.ranges(of: query)[0].lowerBound
         }

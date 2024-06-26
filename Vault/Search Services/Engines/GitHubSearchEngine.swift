@@ -7,12 +7,38 @@
 
 import Foundation
 
+enum GitHubFilter {
+    case repositories
+    case users
+    case pullRequests
+}
+
 class GitHubSearchEngine: Engine {
     
+    // MARK: - Properties
     public var searchResults: [SearchResult] = [SearchResult]()
     internal var delegate: EngineDelegate?
     private let RESULTS_PER_PAGE = 15
     
+    // MARK: - Search Filters
+    private var activeFilter: GitHubFilter = .repositories
+    public var searchFilters: [SearchFilter] {
+        [SearchFilter(name: "Repositories",
+                      iconName: "externaldrive.connected.to.line.below.fill",
+                      selectAction: { [weak self] in self?.activeFilter = .repositories },
+                      deselectAction: nil),
+         SearchFilter(name: "Users",
+                      iconName: "person.fill",
+                      selectAction: { [weak self] in self?.activeFilter = .users },
+                      deselectAction: nil),
+         SearchFilter(name: "My Pull Requests",
+                      iconName: "arrow.trianglehead.pull",
+                      selectAction: { [weak self] in self?.activeFilter = .pullRequests },
+                      deselectAction: nil)]
+    }
+
+    
+    // MARK: - Methods
     public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
         Task {
             await searchRepositories(withQuery: query)

@@ -61,6 +61,10 @@ class Search {
         }
     }
     
+    public var activeEngineFilters: [SearchFilter] {
+        activeEngine.searchFilters
+    }
+    
     init() {
         setupDelegates()
     }

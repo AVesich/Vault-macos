@@ -15,7 +15,7 @@ struct ResultsList: View {
     var body: some View {
         if !searchModel.results.isEmpty {
             Divider()
-                .padding(.horizontal, 8.0)
+                .padding(.horizontal, 16.0)
                 .padding(.bottom, 8.0)
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {

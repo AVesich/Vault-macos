@@ -20,6 +20,9 @@
 		D93062D32C17D75200CDB9FA /* ResultImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062D22C17D75200CDB9FA /* ResultImage.swift */; };
 		D93062D52C1801D200CDB9FA /* APIJSONHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062D42C1801D200CDB9FA /* APIJSONHelpers.swift */; };
 		D93062DB2C1D253300CDB9FA /* FontSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93062DA2C1D253300CDB9FA /* FontSearchEngine.swift */; };
+		D934EDB42C2B9C0D00DC2472 /* ModeNameBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D934EDB32C2B9C0D00DC2472 /* ModeNameBar.swift */; };
+		D934EDB62C2B9C8E00DC2472 /* ResultFilterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D934EDB52C2B9C8E00DC2472 /* ResultFilterList.swift */; };
+		D934EDB82C2B9D5800DC2472 /* SearchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D934EDB72C2B9D5500DC2472 /* SearchFilter.swift */; };
 		D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FB62C16613300BA309E /* PasteboardView.swift */; };
 		D93E1FBE2C168A8800BA309E /* TestFileSystemEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */; };
 		D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */; };
@@ -94,6 +97,9 @@
 		D93062D22C17D75200CDB9FA /* ResultImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultImage.swift; sourceTree = "<group>"; };
 		D93062D42C1801D200CDB9FA /* APIJSONHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIJSONHelpers.swift; sourceTree = "<group>"; };
 		D93062DA2C1D253300CDB9FA /* FontSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSearchEngine.swift; sourceTree = "<group>"; };
+		D934EDB32C2B9C0D00DC2472 /* ModeNameBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeNameBar.swift; sourceTree = "<group>"; };
+		D934EDB52C2B9C8E00DC2472 /* ResultFilterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultFilterList.swift; sourceTree = "<group>"; };
+		D934EDB72C2B9D5500DC2472 /* SearchFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilter.swift; sourceTree = "<group>"; };
 		D93E1FB62C16613300BA309E /* PasteboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardView.swift; sourceTree = "<group>"; };
 		D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileSystemEngineDelegate.swift; sourceTree = "<group>"; };
 		D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
@@ -169,6 +175,7 @@
 		D9079F3A2C0049D90055BC7E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D934EDB72C2B9D5500DC2472 /* SearchFilter.swift */,
 				D93E1FC22C16902500BA309E /* API Models */,
 				D94CAFCD2BFCF99C009AC3E1 /* SearchResult.swift */,
 				D9079F3B2C0049ED0055BC7E /* DirectoryProfile.swift */,
@@ -305,6 +312,8 @@
 				D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */,
 				D93E1FB62C16613300BA309E /* PasteboardView.swift */,
 				D96C61ED2C279C20009AB564 /* AutofillTextField.swift */,
+				D934EDB32C2B9C0D00DC2472 /* ModeNameBar.swift */,
+				D934EDB52C2B9C8E00DC2472 /* ResultFilterList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -551,9 +560,12 @@
 				D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */,
 				D96C61F62C2A5616009AB564 /* GitHubSearchEngine.swift in Sources */,
 				D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */,
+				D934EDB62C2B9C8E00DC2472 /* ResultFilterList.swift in Sources */,
 				D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */,
 				D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */,
+				D934EDB82C2B9D5800DC2472 /* SearchFilter.swift in Sources */,
 				D9079F392C0049510055BC7E /* DirectoryProfileSelector.swift in Sources */,
+				D934EDB42C2B9C0D00DC2472 /* ModeNameBar.swift in Sources */,
 				D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */,
 				D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */,
 				D9A877152C150114001EAA1C /* ArrayExtension.swift in Sources */,
