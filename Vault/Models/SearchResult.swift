@@ -18,7 +18,72 @@ enum SearchResultStyle {
     case gitHubRepo
 }
 
-struct SearchResult: Identifiable, Equatable {
+protocol SearchResult: Identifiable {
+    associatedtype SearchContent
+    
+    var id: UUID { get }
+    var content: SearchContent { get }
+    var view: any View { get }
+}
+
+struct TextResult: SearchResult {
+    let id = UUID()
+    let content: String
+    var view: any View {
+        Text(content)
+    }
+}
+
+struct ModeResult: SearchResult {
+    let id = UUID()
+    let content: SearchMode
+    var view: any View {
+        SearchModeResultView(searchMode: content)
+    }
+}
+
+struct FileResult: SearchResult {
+    let id = UUID()
+    let content: URL
+    var view: any View {
+        FilePathResultView(filePath: content)
+    }
+}
+
+struct ColorResult: SearchResult {
+    let id = UUID()
+    let content: [Color]
+    var view: any View {
+        ColorResultView(colors: content)
+    }
+}
+
+struct FontResult: SearchResult {
+    let id = UUID()
+    let content: NSFont
+    var view: any View {
+        FontResultView(font: content)
+    }
+}
+
+struct ImagesResult: SearchResult {
+    let id = UUID()
+    let content: [PhotoURLs]
+    var view: any View {
+        ImagesResultView(photoURLs: content)
+    }
+}
+
+struct GitHubRepoResult: SearchResult {
+    let id = UUID()
+    let content: GitHubRepoSearchResult
+    var view: any View {
+        GitHubResultView(repoResult: content)
+    }
+}
+
+
+/*struct SearchResult: Identifiable, Equatable {
     let id = UUID()
     
     var resultStyle: SearchResultStyle
@@ -72,3 +137,4 @@ extension SearchResult {
         self.gitHubRepoResult = gitHubRepoResult
     }
 }
+*/

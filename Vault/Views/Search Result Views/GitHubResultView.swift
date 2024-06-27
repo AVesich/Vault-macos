@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct GitHubResult: View {
+struct GitHubResultView: View {
     
-    public var searchResult: SearchResult
     @State private var isHovering: Bool = false
+    public var repoResult: GitHubRepoSearchResult
     
     var body: some View {
         HStack(alignment: .center, spacing: 16.0) {
@@ -18,10 +18,10 @@ struct GitHubResult: View {
                 .imageScale(.large)
             
             VStack(alignment: .leading, spacing: 4.0) {
-                Text(searchResult.gitHubRepoResult!.name)
+                Text(repoResult.name)
                     .font(.manrope(24.0))
                 HStack(spacing: 8.0) {
-                    if let avatarURL = URL(string: searchResult.gitHubRepoResult!.owner.avatar_url) {
+                    if let avatarURL = URL(string: repoResult.owner.avatar_url) {
                         AsyncImage(url: avatarURL) { result in
                             result.image?
                                 .resizable()
@@ -30,7 +30,7 @@ struct GitHubResult: View {
                                 .clipShape(Circle())
                         }
                     }
-                    Text(searchResult.gitHubRepoResult!.owner.login)
+                    Text(repoResult.owner.login)
                         .font(.manrope(12.0, weight: .bold))
                 }
                 .padding(.bottom, 8.0)
@@ -47,7 +47,7 @@ struct GitHubResult: View {
             isHovering = hovering
         }
         .onTapGesture {
-            if let url = URL(string: searchResult.gitHubRepoResult!.html_url) {
+            if let url = URL(string: repoResult.html_url) {
                 NSWorkspace.shared.open(url)
             }
         }
@@ -55,9 +55,9 @@ struct GitHubResult: View {
 }
 
 #Preview {
-    GitHubResult(searchResult: SearchResult(gitHubRepoResult: GitHubRepoSearchResult(id: 0,
-                                                                                     name: "Test Repo",
-                                                                                     owner: GitHubUser(login: "avesich",
-                                                                                                       avatar_url: "https://avatars.githubusercontent.com/u/75646434?v=4"),
-                                                                                     html_url: "google.com")))
+    GitHubResultView(repoResult: GitHubRepoSearchResult(id: 0,
+                                                        name: "Test Repo",
+                                                        owner: GitHubUser(login: "avesich",
+                                                                          avatar_url: "https://avatars.githubusercontent.com/u/75646434?v=4"),
+                                                                          html_url: "google.com"))
 }

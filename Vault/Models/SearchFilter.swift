@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-struct SearchFilter: Identifiable {
-    let id = UUID()
-    let name: String?
+struct SearchFilter {
+    let name: String
     let iconName: String
     let selectAction: () -> ()
     let deselectAction: (() -> ())?

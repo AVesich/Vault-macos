@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct ColorResult: View {
+struct ColorResultView: View {
     
     @State private var hovering: Bool = false
-    var searchResult: SearchResult
+    var colors: [Color]
     
     var body: some View {
         HStack(spacing: 16.0) {
             HStack(spacing: 16.0) {
-                ForEach(searchResult.colors!, id: \.self) { color in
+                ForEach(colors, id: \.self) { color in
                     ZStack(alignment: .center) {
                         RoundedRectangle(cornerRadius: 8.0)
                             .fill(color)
@@ -47,5 +47,5 @@ struct ColorResult: View {
 }
 
 #Preview {
-    ColorResult(searchResult: SearchResult(colors: [.red, .pink, .orange, .yellow, .green]))
+    ColorResultView(colors: [.red, .pink, .orange, .yellow, .green])
 }

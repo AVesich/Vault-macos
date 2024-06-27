@@ -7,19 +7,19 @@
 
 import SwiftUI
 
-struct FontResult: View {
+struct FontResultView: View {
     
     @State private var hovering: Bool = false
-    var searchResult: SearchResult
+    var font: NSFont
     
     var body: some View {
         HStack(alignment: .center, spacing: 16.0) {
             VStack(alignment: .leading) {
-                Text(searchResult.font!.fontName)
+                Text(font.fontName)
                     .font(.manrope(12.0, weight: .bold))
                     .padding(.leading, 16.0)
                 Text("The quick brown fox runs over the lazy dog.")
-                    .font(.custom(searchResult.font!.fontName, size: 24.0))
+                    .font(.custom(font.fontName, size: 24.0))
                     .frame(width: .infinity)
             }
 
@@ -48,5 +48,5 @@ struct FontResult: View {
 }
 
 #Preview {
-    FontResult(searchResult: SearchResult(font: NSFont(name: "Helvetica", size: 24.0)!))
+    FontResultView(font: NSFont(name: "Helvetica", size: 24.0)!)
 }

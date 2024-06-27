@@ -8,25 +8,25 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct FilePathResult: View {
+struct FilePathResultView: View {
     
-    var searchResult: SearchResult
+    var filePath: URL
     
     var body: some View {
         HStack(spacing: 16.0) {
-            searchResult.filePath!.fileImage
+            filePath.fileImage
                 .resizable()
                 .aspectRatio(1.0, contentMode: .fit)
                 .frame(width: 20.0, height: 20.0)
-            Text(searchResult.filePath!.lastPathComponent)
+            Text(filePath.lastPathComponent)
                 .font(.manrope(14.0))
             Spacer()
         }
         .padding(.vertical, 4.0)
-        .asDraggable(url: searchResult.filePath!)
+        .asDraggable(url: filePath)
     }
 }
 
 #Preview {
-    FilePathResult(searchResult: SearchResult(filePath: URL(string: "/Users/austin/Documents/Vault-macos/Vault/Vault.xcodeproj")!))
+    FilePathResultView(filePath: URL(string: "/Users/austin/Documents/Vault-macos/Vault/Vault.xcodeproj")!)
 }

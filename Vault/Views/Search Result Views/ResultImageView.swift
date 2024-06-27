@@ -8,7 +8,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct ResultImage: View {
+struct ResultImageView: View {
     
     @State private var hovering: Bool = false
     public var urls: PhotoURLs

@@ -7,33 +7,33 @@
 
 import SwiftUI
 
-struct SearchModeResult: View {
+struct SearchModeResultView: View {
     
     @Environment(Search.self) var searchModel
     @State private var isHovering: Bool = false
-    var searchResult: SearchResult
+    var searchMode: SearchMode
 
     var body: some View {
         HStack {
-            if let first = searchModel.results.first,
-               first == searchResult {
+            if let first = searchModel.results.first?.content as? SearchMode,
+               first == searchMode {
                 Image(systemName: "return")
                     .fontWeight(.bold)
                     .imageScale(.small)
                     .offset(y: 1.0)
             }
-            Text(searchResult.searchMode!.rawValue)
+            Text(searchMode.rawValue)
                 .font(.manrope(16.0))
             Spacer()
         }
         .frame(height: 28.0)
         .onTapGesture {
-            searchModel.searchMode = searchResult.searchMode!
+            searchModel.searchMode = searchMode
         }
     }
 }
 
 #Preview {
-    SearchModeResult(searchResult: SearchResult(searchMode: .gitHub))
+    SearchModeResultView(searchResult: SearchResult(searchMode: .gitHub))
         .environment(Search())
 }

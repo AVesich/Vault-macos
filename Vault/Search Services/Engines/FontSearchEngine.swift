@@ -15,13 +15,36 @@ class FontSearchEngine: Engine {
     // MARK: - Declaring properties
     public var delegate: EngineDelegate?
     internal var searchResults = [SearchResult]()
-    public var searchFilters = [SearchFilter]()
     private var userQuery = NSMetadataQuery()
     private var systemQuery = NSMetadataQuery()
-    private var selectedTrait: NSFontTraitMask?
     private let MAX_RESULTS = 15 // TODO: Keep or remove
     
-    // MARK: - Methods
+    // MARK: - Search Filters
+    private var selectedTrait: NSFontTraitMask?
+    public var searchFilters: [SearchFilter] {
+        [SearchFilter(name: "Bold",
+                      iconName: "bold",
+                      selectAction: { [weak self] in self?.selectedTrait = .boldFontMask },
+                      deselectAction: { [weak self] in self?.selectedTrait = nil }),
+         SearchFilter(name: "Italic",
+                      iconName: "italic",
+                      selectAction: { [weak self] in self?.selectedTrait = .italicFontMask },
+                      deselectAction: { [weak self] in self?.selectedTrait = nil }),
+         SearchFilter(name: "Condensed",
+                      iconName: "arrow.right.and.line.vertical.and.arrow.left",
+                      selectAction: { [weak self] in self?.selectedTrait = .condensedFontMask },
+                      deselectAction: { [weak self] in self?.selectedTrait = nil }),
+         SearchFilter(name: "Expanded",
+                      iconName: "arrow.left.and.line.vertical.and.arrow.right",
+                      selectAction: { [weak self] in self?.selectedTrait = .expandedFontMask },
+                      deselectAction: { [weak self] in self?.selectedTrait = nil }),
+         SearchFilter(name: "Smallcaps",
+                      iconName: "textformat.size.smaller",
+                      selectAction: { [weak self] in self?.selectedTrait = .smallCapsFontMask },
+                      deselectAction: { [weak self] in self?.selectedTrait = nil })]
+    }
+    
+    // MARK: - Search Methods
     public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
         let fontNames = getFontNameResults(forQuery: query)
         
