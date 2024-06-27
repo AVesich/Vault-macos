@@ -30,6 +30,7 @@
 		D93E1FC72C16930E00BA309E /* APIDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC62C16930E00BA309E /* APIDecoder.swift */; };
 		D93E1FC92C16A4E900BA309E /* PlistHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC82C16A4E900BA309E /* PlistHelper.swift */; };
 		D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */; };
+		D9405D1A2C2D1C3000C1BE6C /* SearchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9405D192C2D1C2900C1BE6C /* SearchMode.swift */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* MainSearch.swift */; };
 		D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */; };
@@ -107,6 +108,7 @@
 		D93E1FC62C16930E00BA309E /* APIDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoder.swift; sourceTree = "<group>"; };
 		D93E1FC82C16A4E900BA309E /* PlistHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistHelper.swift; sourceTree = "<group>"; };
 		D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchEngine.swift; sourceTree = "<group>"; };
+		D9405D192C2D1C2900C1BE6C /* SearchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMode.swift; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
 		D94CAF762BF82801009AC3E1 /* MainSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearch.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		D9079F3A2C0049D90055BC7E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D9405D192C2D1C2900C1BE6C /* SearchMode.swift */,
 				D934EDB72C2B9D5500DC2472 /* SearchFilter.swift */,
 				D93E1FC22C16902500BA309E /* API Models */,
 				D94CAFCD2BFCF99C009AC3E1 /* SearchResult.swift */,
@@ -530,6 +533,7 @@
 				D96C61FA2C2A5D11009AB564 /* GitHubResultView.swift in Sources */,
 				D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */,
 				D93E1FC72C16930E00BA309E /* APIDecoder.swift in Sources */,
+				D9405D1A2C2D1C3000C1BE6C /* SearchMode.swift in Sources */,
 				D92F3D892C228F210009A701 /* SearchModeResultView.swift in Sources */,
 				D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */,
 				D9A8771B2C164216001EAA1C /* ColorExtension.swift in Sources */,

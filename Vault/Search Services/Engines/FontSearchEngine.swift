@@ -22,30 +22,37 @@ class FontSearchEngine: Engine {
     private var userQuery = NSMetadataQuery()
     private var systemQuery = NSMetadataQuery()
     private let MAX_RESULTS = 15 // TODO: Keep or remove
-    
-    // MARK: - Search Filters
+        
+    // MARK: - Mode & Filters
     private var selectedTrait: NSFontTraitMask?
-    public var searchFilters: [SearchFilter] {
+    public var searchMode: SearchMode {
+        SearchMode(name: "Fonts",
+                   systemIconName: "textformat",
+                   filters: searchFilters,
+                   filterDefault: nil,
+                   areFiltersExclusive: false)
+    }
+    internal var searchFilters: [SearchFilter] {
         [SearchFilter(name: "Bold",
-                      iconName: "bold",
-                      selectAction: { [weak self] in self?.selectedTrait = .boldFontMask },
-                      deselectAction: { [weak self] in self?.selectedTrait = nil }),
-         SearchFilter(name: "Italic",
-                      iconName: "italic",
-                      selectAction: { [weak self] in self?.selectedTrait = .italicFontMask },
-                      deselectAction: { [weak self] in self?.selectedTrait = nil }),
-         SearchFilter(name: "Condensed",
-                      iconName: "arrow.right.and.line.vertical.and.arrow.left",
-                      selectAction: { [weak self] in self?.selectedTrait = .condensedFontMask },
-                      deselectAction: { [weak self] in self?.selectedTrait = nil }),
-         SearchFilter(name: "Expanded",
-                      iconName: "arrow.left.and.line.vertical.and.arrow.right",
-                      selectAction: { [weak self] in self?.selectedTrait = .expandedFontMask },
-                      deselectAction: { [weak self] in self?.selectedTrait = nil }),
-         SearchFilter(name: "Smallcaps",
-                      iconName: "textformat.size.smaller",
-                      selectAction: { [weak self] in self?.selectedTrait = .smallCapsFontMask },
-                      deselectAction: { [weak self] in self?.selectedTrait = nil })]
+                               iconName: "bold",
+                               selectAction: { [weak self] in self?.selectedTrait = .boldFontMask },
+                               deselectAction: { [weak self] in self?.selectedTrait = nil }),
+                  SearchFilter(name: "Italic",
+                               iconName: "italic",
+                               selectAction: { [weak self] in self?.selectedTrait = .italicFontMask },
+                               deselectAction: { [weak self] in self?.selectedTrait = nil }),
+                  SearchFilter(name: "Condensed",
+                               iconName: "arrow.right.and.line.vertical.and.arrow.left",
+                               selectAction: { [weak self] in self?.selectedTrait = .condensedFontMask },
+                               deselectAction: { [weak self] in self?.selectedTrait = nil }),
+                  SearchFilter(name: "Expanded",
+                               iconName: "arrow.left.and.line.vertical.and.arrow.right",
+                               selectAction: { [weak self] in self?.selectedTrait = .expandedFontMask },
+                               deselectAction: { [weak self] in self?.selectedTrait = nil }),
+                  SearchFilter(name: "Smallcaps",
+                               iconName: "textformat.size.smaller",
+                               selectAction: { [weak self] in self?.selectedTrait = .smallCapsFontMask },
+                               deselectAction: { [weak self] in self?.selectedTrait = nil })]
     }
     
     // MARK: - Search Methods
@@ -63,10 +70,11 @@ class FontSearchEngine: Engine {
     }
     
     private func getFontNameResults(forQuery query: String) -> [String] {
+        let lowerQuery = query.lowercased()
         let fontNames = selectedTrait==nil ? NSFontManager.shared.availableFonts : (NSFontManager.shared.availableFontNames(with: selectedTrait!) ?? [String]())
-        var containingFonts = fontNames.compactMap { $0.contains(query) ? $0 : nil }
+        var containingFonts = fontNames.compactMap { $0.lowercased().contains(lowerQuery) ? $0 : nil }
         containingFonts.sort {
-            return $0.ranges(of: query)[0].lowerBound > $1.ranges(of: query)[0].lowerBound
+            return $0.lowercased().ranges(of: lowerQuery)[0].lowerBound > $1.lowercased().ranges(of: lowerQuery)[0].lowerBound
         }
         return containingFonts
     }

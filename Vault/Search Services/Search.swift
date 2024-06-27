@@ -35,7 +35,7 @@ class Search {
         }
     }
     public var results = [any SearchResult]()
-    public var searchMode: SearchMode = .modes {
+    public var searchMode: SearchModeType = .modes {
         didSet {
             if searchMode != .modes {
                 queryString = ""
@@ -43,7 +43,6 @@ class Search {
             }
         }
     }
-    
     private var activeEngine: any Engine {
         switch searchMode {
         case .files:
@@ -60,9 +59,8 @@ class Search {
             return modeEngine
         }
     }
-    
-    public var activeEngineFilters: [SearchFilter] {
-        activeEngine.searchFilters
+    public var activeEngineMode: SearchMode {
+        activeEngine.searchMode
     }
     
     init() {

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum SearchMode: String {
+enum SearchModeType: String {
     case codeSnippets = "Code Snippets"
     case colors = "Colors"
     case files = "Files"
@@ -19,31 +19,6 @@ enum SearchMode: String {
     case math = "Math"
     case modes = "Hidden to user"
     case stackOverflow = "Stack Overflow"
-    
-    var icon: Image {
-        switch self {
-        case .codeSnippets:
-            return Image(systemName: "apple.terminal.fill")
-        case .colors:
-            return Image(systemName: "paintpalette.fill")
-        case .files:
-            return Image(systemName: "folder.fill")
-        case .fonts:
-            return Image(systemName: "textformat")
-        case .gitHub:
-            return Image(systemName: "cat.fill")
-        case .icons:
-            return Image(systemName: "star.fill")
-        case .images:
-            return Image(systemName: "photo.fill")
-        case .math:
-            return Image(systemName: "function")
-        case .stackOverflow:
-            return Image(systemName: "person.2.wave.2.fill")
-        default:
-            return Image(systemName: "app.fill")
-        }
-    }
 }
 
 class ModeSearchEngine: Engine {
@@ -55,8 +30,15 @@ class ModeSearchEngine: Engine {
             delegate?.engineDidFindResults(results: searchResults)
         }
     }
-    public var searchFilters = [SearchFilter]()
-    private let modes: [String : SearchMode] = [
+    public var searchMode: SearchMode {
+        SearchMode(name: "",
+                   systemIconName: "",
+                   filters: searchFilters,
+                   filterDefault: nil,
+                   areFiltersExclusive: false)
+    }
+    internal var searchFilters = [SearchFilter]()
+    private let modes: [String : SearchModeType] = [
         "Code Snippets": .codeSnippets,
         "Colors": .colors,
         "Files": .files,

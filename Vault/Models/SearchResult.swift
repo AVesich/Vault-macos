@@ -27,7 +27,7 @@ struct TextResult: SearchResult {
 
 struct ModeResult: SearchResult {
     let id = UUID()
-    let content: SearchMode
+    let content: SearchModeType
     var view: some View {
         SearchModeResultView(searchMode: content)
     }

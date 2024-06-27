@@ -10,22 +10,32 @@ import SwiftUI
 struct ResultFilterList: View {
     
     @Environment(Search.self) var searchModel
-    @State private var selectedIconIndex: Int?
+    @State private var selectedIconIndices = Set<Int>()
+    var activeEngineMode: SearchMode {
+        searchModel.activeEngineMode
+    }
     
     var body: some View {
-        if !searchModel.activeEngineFilters.isEmpty {
+        if !activeEngineMode.filters.isEmpty {
             Divider()
                 .padding(.horizontal, 16.0)
                 .padding(.bottom, 4.0)
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 8.0) {
-                    ForEach(Array(searchModel.activeEngineFilters.enumerated()), id: \.offset) { (i, filter) in
-                        ResultFilterView(selectedIconIndex: $selectedIconIndex,
+                    ForEach(Array(activeEngineMode.filters.enumerated()), id: \.offset) { (i, filter) in
+                        ResultFilterView(selectedIconIndices: $selectedIconIndices,
+                                         selectionDefault: activeEngineMode.filterDefault,
                                          selectionIndex: i,
+                                         allowsMultipleSelection: activeEngineMode.areFiltersExclusive,
                                          filter: filter)
                     }
                 }
                 .padding(.horizontal, 16.0)
+            }
+            .onAppear {
+                if let filterDefault = activeEngineMode.filterDefault {
+                    selectedIconIndices.insert(filterDefault)
+                }
             }
             .padding(.bottom, 4.0)
             .frame(height: 36.0)
@@ -36,11 +46,15 @@ struct ResultFilterList: View {
 struct ResultFilterView: View {
     
     @State private var isHovering: Bool = false
-    @Binding public var selectedIconIndex: Int?
+    @Binding public var selectedIconIndices: Set<Int>
+    public var selectionDefault: Int?
     public var selectionIndex: Int
+    public var allowsMultipleSelection: Bool
     public var filter: SearchFilter
+    private var selected: Bool {
+        selectedIconIndices.contains(selectionIndex)
+    }
     private var backgroundColor: Color {
-        let selected = selectedIconIndex == selectionIndex
         if selected || isHovering {
             return (selected && isHovering) ? .white.opacity(0.2) : .white.opacity(0.1)
         }
@@ -61,13 +75,33 @@ struct ResultFilterView: View {
             RoundedRectangle(cornerRadius: 4.0)
                 .fill(backgroundColor)
                 .animation(.easeOut(duration: 0.1), value: isHovering)
-                .animation(.easeOut(duration: 0.1), value: selectedIconIndex)
+                .animation(.easeOut(duration: 0.1), value: selectedIconIndices)
         }
         .onHover { hovering in
             isHovering = hovering
         }
+        .onChange(of: selected) { // Handle being defaulted back to/removed when no mult. selection
+            if selected { // We are now selected
+                filter.selectAction()
+            } else { // We were deselected
+                if let deselectAction = filter.deselectAction {
+                    deselectAction()
+                }
+            }
+        }
         .onTapGesture {
-            selectedIconIndex = selectedIconIndex == selectionIndex ? nil : selectionIndex
+            if selectedIconIndices.contains(selectionIndex) {
+                if let deselectAction = filter.deselectAction {
+                    deselectAction()
+                }
+                selectedIconIndices.remove(selectionIndex)
+                if selectedIconIndices.isEmpty, let selectionDefault {
+                    selectedIconIndices.insert(selectionDefault)
+                }
+            } else {
+                filter.selectAction()
+                selectedIconIndices.insert(selectionIndex)
+            }
         }
     }
 }

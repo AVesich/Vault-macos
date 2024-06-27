@@ -11,11 +11,11 @@ struct SearchModeResultView: View {
     
     @Environment(Search.self) var searchModel
     @State private var isHovering: Bool = false
-    var searchMode: SearchMode
+    var searchMode: SearchModeType
 
     var body: some View {
         HStack {
-            if let first = searchModel.results.first?.content as? SearchMode,
+            if let first = searchModel.results.first?.content as? SearchModeType,
                first == searchMode {
                 Image(systemName: "return")
                     .fontWeight(.bold)
