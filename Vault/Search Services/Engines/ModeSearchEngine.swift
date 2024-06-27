@@ -50,7 +50,11 @@ class ModeSearchEngine: Engine {
     
     // MARK: - Declaring properties
     public var delegate: EngineDelegate?
-    internal var searchResults = [SearchResult]()
+    internal var searchResults = [ModeResult]() {
+        didSet {
+            delegate?.engineDidFindResults(results: searchResults)
+        }
+    }
     public var searchFilters = [SearchFilter]()
     private let modes: [String : SearchMode] = [
         "Code Snippets": .codeSnippets,
@@ -69,23 +73,23 @@ class ModeSearchEngine: Engine {
         guard !query.isEmpty else {
             return
         }
-        var results = [SearchResult]()
+        var results = [ModeResult]()
         let pastSlashIndex = query.index(query.startIndex, offsetBy: 1)
         let queryWithoutSlash = query.lowercased()[pastSlashIndex...]
         
         for modeName in modes.keys {
             if modeName.lowercased().contains(queryWithoutSlash) {
-                results.append(SearchResult(searchMode: modes[modeName]!))
+                results.append(ModeResult(content: modes[modeName]!))
             }
         }
         
         // We just made the results with search modes and the result mode names MUST contain our query, so force unwrap everything here.
         results.sort {
-            $0.searchMode!.rawValue.lowercased().range(of: queryWithoutSlash)!.lowerBound
+            $0.content.rawValue.lowercased().range(of: queryWithoutSlash)!.lowerBound
             <
-            $1.searchMode!.rawValue.lowercased().range(of: queryWithoutSlash)!.lowerBound
+            $1.content.rawValue.lowercased().range(of: queryWithoutSlash)!.lowerBound
         }
         
-        delegate?.engineDidFindResults(results: results)
+        searchResults = results
     }
 }

@@ -34,6 +34,6 @@ struct SearchModeResultView: View {
 }
 
 #Preview {
-    SearchModeResultView(searchResult: SearchResult(searchMode: .gitHub))
+    SearchModeResultView(searchMode: .gitHub)
         .environment(Search())
 }

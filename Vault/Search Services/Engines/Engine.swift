@@ -8,12 +8,14 @@
 import Foundation
 
 protocol Engine {
+    associatedtype ResultType
+    
     var delegate: EngineDelegate? { get set }
-    var searchResults: [SearchResult] { get set }
+    var searchResults: [ResultType] { get set }
     var searchFilters: [SearchFilter] { get }
     func search(withQuery query: String, inActiveDirectory activeDirectory: String)
 }
 
 protocol EngineDelegate {
-    func engineDidFindResults(results: [SearchResult])
+    func engineDidFindResults(results: [any SearchResult])
 }

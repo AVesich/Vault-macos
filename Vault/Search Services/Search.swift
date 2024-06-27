@@ -34,7 +34,7 @@ class Search {
             self.queryString = newQuery
         }
     }
-    public var results = [SearchResult]()
+    public var results = [any SearchResult]()
     public var searchMode: SearchMode = .modes {
         didSet {
             if searchMode != .modes {
@@ -44,7 +44,7 @@ class Search {
         }
     }
     
-    private var activeEngine: Engine {
+    private var activeEngine: any Engine {
         switch searchMode {
         case .files:
             return fileSystemEngine
@@ -84,9 +84,8 @@ class Search {
     
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
         if searchMode == .modes {
-            if let result = results.first,
-               let mode = result.searchMode {
-                searchMode = mode
+            if let result = results.first as? ModeResult {
+                searchMode = result.content
             }
         } else {
             search(withActiveDirectory: activeDirectory)
@@ -104,7 +103,7 @@ class Search {
 }
 
 extension Search: EngineDelegate {
-    func engineDidFindResults(results: [SearchResult]) {
+    func engineDidFindResults(results: [any SearchResult]) {
         self.results = results
     }
 }

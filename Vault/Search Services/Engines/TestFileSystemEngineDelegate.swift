@@ -6,13 +6,15 @@
 //
 
 class TestFileSystemEngineDelegate: EngineDelegate {
-    private var completionFunction: (([SearchResult]) -> ())!
+    private var completionFunction: (([FileResult]) -> ())!
     
-    func setupCompletionFunction(_ completionFunction: @escaping ([SearchResult]) -> ()) {
+    func setupCompletionFunction(_ completionFunction: @escaping ([FileResult]) -> ()) {
         self.completionFunction = completionFunction
     }
     
-    func engineDidFindResults(results: [SearchResult]) {
-        completionFunction(results)
+    func engineDidFindResults(results: [any SearchResult]) {
+        if let results = results as? [FileResult] {
+            completionFunction(results)
+        }
     }
 }

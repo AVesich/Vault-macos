@@ -16,7 +16,11 @@ enum GitHubFilter {
 class GitHubSearchEngine: Engine {
     
     // MARK: - Properties
-    public var searchResults: [SearchResult] = [SearchResult]()
+    public var searchResults: [GitHubRepoResult] = [GitHubRepoResult]() {
+        didSet {
+            delegate?.engineDidFindResults(results: searchResults)
+        }
+    }
     internal var delegate: EngineDelegate?
     private let RESULTS_PER_PAGE = 15
     
@@ -42,7 +46,6 @@ class GitHubSearchEngine: Engine {
     public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
         Task {
             await searchRepositories(withQuery: query)
-            delegate?.engineDidFindResults(results: searchResults)
         }
     }
     
@@ -54,7 +57,7 @@ class GitHubSearchEngine: Engine {
             let decoder = APIDecoder<GitHubRepoSearchWrapper>()
             if let result = decoder.decodeValueFromData(data) {
                 searchResults = result.items.map {
-                    SearchResult(gitHubRepoResult: $0)
+                    GitHubRepoResult(content: $0)
                 }
             }
         }

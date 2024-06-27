@@ -12,7 +12,11 @@ class FileSystemSearchEngine: Engine {
 
     // MARK: - Properties
     public var delegate: EngineDelegate?
-    internal var searchResults = [SearchResult]()
+    internal var searchResults = [FileResult]() {
+        didSet {
+            delegate?.engineDidFindResults(results: searchResults)
+        }
+    }
     public var searchFilters = [SearchFilter]()
     private var query = NSMetadataQuery()
     private let MAX_RESULTS = 5
@@ -57,18 +61,18 @@ class FileSystemSearchEngine: Engine {
         print("finish")
         if let resultMetadata = query.results as? [NSMetadataItem] {
             let trimmedResults = getSearchResults(fromMetadata: resultMetadata)//.trimmed(toLength: MAX_RESULTS)
-            delegate?.engineDidFindResults(results: trimmedResults)
+            self.searchResults = trimmedResults
         }
         query.stop()
     }
     
-    private func getSearchResults(fromMetadata metadata: [NSMetadataItem]) -> [SearchResult] {
-        var results = [SearchResult]()
+    private func getSearchResults(fromMetadata metadata: [NSMetadataItem]) -> [FileResult] {
+        var results = [FileResult]()
         
         for data in metadata {
             if let pathString = data.value(forKey: NSMetadataItemPathKey) as? String,
                let fileURL = URL(string: FILE_PREFIX+pathString) {
-                results.append(SearchResult(filePath: fileURL))
+                results.append(FileResult(content: fileURL))
             }
         }
         

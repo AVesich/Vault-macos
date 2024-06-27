@@ -14,7 +14,11 @@ class FontSearchEngine: Engine {
     
     // MARK: - Declaring properties
     public var delegate: EngineDelegate?
-    internal var searchResults = [SearchResult]()
+    internal var searchResults = [FontResult]() {
+        didSet {
+            delegate?.engineDidFindResults(results: searchResults)
+        }
+    }
     private var userQuery = NSMetadataQuery()
     private var systemQuery = NSMetadataQuery()
     private let MAX_RESULTS = 15 // TODO: Keep or remove
@@ -48,14 +52,14 @@ class FontSearchEngine: Engine {
     public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
         let fontNames = getFontNameResults(forQuery: query)
         
-        let results: [SearchResult] = fontNames.compactMap {
+        let results: [FontResult] = fontNames.compactMap {
             guard let font = NSFont(name: $0, size: 24.0) else {
                 return nil
             }
-            return SearchResult(font: font)
+            return FontResult(content: font)
         }
         
-        delegate?.engineDidFindResults(results: results)
+        searchResults = results
     }
     
     private func getFontNameResults(forQuery query: String) -> [String] {
