@@ -25,14 +25,7 @@ class FontSearchEngine: Engine {
         
     // MARK: - Mode & Filters
     private var selectedTrait: NSFontTraitMask?
-    public var searchMode: SearchMode {
-        SearchMode(name: "Fonts",
-                   systemIconName: "textformat",
-                   filters: searchFilters,
-                   filterDefault: nil,
-                   areFiltersExclusive: false)
-    }
-    internal var searchFilters: [SearchFilter] {
+    public var searchFilters: [SearchFilter] {
         [SearchFilter(name: "Bold",
                                iconName: "bold",
                                selectAction: { [weak self] in self?.selectedTrait = .boldFontMask },

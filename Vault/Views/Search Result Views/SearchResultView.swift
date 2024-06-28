@@ -29,5 +29,7 @@ struct SearchResultView: View {
 }
 
 #Preview {
-    SearchResultView(searchResult: ModeResult(content: .gitHub))
+    SearchResultView(searchResult: ModeResult(content: SearchMode(name: "GitHub",
+                                                                  systemIconName: "cat.fill",
+                                                                  engine: GitHubSearchEngine())))
 }

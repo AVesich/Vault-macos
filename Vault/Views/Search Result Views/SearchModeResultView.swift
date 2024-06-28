@@ -11,7 +11,7 @@ struct SearchModeResultView: View {
     
     @Environment(Search.self) var searchModel
     @State private var isHovering: Bool = false
-    var searchMode: SearchModeType
+    var searchMode: SearchMode
 
     var body: some View {
         HStack {

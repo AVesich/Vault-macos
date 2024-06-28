@@ -12,7 +12,6 @@ protocol Engine {
     
     var delegate: EngineDelegate? { get set }
     var searchResults: [ResultType] { get set }
-    var searchMode: SearchMode { get }
     var searchFilters: [SearchFilter] { get }
     func search(withQuery query: String, inActiveDirectory activeDirectory: String)
 }

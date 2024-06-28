@@ -7,21 +7,46 @@
 
 import SwiftUI
 
+enum SearchModeEnum {
+    static var files = SearchMode(name: "Files",
+                                  systemIconName: "document.fill",
+                                  engine: FileSystemSearchEngine())
+    static var images = SearchMode(name: "Images",
+                                   systemIconName: "photo.fill",
+                                   engine: UnsplashSearchEngine())
+    static var fonts = SearchMode(name: "Fonts",
+                                  systemIconName: "textformat",
+                                  engine: FontSearchEngine(),
+                                  allowMultipleFilterSelections: true)
+    static var github = SearchMode(name: "GitHub",
+                                   systemIconName: "cat.fill",
+                                   engine: GitHubSearchEngine())
+}
+
 @Observable
 class Search {
     
-    private let fileSystemEngine = FileSystemSearchEngine()
-    private let unsplashEngine = UnsplashSearchEngine()
-    private let fontEngine = FontSearchEngine()
-    private let githubEngine = GitHubSearchEngine()
-    private let modeEngine = ModeSearchEngine()
-//    private let generativeAI = GenerativeAI()
+    // MARK: - Search Modes
+    private var activeMode: SearchMode? = nil {
+        didSet {
+            queryString = ""
+            results.removeAll()
+        }
+    }
+    private var modeList: [String : SearchMode] { // All modes instantiated below in an extension
+        ["Files": SearchModeEnum.files,
+         "Fonts": SearchModeEnum.fonts,
+         "GitHub": SearchModeEnum.github,
+         "Images": SearchModeEnum.images]
+    }
+    
+    // MARK: - Query Properties
     private var queryString: String = "" {
         didSet {
             if let first = queryString.first,
                first == "/" {
-                if searchMode != .modes {
-                    searchMode = .modes
+                if SearchMode !== SearchModeEnum.modes {
+                    activeMode = SearchModeEnum.modes
                 }
                 search(withActiveDirectory: "") // No directory needed in mode search
             }
@@ -34,70 +59,62 @@ class Search {
             self.queryString = newQuery
         }
     }
+        
+    // MARK: - Properties
     public var results = [any SearchResult]()
-    public var searchMode: SearchModeType = .modes {
-        didSet {
-            if searchMode != .modes {
-                queryString = ""
-                results.removeAll()
-            }
-        }
-    }
-    private var activeEngine: any Engine {
-        switch searchMode {
-        case .files:
-            return fileSystemEngine
-        case .images:
-            return unsplashEngine
-        case .fonts:
-            return fontEngine
-        case .gitHub:
-            return githubEngine
-        case .modes:
-            return modeEngine
-        default:
-            return modeEngine
-        }
-    }
-    public var activeEngineMode: SearchMode {
-        activeEngine.searchMode
-    }
-    
+
     init() {
         setupDelegates()
     }
     
     // MARK: - Methods
     private func setupDelegates() {
-        fileSystemEngine.delegate = self
-        unsplashEngine.delegate = self
-        fontEngine.delegate = self
-        githubEngine.delegate = self
-        modeEngine.delegate = self
+        SearchModeEnum.files.engine.delegate = self
+        SearchModeEnum.images.engine.delegate = self
+        SearchModeEnum.fonts.engine.delegate = self
+        SearchModeEnum.github.engine.delegate = self
     }
     
-    private func search(withActiveDirectory activeDirectory: String) {
-        activeEngine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+    // Nothing crazy for the search algorithm here. Mode count should never end up exceeding 20-30, so there should be no performance issues doing a simple search
+    public func searchModes(withQuery query: String) {
+        guard !query.isEmpty else {
+            return
+        }
+        var results = [ModeResult]()
+        let pastSlashIndex = query.index(query.startIndex, offsetBy: 1)
+        let queryWithoutSlash = query.lowercased()[pastSlashIndex...]
+        
+        for modeName in modeList.keys {
+            if modeName.lowercased().contains(queryWithoutSlash) {
+                results.append(ModeResult(content: modeList[modeName]!))
+            }
+        }
+        
+        // We just made the results with search modes and the result mode names MUST contain our query, so force unwrap everything here.
+        results.sort {
+            $0.content.name.lowercased().range(of: queryWithoutSlash)!.lowerBound
+            <
+            $1.content.name.lowercased().range(of: queryWithoutSlash)!.lowerBound
+        }
+        
+        // Rare case this is called in a non-search method. DO NOT DO THIS ANYWHERE ELSE.
+        // Calling convention for all other cases is to call this after running a private search method inside of the main public search method of an engine.
+        engineDidFindResults(results: results)
     }
     
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
-        if searchMode == .modes {
-            if let result = results.first as? ModeResult {
-                searchMode = result.content
-            }
-        } else {
+        if let activeMode {
             search(withActiveDirectory: activeDirectory)
+        } else {
+            if let result = results.first as? ModeResult {
+                activeMode = result.content
+            }
         }
     }
-        
-//    private func aiSearch(withQuery query: String) async -> [SearchResult] {
-//        let aiResponse = await generativeAI.getResponse(to: query)
-//        if !aiResponse.isEmpty {
-//            let aiResponseData = SearchResult(text: aiResponse)
-//            return [aiResponseData]
-//        }
-//        return [SearchResult]()
-//    }
+
+    private func search(withActiveDirectory activeDirectory: String) {
+        activeMode?.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+    }
 }
 
 extension Search: EngineDelegate {
@@ -106,3 +123,7 @@ extension Search: EngineDelegate {
     }
 }
 
+// MARK: - SearchModes
+extension Search {
+    
+}
