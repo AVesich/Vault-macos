@@ -81,8 +81,8 @@ struct VaultApp: App {
                             activateAIChangeGradient()
                         }
                     }
-                    .onChange(of: searchModel.searchMode) {
-                        if searchModel.searchMode != .modes {
+                    .onChange(of: searchModel.activeMode) {
+                        if searchModel.activeMode != nil {
                             activateModeChangeGradient()
                         }
                     }

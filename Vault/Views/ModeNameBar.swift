@@ -12,11 +12,11 @@ struct ModeNameBar: View {
     @Environment(Search.self) var searchModel
     
     var body: some View {
-        if searchModel.searchMode != .modes {
+        if let searchMode = searchModel.activeMode {
             HStack(spacing: 8.0) {
-                searchModel.searchMode.icon
+                Image(systemName: searchMode.systemIconName)
                     .imageScale(.medium)
-                Text(searchModel.searchMode.rawValue)
+                Text(searchMode.name)
                     .font(.manrope(12.0, weight: .semibold))
                 Spacer()
             }

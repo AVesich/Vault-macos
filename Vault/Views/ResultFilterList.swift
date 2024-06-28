@@ -11,29 +11,27 @@ struct ResultFilterList: View {
     
     @Environment(Search.self) var searchModel
     @State private var selectedIconIndices = Set<Int>()
-    var activeEngineMode: SearchMode {
-        searchModel.activeEngineMode
-    }
     
     var body: some View {
-        if !activeEngineMode.filters.isEmpty {
+        if let searchMode = searchModel.activeMode,
+           !searchMode.filters.isEmpty {
             Divider()
                 .padding(.horizontal, 16.0)
                 .padding(.bottom, 4.0)
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 8.0) {
-                    ForEach(Array(activeEngineMode.filters.enumerated()), id: \.offset) { (i, filter) in
+                    ForEach(Array(searchMode.filters.enumerated()), id: \.offset) { (i, filter) in
                         ResultFilterView(selectedIconIndices: $selectedIconIndices,
-                                         selectionDefault: activeEngineMode.filterDefault,
+                                         selectionDefault: searchMode.defaultFilterIndex,
                                          selectionIndex: i,
-                                         allowsMultipleSelection: activeEngineMode.areFiltersExclusive,
+                                         allowsMultipleSelection: searchMode.allowMultipleFilterSelections,
                                          filter: filter)
                     }
                 }
                 .padding(.horizontal, 16.0)
             }
             .onAppear {
-                if let filterDefault = activeEngineMode.filterDefault {
+                if let filterDefault = searchMode.defaultFilterIndex {
                     selectedIconIndices.insert(filterDefault)
                 }
             }

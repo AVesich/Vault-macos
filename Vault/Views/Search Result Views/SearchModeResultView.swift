@@ -15,25 +15,27 @@ struct SearchModeResultView: View {
 
     var body: some View {
         HStack {
-            if let first = searchModel.results.first?.content as? SearchModeType,
-               first == searchMode {
+            if let first = searchModel.results.first?.content as? SearchMode,
+               first === searchMode {
                 Image(systemName: "return")
                     .fontWeight(.bold)
                     .imageScale(.small)
                     .offset(y: 1.0)
             }
-            Text(searchMode.rawValue)
+            Text(searchMode.name)
                 .font(.manrope(16.0))
             Spacer()
         }
         .frame(height: 28.0)
         .onTapGesture {
-            searchModel.searchMode = searchMode
+            searchModel.activeMode = searchMode
         }
     }
 }
 
 #Preview {
-    SearchModeResultView(searchMode: .gitHub)
+    SearchModeResultView(searchMode: SearchMode(name: "GitHub",
+                                                systemIconName: "cat.fill",
+                                                engine: GitHubSearchEngine()))
         .environment(Search())
 }

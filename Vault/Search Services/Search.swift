@@ -27,10 +27,12 @@ enum SearchModeEnum {
 class Search {
     
     // MARK: - Search Modes
-    private var activeMode: SearchMode? = nil {
+    public var activeMode: SearchMode? = nil {
         didSet {
-            queryString = ""
-            results.removeAll()
+            if activeMode != nil {
+                queryString = ""
+                results.removeAll()
+            }
         }
     }
     private var modeList: [String : SearchMode] { // All modes instantiated below in an extension
@@ -45,10 +47,8 @@ class Search {
         didSet {
             if let first = queryString.first,
                first == "/" {
-                if SearchMode !== SearchModeEnum.modes {
-                    activeMode = SearchModeEnum.modes
-                }
-                search(withActiveDirectory: "") // No directory needed in mode search
+                activeMode = nil
+                searchModes() // No directory needed in mode search
             }
         }
     }
@@ -76,13 +76,14 @@ class Search {
     }
     
     // Nothing crazy for the search algorithm here. Mode count should never end up exceeding 20-30, so there should be no performance issues doing a simple search
-    public func searchModes(withQuery query: String) {
-        guard !query.isEmpty else {
+    public func searchModes() {
+        guard !queryString.isEmpty else {
             return
         }
         var results = [ModeResult]()
-        let pastSlashIndex = query.index(query.startIndex, offsetBy: 1)
-        let queryWithoutSlash = query.lowercased()[pastSlashIndex...]
+        let lowerQuery = queryString.lowercased()
+        let pastSlashIndex = lowerQuery.index(lowerQuery.startIndex, offsetBy: 1)
+        let queryWithoutSlash = lowerQuery.lowercased()[pastSlashIndex...]
         
         for modeName in modeList.keys {
             if modeName.lowercased().contains(queryWithoutSlash) {
@@ -121,9 +122,4 @@ extension Search: EngineDelegate {
     func engineDidFindResults(results: [any SearchResult]) {
         self.results = results
     }
-}
-
-// MARK: - SearchModes
-extension Search {
-    
 }

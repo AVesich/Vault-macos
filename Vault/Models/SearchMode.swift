@@ -27,3 +27,9 @@ class SearchMode {
         self.allowMultipleFilterSelections = allowMultipleFilterSelections
     }
 }
+
+extension SearchMode: Equatable {
+    static func == (_ lhs: SearchMode, _ rhs: SearchMode) -> Bool {
+        return lhs.name == rhs.name
+    }
+}
