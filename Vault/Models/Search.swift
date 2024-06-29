@@ -10,13 +10,15 @@ import Foundation
 
 @Model
 final class Search {
-    let text: String
+    @Attribute(.unique) let text: String
+    let selectingModeID: Int?
     let date: Date
-    let typeRawValue: Int
+    let filterModeID: Int
     
-    init(text: String, date: Date, typeValue: Int) {
+    init(text: String, selectingModeID: Int? = nil, date: Date = .now, filterModeID: Int) {
         self.text = text
+        self.selectingModeID = selectingModeID
         self.date = date
-        self.typeRawValue = typeValue
+        self.filterModeID = filterModeID
     }
 }

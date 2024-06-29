@@ -23,6 +23,22 @@ enum SearchModeEnum {
                                    systemIconName: "cat.fill",
                                    engine: GitHubSearchEngine(),
                                    defaultFilterIndex: 0)
+    
+    static func modeForTypeID(_ typeID: Int) -> SearchMode {
+        switch typeID {
+        // 0 is Mode, but we never need to set that mode manually
+        case 1:
+            return files
+        case 2:
+            return images
+        case 3:
+            return fonts
+        case 4:
+            return github
+        default:
+            return files
+        }
+    }
 }
 
 @Observable
@@ -92,8 +108,8 @@ class GlobalSearch {
         let activeModeType: SearchModeType = (activeMode==nil) ? .mode : activeMode!.modeType
         
         let fetchDiscriptor = FetchDescriptor<Search>(
-            predicate: #Predicate { $0.typeRawValue == activeModeType.rawValue },
-            sortBy: [SortDescriptor(\.date)]
+            predicate: #Predicate { $0.filterModeID == activeModeType.id },
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
         )
         
         do {
@@ -134,25 +150,40 @@ class GlobalSearch {
     }
     
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
-        guard !queryString.isEmpty else {
+        if queryString.isEmpty || queryString=="/" { // Autocomplete
+            autocompleteSearch()
+        } else {
+            makeSearchWithHistory()
+        }
+    }
+    
+    private func autocompleteSearch() {
+        guard let recentSearch = publishedResults.first,
+              let historyElement = recentSearch.content as? Search else {
             return
         }
         
-        if let activeMode {
-            modelContext.insert(Search(text: queryString,
-                                       date: .now,
-                                       typeValue: activeMode.modeType.rawValue))
-            try? modelContext.save()
-            search(withActiveDirectory: activeDirectory)
+        if let modeID = historyElement.selectingModeID {
+            activeMode = SearchModeEnum.modeForTypeID(modeID)
         } else {
-            if let result = foundResults.first as? ModeResult {
-                modelContext.insert(Search(text: result.content.name,
-                                           date: .now,
-                                           typeValue: SearchModeType.mode.rawValue))
-                try? modelContext.save()
-                activeMode = result.content
-            }
+            queryString = historyElement.text
+            search(withActiveDirectory: "")
         }
+    }
+        
+    private func makeSearchWithHistory() {
+        if let result = foundResults.first as? ModeResult {
+            print(result.content.modeType.id)
+            modelContext.insert(Search(text: "/"+result.content.name,
+                                       selectingModeID: result.content.modeType.id,
+                                       filterModeID: SearchModeType.mode.id))
+            activeMode = result.content
+        } else if let activeMode {
+            modelContext.insert(Search(text: queryString,
+                                       filterModeID: activeMode.modeType.id))
+            search(withActiveDirectory: "")
+        }
+        try? modelContext.save()
     }
 
     private func search(withActiveDirectory activeDirectory: String) {
