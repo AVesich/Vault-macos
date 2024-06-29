@@ -21,12 +21,15 @@ struct ResultsList: View {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
                     ForEach(Array(searchModel.publishedResults.enumerated()), id: \.offset) { (index, searchResult) in
-                        HStack {
+                        HStack(spacing: 8.0) {
                             SearchResultView(searchResult: searchResult)
-                                .padding(.bottom, (index == searchModel.publishedResults.count-1) ? 8.0 : 0.0)
+                        }
+                        .onTapGesture {
+                            searchModel.autocompleteSearch(fromIndex: index)
                         }
                     }
                 }
+                .padding(.bottom, 8.0)
                 .getSize {scrollViewSize = $0}
             }
             .frame(height: scrollViewSize.height<=512.0 ? scrollViewSize.height : 512.0)

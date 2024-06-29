@@ -151,15 +151,15 @@ class GlobalSearch {
     
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
         if queryString.isEmpty || queryString=="/" { // Autocomplete
-            autocompleteSearch()
+            autocompleteSearch(fromIndex: 0)
         } else {
             makeSearchWithHistory()
         }
     }
     
-    private func autocompleteSearch() {
-        guard let recentSearch = publishedResults.first,
-              let historyElement = recentSearch.content as? Search else {
+    public func autocompleteSearch(fromIndex index: Int) {
+        guard index < publishedResults.count,
+              let historyElement = publishedResults[index].content as? Search else {
             return
         }
         
