@@ -6,26 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum SearchModeEnum {
-    static var files = SearchMode(name: "Files",
+    static var files = SearchMode(modeType: .file,
                                   systemIconName: "document.fill",
                                   engine: FileSystemSearchEngine())
-    static var images = SearchMode(name: "Images",
+    static var images = SearchMode(modeType: .images,
                                    systemIconName: "photo.fill",
                                    engine: UnsplashSearchEngine())
-    static var fonts = SearchMode(name: "Fonts",
+    static var fonts = SearchMode(modeType: .font,
                                   systemIconName: "textformat",
                                   engine: FontSearchEngine(),
                                   allowMultipleFilterSelections: true)
-    static var github = SearchMode(name: "GitHub",
+    static var github = SearchMode(modeType: .github,
                                    systemIconName: "cat.fill",
-                                   engine: GitHubSearchEngine())
+                                   engine: GitHubSearchEngine(),
+                                   defaultFilterIndex: 0)
 }
 
 @Observable
-class Search {
-    
+class GlobalSearch {
     // MARK: - Search Modes
     public var activeMode: SearchMode? = nil {
         didSet {
@@ -59,11 +60,24 @@ class Search {
             self.queryString = newQuery
         }
     }
-        
-    // MARK: - Properties
+    
+    // MARK: - Result Properties
     public var results = [any SearchResult]()
+    public var lastResults: [Search] {
+        let activeModeType = (activeMode==nil) ? .mode : activeMode?.modeType
+        let fetchDiscriptor = FetchDescriptor<Search>(
+            predicate: #Predicate { $0.type == activeModeType },
+            sortBy: [SortDescriptor(\.date)]
+        )
+        return (try? modelContext.fetch(fetchDiscriptor)) ?? [Search]()
+    }
+        
+    // MARK: - Dependencies
+    public var modelContext: ModelContext!
 
-    init() {
+    // MARK: - Initialization
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
         setupDelegates()
     }
     
@@ -118,7 +132,7 @@ class Search {
     }
 }
 
-extension Search: EngineDelegate {
+extension GlobalSearch: EngineDelegate {
     func engineDidFindResults(results: [any SearchResult]) {
         self.results = results
     }

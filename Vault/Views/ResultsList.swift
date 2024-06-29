@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultsList: View {
     
-    @Environment(Search.self) var searchModel
+    @Environment(GlobalSearch.self) var searchModel
     @State private var scrollViewSize: CGSize = .zero
     
     var body: some View {
@@ -35,5 +35,5 @@ struct ResultsList: View {
 
 #Preview {
     ResultsList()
-        .environment(Search())
+        .environment(GlobalSearch())
 }

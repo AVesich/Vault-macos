@@ -13,7 +13,7 @@ struct SearchBar: View {
     private let TEMP_PROFILE_INDEX_OFFSET = 1
 
     // MARK: - Properties
-    @Environment(Search.self) var searchModel
+    @Environment(GlobalSearch.self) var searchModel
     @Binding var usingAI: Bool
     var directoryProfiles: [DirectoryProfile]
     @Binding var temporaryProfile: DirectoryProfile
@@ -62,5 +62,5 @@ struct SearchBar: View {
               directoryProfiles: [],
               temporaryProfile: .constant(.temporaryProfile),
               selectedProfileIndex: .constant(0))
-        .environment(Search())
+        .environment(GlobalSearch())
 }

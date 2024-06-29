@@ -10,7 +10,7 @@ import SwiftData
 
 struct MainSearch: View {
     
-    @Environment(Search.self) var searchModel
+    @Environment(GlobalSearch.self) var searchModel
     @Environment(\.modelContext) private var modelContext
     @Binding var usingAI: Bool
     @Query private var directoryProfiles: [DirectoryProfile]
@@ -46,6 +46,6 @@ struct MainSearch: View {
 
 #Preview {
     MainSearch(usingAI: .constant(false))
-        .environment(Search())
+        .environment(GlobalSearch())
         .modelContainer(for: DirectoryProfile.self, inMemory: true)
 }

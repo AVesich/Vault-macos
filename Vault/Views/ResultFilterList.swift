@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ResultFilterList: View {
     
-    @Environment(Search.self) var searchModel
+    @Environment(GlobalSearch.self) var searchModel
     @State private var selectedIconIndices = Set<Int>()
     
     var body: some View {
@@ -31,6 +31,7 @@ struct ResultFilterList: View {
                 .padding(.horizontal, 16.0)
             }
             .onAppear {
+                selectedIconIndices.removeAll()
                 if let filterDefault = searchMode.defaultFilterIndex {
                     selectedIconIndices.insert(filterDefault)
                 }
@@ -98,6 +99,9 @@ struct ResultFilterView: View {
                 }
             } else {
                 filter.selectAction()
+                if !allowsMultipleSelection {
+                    selectedIconIndices.removeAll()
+                }
                 selectedIconIndices.insert(selectionIndex)
             }
         }
@@ -106,5 +110,5 @@ struct ResultFilterView: View {
 
 #Preview {
     ResultFilterList()
-        .environment(Search())
+        .environment(GlobalSearch())
 }

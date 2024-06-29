@@ -42,7 +42,7 @@ class HotkeyLoop {
 }
 
 func checkButtonDownEventForOptS(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
-    print("key pressed")
+//    print("key pressed")
     let sPressed = event.getIntegerValueField(.keyboardEventKeycode) == 1
     let optionPressed = event.flags.contains(.maskAlternate)
     if type == .keyDown, sPressed, optionPressed {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchModeResultView: View {
     
-    @Environment(Search.self) var searchModel
+    @Environment(GlobalSearch.self) var searchModel
     @State private var isHovering: Bool = false
     var searchMode: SearchMode
 
@@ -37,5 +37,5 @@ struct SearchModeResultView: View {
     SearchModeResultView(searchMode: SearchMode(name: "GitHub",
                                                 systemIconName: "cat.fill",
                                                 engine: GitHubSearchEngine()))
-        .environment(Search())
+        .environment(GlobalSearch())
 }

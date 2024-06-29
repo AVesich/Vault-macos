@@ -5,22 +5,48 @@
 //  Created by Austin Vesich on 6/26/24.
 //
 
+enum SearchModeType {
+    case mode
+    case file
+    case images
+    case font
+    case github
+    
+    var name: String {
+        switch self {
+        case .mode:
+            return "Modes"
+        case .file:
+            return "Files"
+        case .images:
+            return "Images"
+        case .font:
+            return "Fonts"
+        case .github:
+            return "GitHub"
+        }
+    }
+}
+
 class SearchMode {
-    let name: String!
-    let systemIconName: String!
-    var engine: (any Engine)!
-    var filters: [SearchFilter] {
+    public let modeType: SearchModeType!
+    public var name: String {
+        return modeType.name
+    }
+    public let systemIconName: String!
+    public var engine: (any Engine)!
+    public var filters: [SearchFilter] {
         return engine.searchFilters
     }
-    let defaultFilterIndex: Int?
-    let allowMultipleFilterSelections: Bool!
+    public let defaultFilterIndex: Int?
+    public let allowMultipleFilterSelections: Bool!
     
-    init (name: String,
+    init (modeType: SearchModeType,
           systemIconName: String,
           engine: any Engine,
           defaultFilterIndex: Int? = nil,
           allowMultipleFilterSelections: Bool = false) {
-        self.name = name
+        self.modeType = modeType
         self.systemIconName = systemIconName
         self.engine = engine
         self.defaultFilterIndex = defaultFilterIndex

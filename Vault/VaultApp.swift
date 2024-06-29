@@ -57,7 +57,7 @@ struct VaultApp: App {
     
     @State private var usingAI: Bool = false
     @State private var showAIGradient: Bool = false
-    @State private var searchModel: Search = Search()
+    @State private var searchModel: GlobalSearch = GlobalSearch()
     @State private var showModeGradient: Bool = false
     
     var body: some Scene {
@@ -75,7 +75,7 @@ struct VaultApp: App {
                             .stroke(usingAI ? .purple : .clear, lineWidth: 6.0)
                             .clipShape(RoundedRectangle(cornerRadius: 16.0))
                     }
-//                    .animation(.spring(response: 0.3, dampingFraction: 0.5, blendDuration: 0.65))
+                    .animation(.spring(response: 0.35, dampingFraction: 0.75, blendDuration: 0.3))
                     .onChange(of: usingAI) {
                         if usingAI {
                             activateAIChangeGradient()
@@ -92,6 +92,12 @@ struct VaultApp: App {
                     .animation(showModeGradient ? .easeOut(duration: 0.65) : .none, value: showModeGradient)
             }
             .environment(searchModel)
+            .background { // Rectangle at the back of the stack is just meant to give something resizable to allow fullscreening, this actually is the background that allows defocus
+                Color.black.opacity(0.0001).ignoresSafeArea()
+                    .onTapGesture {
+                        NSApp.hide(nil)
+                    }
+            }
         }
         .windowResizability(.contentSize)
         .windowStyle(.hiddenTitleBar)

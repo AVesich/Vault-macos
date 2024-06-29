@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ModeNameBar: View {
     
-    @Environment(Search.self) var searchModel
+    @Environment(GlobalSearch.self) var searchModel
     
     var body: some View {
         if let searchMode = searchModel.activeMode {
@@ -29,5 +29,5 @@ struct ModeNameBar: View {
 
 #Preview {
     ModeNameBar()
-        .environment(Search())
+        .environment(GlobalSearch())
 }
