@@ -9,14 +9,14 @@ import SwiftData
 import Foundation
 
 @Model
-struct Search {
+final class Search {
     let text: String
     let date: Date
-    let type: SearchModeType
+    let typeRawValue: Int
     
-    init(text: String, date: Date, type: SearchModeType) {
+    init(text: String, date: Date, typeValue: Int) {
         self.text = text
         self.date = date
-        self.type = type
+        self.typeRawValue = typeValue
     }
 }

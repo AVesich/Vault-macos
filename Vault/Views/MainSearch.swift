@@ -45,7 +45,9 @@ struct MainSearch: View {
 }
 
 #Preview {
+    let dummyContainer = try! ModelContainer(for: Search.self)
+
     MainSearch(usingAI: .constant(false))
-        .environment(GlobalSearch())
+        .environment(GlobalSearch(modelContext: dummyContainer.mainContext))
         .modelContainer(for: DirectoryProfile.self, inMemory: true)
 }

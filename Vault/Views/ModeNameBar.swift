@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ModeNameBar: View {
     
@@ -28,6 +29,8 @@ struct ModeNameBar: View {
 }
 
 #Preview {
+    let dummyContainer = try! ModelContainer(for: Search.self)
+
     ModeNameBar()
-        .environment(GlobalSearch())
+        .environment(GlobalSearch(modelContext: dummyContainer.mainContext))
 }

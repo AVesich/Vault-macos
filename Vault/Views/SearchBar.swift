@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SearchBar: View {
     
@@ -58,9 +59,11 @@ struct SearchBar: View {
 }
 
 #Preview {
+    let dummyContainer = try! ModelContainer(for: Search.self)
+
     SearchBar(usingAI: .constant(false),
               directoryProfiles: [],
               temporaryProfile: .constant(.temporaryProfile),
               selectedProfileIndex: .constant(0))
-        .environment(GlobalSearch())
+    .environment(GlobalSearch(modelContext: dummyContainer.mainContext))
 }

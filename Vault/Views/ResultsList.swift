@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ResultsList: View {
     
@@ -13,16 +14,16 @@ struct ResultsList: View {
     @State private var scrollViewSize: CGSize = .zero
     
     var body: some View {
-        if !searchModel.results.isEmpty {
+        if !searchModel.publishedResults.isEmpty {
             Divider()
                 .padding(.horizontal, 16.0)
                 .padding(.bottom, 8.0)
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
-                    ForEach(Array(searchModel.results.enumerated()), id: \.offset) { (index, searchResult) in
+                    ForEach(Array(searchModel.publishedResults.enumerated()), id: \.offset) { (index, searchResult) in
                         HStack {
                             SearchResultView(searchResult: searchResult)
-                                .padding(.bottom, (index == searchModel.results.count-1) ? 8.0 : 0.0)
+                                .padding(.bottom, (index == searchModel.publishedResults.count-1) ? 8.0 : 0.0)
                         }
                     }
                 }
@@ -34,6 +35,8 @@ struct ResultsList: View {
 }
 
 #Preview {
+    let dummyContainer = try! ModelContainer(for: Search.self)
+
     ResultsList()
-        .environment(GlobalSearch())
+        .environment(GlobalSearch(modelContext: dummyContainer.mainContext))
 }

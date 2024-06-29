@@ -42,23 +42,20 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 struct VaultApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            DirectoryProfile.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
-    
     @State private var usingAI: Bool = false
     @State private var showAIGradient: Bool = false
-    @State private var searchModel: GlobalSearch = GlobalSearch()
+    @State private var searchModel: GlobalSearch
     @State private var showModeGradient: Bool = false
+    let modelContainer: ModelContainer
+    
+    init () {
+        do {
+            modelContainer = try ModelContainer(for: Search.self)
+            searchModel = GlobalSearch(modelContext: modelContainer.mainContext)
+        } catch {
+            fatalError("Failed to create model container.")
+        }
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -102,7 +99,7 @@ struct VaultApp: App {
         .windowResizability(.contentSize)
         .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
-        .modelContainer(sharedModelContainer)
+        .modelContainer(modelContainer)
     }
     
     private func activateAIChangeGradient() {

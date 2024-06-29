@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ResultFilterList: View {
     
@@ -109,6 +110,8 @@ struct ResultFilterView: View {
 }
 
 #Preview {
+    let dummyContainer = try! ModelContainer(for: Search.self)
+
     ResultFilterList()
-        .environment(GlobalSearch())
+        .environment(GlobalSearch(modelContext: dummyContainer.mainContext))
 }

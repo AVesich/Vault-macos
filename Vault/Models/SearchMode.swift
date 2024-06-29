@@ -5,12 +5,16 @@
 //  Created by Austin Vesich on 6/26/24.
 //
 
-enum SearchModeType {
+enum SearchModeType: Int, Codable, Identifiable {
     case mode
     case file
     case images
     case font
     case github
+    
+    var id: Int {
+        return rawValue
+    }
     
     var name: String {
         switch self {

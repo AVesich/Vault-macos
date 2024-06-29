@@ -32,7 +32,7 @@ class GlobalSearch {
         didSet {
             if activeMode != nil {
                 queryString = ""
-                results.removeAll()
+                foundResults.removeAll()
             }
         }
     }
@@ -62,15 +62,14 @@ class GlobalSearch {
     }
     
     // MARK: - Result Properties
-    public var results = [any SearchResult]()
-    public var lastResults: [Search] {
-        let activeModeType = (activeMode==nil) ? .mode : activeMode?.modeType
-        let fetchDiscriptor = FetchDescriptor<Search>(
-            predicate: #Predicate { $0.type == activeModeType },
-            sortBy: [SortDescriptor(\.date)]
-        )
-        return (try? modelContext.fetch(fetchDiscriptor)) ?? [Search]()
+    public var publishedResults: [any SearchResult] {
+        if queryString.isEmpty || queryString=="/" {
+            print(getHistory())
+            return getHistory()
+        }
+        return foundResults
     }
+    private var foundResults = [any SearchResult]()
         
     // MARK: - Dependencies
     public var modelContext: ModelContext!
@@ -89,24 +88,41 @@ class GlobalSearch {
         SearchModeEnum.github.engine.delegate = self
     }
     
+    private func getHistory() -> [HistoryResult] {
+        let activeModeType: SearchModeType = (activeMode==nil) ? .mode : activeMode!.modeType
+        
+        let fetchDiscriptor = FetchDescriptor<Search>(
+            predicate: #Predicate { $0.typeRawValue == activeModeType.rawValue },
+            sortBy: [SortDescriptor(\.date)]
+        )
+        
+        do {
+            let searchHistory = try modelContext.fetch(fetchDiscriptor)
+            return searchHistory.map { HistoryResult(content: $0) }
+        } catch {
+            print(error)
+        }
+        return [HistoryResult]()
+    }
+    
     // Nothing crazy for the search algorithm here. Mode count should never end up exceeding 20-30, so there should be no performance issues doing a simple search
     public func searchModes() {
         guard !queryString.isEmpty else {
             return
         }
-        var results = [ModeResult]()
+        var foundResults = [ModeResult]()
         let lowerQuery = queryString.lowercased()
         let pastSlashIndex = lowerQuery.index(lowerQuery.startIndex, offsetBy: 1)
         let queryWithoutSlash = lowerQuery.lowercased()[pastSlashIndex...]
         
         for modeName in modeList.keys {
             if modeName.lowercased().contains(queryWithoutSlash) {
-                results.append(ModeResult(content: modeList[modeName]!))
+                foundResults.append(ModeResult(content: modeList[modeName]!))
             }
         }
         
-        // We just made the results with search modes and the result mode names MUST contain our query, so force unwrap everything here.
-        results.sort {
+        // We just made the foundResults with search modes and the result mode names MUST contain our query, so force unwrap everything here.
+        foundResults.sort {
             $0.content.name.lowercased().range(of: queryWithoutSlash)!.lowerBound
             <
             $1.content.name.lowercased().range(of: queryWithoutSlash)!.lowerBound
@@ -114,14 +130,26 @@ class GlobalSearch {
         
         // Rare case this is called in a non-search method. DO NOT DO THIS ANYWHERE ELSE.
         // Calling convention for all other cases is to call this after running a private search method inside of the main public search method of an engine.
-        engineDidFindResults(results: results)
+        engineDidFindResults(results: foundResults)
     }
     
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
+        guard !queryString.isEmpty else {
+            return
+        }
+        
         if let activeMode {
+            modelContext.insert(Search(text: queryString,
+                                       date: .now,
+                                       typeValue: activeMode.modeType.rawValue))
+            try? modelContext.save()
             search(withActiveDirectory: activeDirectory)
         } else {
-            if let result = results.first as? ModeResult {
+            if let result = foundResults.first as? ModeResult {
+                modelContext.insert(Search(text: result.content.name,
+                                           date: .now,
+                                           typeValue: SearchModeType.mode.rawValue))
+                try? modelContext.save()
                 activeMode = result.content
             }
         }
@@ -134,6 +162,6 @@ class GlobalSearch {
 
 extension GlobalSearch: EngineDelegate {
     func engineDidFindResults(results: [any SearchResult]) {
-        self.results = results
+        self.foundResults = results
     }
 }

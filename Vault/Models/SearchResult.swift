@@ -25,11 +25,21 @@ struct TextResult: SearchResult {
     }
 }
 
+struct HistoryResult: SearchResult {
+    let id = UUID()
+    let content: Search
+    var view: some View {
+        TextResultView(result: self,
+                       text: content.text)
+    }
+}
+
 struct ModeResult: SearchResult {
     let id = UUID()
     let content: SearchMode
     var view: some View {
-        SearchModeResultView(searchMode: content)
+        TextResultView(result: self,
+                       text: content.name)
     }
 }
 
