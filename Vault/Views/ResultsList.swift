@@ -19,11 +19,9 @@ struct ResultsList: View {
                 .padding(.horizontal, 16.0)
                 .padding(.bottom, 8.0)
             ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack {
+                LazyVStack(spacing: 8.0) {
                     ForEach(Array(searchModel.publishedResults.enumerated()), id: \.offset) { (index, searchResult) in
-                        HStack(spacing: 8.0) {
-                            SearchResultView(searchResult: searchResult)
-                        }
+                        SearchResultView(searchResult: searchResult, canAutocomplete: (index==0 && searchModel.canAutocomplete))
                         .onTapGesture {
                             searchModel.autocompleteSearch(fromIndex: index)
                         }

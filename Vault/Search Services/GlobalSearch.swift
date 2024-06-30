@@ -86,6 +86,9 @@ class GlobalSearch {
         return foundResults
     }
     private var foundResults = [any SearchResult]()
+    public var canAutocomplete: Bool {
+        return queryString.isEmpty || (queryString.first == "/") // We are only showing history or mode results
+    }
         
     // MARK: - Dependencies
     public var modelContext: ModelContext!
