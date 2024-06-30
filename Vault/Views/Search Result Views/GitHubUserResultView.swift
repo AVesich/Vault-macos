@@ -7,21 +7,18 @@
 
 import SwiftUI
 
-struct GitHubResultView: View {
+struct GitHubUserResultView: View {
     
     @State private var isHovering: Bool = false
-    public var repoResult: GitHubRepoSearchResult
+    public var userResult: GitHubUserSearchResult
     
     var body: some View {
         HStack(alignment: .center, spacing: 16.0) {
             Image(systemName: "externaldrive.connected.to.line.below.fill")
                 .imageScale(.large)
             
-            VStack(alignment: .leading, spacing: 4.0) {
-                Text(repoResult.name)
-                    .font(.manrope(24.0))
                 HStack(spacing: 8.0) {
-                    if let avatarURL = URL(string: repoResult.owner.avatar_url) {
+                    if let avatarURL = URL(string: userResult.avatar_url) {
                         AsyncImage(url: avatarURL) { result in
                             result.image?
                                 .resizable()
@@ -30,11 +27,10 @@ struct GitHubResultView: View {
                                 .clipShape(Circle())
                         }
                     }
-                    Text(repoResult.owner.login)
-                        .font(.manrope(12.0, weight: .bold))
+                    Text(userResult.login)
+                        .font(.manrope(24.0, weight: .bold))
                 }
                 .padding(.bottom, 8.0)
-            }
             
             Spacer()
             
@@ -47,7 +43,7 @@ struct GitHubResultView: View {
             isHovering = hovering
         }
         .onTapGesture {
-            if let url = URL(string: repoResult.html_url) {
+            if let url = URL(string: userResult.html_url) {
                 NSWorkspace.shared.open(url)
             }
         }
@@ -55,7 +51,7 @@ struct GitHubResultView: View {
 }
 
 #Preview {
-    GitHubResultView(repoResult: GitHubRepoSearchResult(id: 0,
+    GitHubRepoResultView(repoResult: GitHubRepoSearchResult(id: 0,
                                                         name: "Test Repo",
                                                         owner: GitHubUser(login: "avesich",
                                                                           avatar_url: "https://avatars.githubusercontent.com/u/75646434?v=4"),

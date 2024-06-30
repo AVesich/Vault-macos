@@ -15,6 +15,8 @@ protocol SearchResult: Identifiable {
     var id: UUID { get }
     var content: SearchContent { get }
     var view: V { get }
+    
+    init (content: SearchContent)
 }
 
 struct TextResult: SearchResult {
@@ -79,6 +81,15 @@ struct GitHubRepoResult: SearchResult {
     let id = UUID()
     let content: GitHubRepoSearchResult
     var view: some View {
-        GitHubResultView(repoResult: content)
+        GitHubRepoResultView(repoResult: content)
     }
 }
+
+struct GitHubUserResult: SearchResult {
+    let id = UUID()
+    let content: GitHubUserSearchResult
+    var view: some View {
+        GitHubUserResultView(userResult: content)
+    }
+}
+
