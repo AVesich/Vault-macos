@@ -63,7 +63,7 @@ class GlobalSearch {
     private var queryString: String = "" {
         didSet {
             if queryString.isEmpty { // Just feels wrong having results pop up after deleting query & resuming typing again w/o leading "/"
-                foundResults.removeAll()
+                clearResults()
             }
             
             if let first = queryString.first,
@@ -84,7 +84,6 @@ class GlobalSearch {
     // MARK: - Result Properties
     public var publishedResults: [any SearchResult] {
         if queryString.isEmpty || queryString=="/" {
-            print(getHistory())
             return getHistory()
         }
         return foundResults
@@ -195,6 +194,14 @@ class GlobalSearch {
 
     private func search(withActiveDirectory activeDirectory: String) {
         activeMode?.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+    }
+        
+    public func refreshResults() {
+        search(withActiveDirectory: "")
+    }
+    
+    private func clearResults() {
+        foundResults.removeAll()
     }
 }
 

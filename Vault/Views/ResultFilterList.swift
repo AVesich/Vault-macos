@@ -37,6 +37,9 @@ struct ResultFilterList: View {
                     selectedIconIndices.insert(filterDefault)
                 }
             }
+            .onChange(of: selectedIconIndices, initial: true) {
+                searchModel.refreshResults()
+            }
             .padding(.bottom, 4.0)
             .frame(height: 36.0)
         }
