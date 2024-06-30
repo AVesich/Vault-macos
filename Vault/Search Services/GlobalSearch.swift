@@ -62,6 +62,10 @@ class GlobalSearch {
     // MARK: - Query Properties
     private var queryString: String = "" {
         didSet {
+            if queryString.isEmpty { // Just feels wrong having results pop up after deleting query & resuming typing again w/o leading "/"
+                foundResults.removeAll()
+            }
+            
             if let first = queryString.first,
                first == "/" {
                 activeMode = nil

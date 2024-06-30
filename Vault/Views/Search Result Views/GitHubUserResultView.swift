@@ -14,23 +14,18 @@ struct GitHubUserResultView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 16.0) {
-            Image(systemName: "externaldrive.connected.to.line.below.fill")
-                .imageScale(.large)
-            
-                HStack(spacing: 8.0) {
-                    if let avatarURL = URL(string: userResult.avatar_url) {
-                        AsyncImage(url: avatarURL) { result in
-                            result.image?
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 16.0, height: 16.0)
-                                .clipShape(Circle())
-                        }
-                    }
-                    Text(userResult.login)
-                        .font(.manrope(24.0, weight: .bold))
+            if let avatarURL = URL(string: userResult.avatar_url) {
+                AsyncImage(url: avatarURL) { result in
+                    result.image?
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24.0, height: 24.0)
+                        .clipShape(Circle())
                 }
-                .padding(.bottom, 8.0)
+                .padding(.vertical, 8.0)
+            }
+            Text(userResult.login)
+                .font(.manrope(18.0, weight: .regular))
             
             Spacer()
             

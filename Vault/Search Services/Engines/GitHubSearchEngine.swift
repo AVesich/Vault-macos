@@ -10,8 +10,25 @@ import SwiftUI
 
 // MARK: - Engine
 class GitHubSearchEngine: Engine {
+    enum FilterMode {
+        case repos
+        case users
+        case prs
+        
+        var urlSuffix: String {
+            switch self {
+            case .repos:
+                return "/search/repositories"
+            case .users:
+                return "/search/users"
+            case .prs:
+                return "/search/repositories"
+            }
+        }
+    }
+    
     // MARK: - Properties
-    public var searchResults: [GitHubRepoResult] = [GitHubRepoResult]() {
+    public var searchResults: [any SearchResult] = [any SearchResult]() {
         didSet {
             delegate?.engineDidFindResults(results: searchResults)
         }
@@ -21,27 +38,37 @@ class GitHubSearchEngine: Engine {
     private let RESULTS_PER_PAGE = 15
     
     // MARK: - Search Filters
-    private var activeFilter: GitHubFilter = GitHubFilter<GitHubRepoSearchWrapper, GitHubRepoSearchResult, GitHubRepoResult>(urlSuffix: "")
+    private var activeFilter: FilterMode = .repos
     public var searchFilters: [SearchFilter] {
         [SearchFilter(name: "Repositories",
                       iconName: "externaldrive.connected.to.line.below.fill",
-                      selectAction: { [weak self] in self?.activeFilter = GitHubFilter<GitHubRepoSearchWrapper, GitHubRepoSearchResult, GitHubRepoResult>(urlSuffix: "") },
+                      selectAction: { [weak self] in self?.activeFilter = .repos },
                       deselectAction: nil),
          SearchFilter(name: "Users",
                       iconName: "person.fill",
-                      selectAction: { [weak self] in self?.activeFilter = GitHubFilter<GitHubUserSearchWrapper, GitHubUserSearchResult, GitHubUserResult>(urlSuffix: "") },
+                      selectAction: { [weak self] in self?.activeFilter = .users},
                       deselectAction: nil),
          SearchFilter(name: "My Pull Requests",
                       iconName: "arrow.trianglehead.pull",
-                      selectAction: { [weak self] in self?.activeFilter = GitHubFilter<GitHubRepoSearchWrapper, GitHubRepoSearchResult, GitHubRepoResult>(urlSuffix: "") },
+                      selectAction: { [weak self] in self?.activeFilter = .prs },
                       deselectAction: nil)]
     }
+    // TODO: This code sucks replace it ALL with a protocol/struct. 4 hours on this issue is too much, writing it the bad way for now
+    private var activeSearchMethod: (String) async -> () {
+        switch activeFilter {
+        case .repos:
+            return searchRepositories
+        case .users:
+            return searchUsers
+        case .prs:
+            return searchRepositories
+        }
+    }
 
-    
     // MARK: - Methods
     public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
         Task {
-            await searchRepositories(withQuery: query)
+            await activeSearchMethod(query)
         }
     }
     
@@ -50,9 +77,22 @@ class GitHubSearchEngine: Engine {
             return
         }
         if let (data, _) = try? await URLSession.shared.data(for: searchRequest) {
-            if let result = activeFilter.decoder.decodeValueFromData(data) {
+            if let result = APIDecoder<GitHubRepoSearchWrapper>().decodeValueFromData(data) {
                 searchResults = result.items.map {
-                    return activeFilter.searchResult(withResultContent: $0)
+                    return GitHubRepoResult(content: $0)
+                }
+            }
+        }
+    }
+    
+    private func searchUsers(withQuery query: String) async {
+        guard let searchRequest = getURLRequest(withQuery: query) else {
+            return
+        }
+        if let (data, _) = try? await URLSession.shared.data(for: searchRequest) {
+            if let result = APIDecoder<GitHubUserSearchWrapper>().decodeValueFromData(data) {
+                searchResults = result.items.map {
+                    return GitHubUserResult(content: $0)
                 }
             }
         }
@@ -67,68 +107,3 @@ class GitHubSearchEngine: Engine {
                                             andParams: params)
     }
 }
-
-// MARK: - Filters
-//struct GitHubFilter<DecodedType: GitHubResultWrapper, EndDecodingType: Codable, ResultType: SearchResult> where EndDecodingType == ResultType.SearchContent {
-//    let urlSuffix: String
-//    let decoder = APIDecoder<DecodedType>()
-//    
-//    func searchResult(withResultContent resultContent: Codable) -> ResultType {
-//        let content = resultContent as! EndDecodingType
-//        return ResultType(content: content)
-//    }
-//}
-
-
-
-//protocol GitHubFilter {
-//    associatedtype DecodedType: some GitHubResultWrapper
-//    
-//    var urlSuffix: String { get }
-//    var decoder: APIDecoder<DecodedType> { get }
-//    
-//    func searchResult(withResultContent resultContent: Codable) -> any SearchResult
-//}
-//
-//struct RepoFilter: GitHubFilter {
-//    typealias DecodedType = GitHubRepoSearchWrapper
-//    
-//    let urlSuffix = "/search/repositories"
-//    let decoder = APIDecoder<GitHubRepoSearchWrapper>()
-//    
-//    func searchResult(withResultContent resultContent: Codable) -> any SearchResult {
-//        let content = resultContent as! GitHubRepoSearchResult
-//        return GitHubRepoResult(content: content)
-//    }
-//}
-//
-//struct UserFilter: GitHubFilter {
-//    typealias DecodedType = GitHubUserSearchWrapper
-//    
-//    let urlSuffix = "/search/users"
-//    let decoder = APIDecoder<GitHubUserSearchWrapper>()
-//    
-//    func searchResult(withResultContent resultContent: Codable) -> any SearchResult {
-//        let content = resultContent as! GitHubUserSearchResult
-//        return GitHubUserResult(content: content)
-//    }
-//}
-
-//enum GitHubFilterEnum {
-//    static let repoFilter = RepoFilter()
-//    static let userFilter = UserFilter()
-//}
-
-//struct GitHubFilter<T: Codable, V: SearchResult> {
-//    let urlSuffix: String
-//    let decoder = APIDecoder<T>()
-//    let resultType = V.self
-//}
-
-//extension GitHubFilter where Self == RepoFilter {
-//    static var repoFilter: Self { Self() }
-//}
-//
-//extension GitHubFilter where Self == UserFilter {
-//    static var userFilter: Self { Self() }
-//}
