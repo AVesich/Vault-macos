@@ -30,7 +30,7 @@ struct ResultsList: View {
                 .padding(.bottom, 8.0)
                 .getSize {scrollViewSize = $0}
             }
-            .frame(height: scrollViewSize.height<=512.0 ? scrollViewSize.height : 512.0)
+            .frame(height: scrollViewSize.height<=384.0 ? scrollViewSize.height : 384.0)
         }
     }
 }
