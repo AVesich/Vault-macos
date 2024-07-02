@@ -83,14 +83,14 @@ class GlobalSearch {
     
     // MARK: - Result Properties
     public var publishedResults: [any SearchResult] {
-        if queryString.isEmpty || queryString=="/" {
+        if foundResults.isEmpty && (queryString.isEmpty || queryString=="/") {
             return getHistory()
         }
         return foundResults
     }
     private var foundResults = [any SearchResult]()
     public var canAutocomplete: Bool {
-        return queryString.isEmpty || (queryString.first == "/") // We are only showing history or mode results
+        return (queryString.isEmpty && foundResults.isEmpty) || (queryString.first == "/") // We are only showing history or mode results
     }
         
     // MARK: - Dependencies

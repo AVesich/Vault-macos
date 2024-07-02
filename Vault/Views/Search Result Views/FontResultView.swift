@@ -14,8 +14,9 @@ struct FontResultView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 16.0) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4.0) {
                 Text(font.fontName)
+                    .lineLimit(1)
                     .font(.manrope(12.0, weight: .bold))
                     .padding(.leading, 16.0)
                 Text("The quick brown fox runs over the lazy dog.")
@@ -27,16 +28,15 @@ struct FontResultView: View {
             
             if hovering {
                 Button {
-                    // TODO: - Add copy colors on click
+                    // TODO: - Add copy name on click
                 } label: {
-                    Image(systemName: "arrow.down.to.line")
+                    Image(systemName: "document.on.document.fill")
                         .frame(width: 24.0, height: 24.0)
                 }
                 .buttonStyle(.borderless)
             }
         }
         .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: hovering)
-        .frame(height: 48.0)
         .padding(.vertical, 8.0)
         .onHover { hover in
             hovering = hover
