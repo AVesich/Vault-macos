@@ -57,6 +57,8 @@
 		D96C61F62C2A5616009AB564 /* GitHubSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C61F52C2A5616009AB564 /* GitHubSearchEngine.swift */; };
 		D96C61F82C2A5B48009AB564 /* GitHubRepoSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C61F72C2A5B43009AB564 /* GitHubRepoSearchResult.swift */; };
 		D96C61FA2C2A5D11009AB564 /* GitHubRepoResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C61F92C2A5D11009AB564 /* GitHubRepoResultView.swift */; };
+		D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A0092C33AB9B00A14DEC /* WebEngine.swift */; };
+		D986A00E2C34D55C00A14DEC /* WebResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A00D2C34D55C00A14DEC /* WebResultView.swift */; };
 		D9A8770C2C0D3343001EAA1C /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8770B2C0D3343001EAA1C /* Engine.swift */; };
 		D9A8770E2C0D370A001EAA1C /* FileSystemSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */; };
 		D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */; };
@@ -140,6 +142,8 @@
 		D96C61F52C2A5616009AB564 /* GitHubSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubSearchEngine.swift; sourceTree = "<group>"; };
 		D96C61F72C2A5B43009AB564 /* GitHubRepoSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepoSearchResult.swift; sourceTree = "<group>"; };
 		D96C61F92C2A5D11009AB564 /* GitHubRepoResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepoResultView.swift; sourceTree = "<group>"; };
+		D986A0092C33AB9B00A14DEC /* WebEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebEngine.swift; sourceTree = "<group>"; };
+		D986A00D2C34D55C00A14DEC /* WebResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResultView.swift; sourceTree = "<group>"; };
 		D9A8770B2C0D3343001EAA1C /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemSearchEngine.swift; sourceTree = "<group>"; };
 		D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePathResultView.swift; sourceTree = "<group>"; };
@@ -364,6 +368,7 @@
 		D9A8770A2C0D332C001EAA1C /* Engines */ = {
 			isa = PBXGroup;
 			children = (
+				D986A0092C33AB9B00A14DEC /* WebEngine.swift */,
 				D94CAFCB2BFB9613009AC3E1 /* GenerativeAI.swift */,
 				D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */,
 				D9A8770B2C0D3343001EAA1C /* Engine.swift */,
@@ -387,6 +392,7 @@
 				D96C61EF2C28D138009AB564 /* SearchResultView.swift */,
 				D96C61F92C2A5D11009AB564 /* GitHubRepoResultView.swift */,
 				D9E173822C31DC1300091752 /* GitHubUserResultView.swift */,
+				D986A00D2C34D55C00A14DEC /* WebResultView.swift */,
 			);
 			path = "Search Result Views";
 			sourceTree = "<group>";
@@ -563,6 +569,7 @@
 				D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */,
 				D9E173832C31DC1300091752 /* GitHubUserResultView.swift in Sources */,
 				D94CAFB72BF9A2C5009AC3E1 /* GlobalSearch.swift in Sources */,
+				D986A00E2C34D55C00A14DEC /* WebResultView.swift in Sources */,
 				D9A877192C154DCF001EAA1C /* ColorResultView.swift in Sources */,
 				D93E1FC92C16A4E900BA309E /* PlistHelper.swift in Sources */,
 				D94CAFC32BF9C707009AC3E1 /* FontExtension.swift in Sources */,
@@ -582,6 +589,7 @@
 				D9A877152C150114001EAA1C /* ArrayExtension.swift in Sources */,
 				D9405D1C2C2F948100C1BE6C /* Search.swift in Sources */,
 				D93E1FC42C16903700BA309E /* UnsplashResults.swift in Sources */,
+				D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */,
 				D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

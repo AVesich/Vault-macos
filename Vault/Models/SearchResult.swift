@@ -93,3 +93,10 @@ struct GitHubUserResult: SearchResult {
     }
 }
 
+struct WebResult: SearchResult {
+    let id = UUID()
+    let content: String
+    var view: some View {
+        WebResultView(urlString: content)
+    }
+}
