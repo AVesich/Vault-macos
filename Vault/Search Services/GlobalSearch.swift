@@ -111,7 +111,7 @@ class GlobalSearch {
     }
     
     private func getHistory() -> [HistoryResult] {
-        let activeModeType: SearchModeType = (activeMode==nil) ? .mode : activeMode!.modeType
+        let activeModeType: SearchModeType = (activeMode==nil) ? .mode : activeMode!.modeFilterType
         
         let fetchDiscriptor = FetchDescriptor<Search>(
             predicate: #Predicate { $0.filterModeID == activeModeType.id },
@@ -179,14 +179,14 @@ class GlobalSearch {
         
     private func makeSearchWithHistory() {
         if let result = foundResults.first as? ModeResult {
-            print(result.content.modeType.id)
+            print(result.content.modeFilterType.id)
             modelContext.insert(Search(text: "/"+result.content.name,
-                                       selectingModeID: result.content.modeType.id,
+                                       selectingModeID: result.content.modeFilterType.id,
                                        filterModeID: SearchModeType.mode.id))
             activeMode = result.content
         } else if let activeMode {
             modelContext.insert(Search(text: queryString,
-                                       filterModeID: activeMode.modeType.id))
+                                       filterModeID: activeMode.modeFilterType.id))
             search(withActiveDirectory: "")
         }
         try? modelContext.save()

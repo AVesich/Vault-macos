@@ -32,10 +32,16 @@ enum SearchModeType: Int, Codable, Identifiable {
     }
 }
 
+enum SearchModeResultUpdateStyle {
+    case activeResults
+    case queryResults
+}
+
 class SearchMode {
-    public let modeType: SearchModeType!
+    public let modeFilterType: SearchModeType!
+    public let resultUpdateStyle: SearchModeResultUpdateStyle!
     public var name: String {
-        return modeType.name
+        return modeFilterType.name
     }
     public let systemIconName: String!
     public var engine: (any Engine)!
@@ -46,11 +52,13 @@ class SearchMode {
     public let allowMultipleFilterSelections: Bool!
     
     init (modeType: SearchModeType,
+          resultUpdateStyle: SearchModeResultUpdateStyle = .queryResults,
           systemIconName: String,
           engine: any Engine,
           defaultFilterIndex: Int? = nil,
           allowMultipleFilterSelections: Bool = false) {
-        self.modeType = modeType
+        self.modeFilterType = modeType
+        self.resultUpdateStyle = resultUpdateStyle
         self.systemIconName = systemIconName
         self.engine = engine
         self.defaultFilterIndex = defaultFilterIndex

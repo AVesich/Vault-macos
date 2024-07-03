@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WebResultView: View {
     
+    @State private var isHovering: Bool = false
     var urlString: String
     private let GOOGLE_API_URL = "https://www.google.com/s2/favicons?"
     private let FAVICON_SIZE: Int = 24
@@ -20,7 +21,7 @@ struct WebResultView: View {
     }
 
     var body: some View {
-        HStack(spacing: 8.0) {
+        HStack(spacing: 16.0) {
             AsyncImage(url: imageURL) { content in
                 content.image?
                     .resizable()
@@ -28,6 +29,15 @@ struct WebResultView: View {
                     .frame(width: CGFloat(FAVICON_SIZE), height: CGFloat(FAVICON_SIZE))
             }
             Text(urlString)
+                .font(.manrope(18.0))
+            Spacer()
+            if isHovering {
+                Image(systemName: "link")
+            }
+        }
+        .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: isHovering)
+        .onHover { hovering in
+            isHovering = hovering
         }
     }
 }

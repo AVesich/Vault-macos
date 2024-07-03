@@ -25,7 +25,7 @@ struct GitHubUserResultView: View {
                 .padding(.vertical, 8.0)
             }
             Text(userResult.login)
-                .font(.manrope(18.0, weight: .regular))
+                .font(.manrope(18.0))
             
             Spacer()
             
