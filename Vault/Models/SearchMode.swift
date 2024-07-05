@@ -44,6 +44,7 @@ enum SearchModeResultUpdateStyle {
 class SearchMode {
     public let modeFilterType: SearchModeType!
     public let resultUpdateStyle: SearchModeResultUpdateStyle!
+    public let canAutocomplete: Bool!
     public var name: String {
         return modeFilterType.name
     }
@@ -57,12 +58,14 @@ class SearchMode {
     
     init (modeType: SearchModeType,
           resultUpdateStyle: SearchModeResultUpdateStyle = .onQuery,
+          canAutocomplete: Bool = false,
           systemIconName: String,
           engine: any Engine,
           defaultFilterIndex: Int? = nil,
           allowMultipleFilterSelections: Bool = false) {
         self.modeFilterType = modeType
         self.resultUpdateStyle = resultUpdateStyle
+        self.canAutocomplete = canAutocomplete
         self.systemIconName = systemIconName
         self.engine = engine
         self.defaultFilterIndex = defaultFilterIndex

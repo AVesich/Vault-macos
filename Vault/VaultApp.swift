@@ -92,7 +92,7 @@ struct VaultApp: App {
             .background { // Rectangle at the back of the stack is just meant to give something resizable to allow fullscreening, this actually is the background that allows defocus
                 Color.black.opacity(0.0001).ignoresSafeArea()
                     .onTapGesture {
-                        NSApp.hide(nil)
+//                        NSApp.hide(nil)
                     }
             }
         }

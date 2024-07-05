@@ -22,15 +22,19 @@ struct WebResultView: View {
 
     var body: some View {
         HStack(spacing: 16.0) {
-            AsyncImage(url: imageURL) { content in
-                content.image?
+            AsyncImage(url: imageURL) { result in
+                result.image?
                     .resizable()
                     .scaledToFit()
-                    .frame(width: CGFloat(FAVICON_SIZE), height: CGFloat(FAVICON_SIZE))
+                    .frame(width: 24.0, height: 24.0)
+                    .clipShape(Circle())
             }
+            .padding(.vertical, 8.0)
             Text(urlString)
-                .font(.manrope(18.0))
+                .font(.manrope(16.0))
+            
             Spacer()
+            
             if isHovering {
                 Image(systemName: "link")
             }

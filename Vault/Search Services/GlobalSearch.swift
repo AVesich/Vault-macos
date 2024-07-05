@@ -89,11 +89,9 @@ class GlobalSearch {
     
     // MARK: - Methods
     private func setupDelegates() {
-        SearchModeEnum.modes.engine.delegate = self
-        SearchModeEnum.files.engine.delegate = self
-        SearchModeEnum.images.engine.delegate = self
-        SearchModeEnum.fonts.engine.delegate = self
-        SearchModeEnum.github.engine.delegate = self
+        for mode in SearchModeEnum.searchModes.values {
+            mode.engine.delegate = self
+        }
     }
         
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
