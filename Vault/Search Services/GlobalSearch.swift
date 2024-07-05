@@ -8,22 +8,7 @@
 import SwiftUI
 import SwiftData
 
-enum SearchModeEnum {
-    static var files = SearchMode(modeType: .file,
-                                  systemIconName: "document.fill",
-                                  engine: FileSystemSearchEngine())
-    static var images = SearchMode(modeType: .images,
-                                   systemIconName: "photo.fill",
-                                   engine: UnsplashSearchEngine())
-    static var fonts = SearchMode(modeType: .font,
-                                  systemIconName: "textformat",
-                                  engine: FontSearchEngine(),
-                                  allowMultipleFilterSelections: true)
-    static var github = SearchMode(modeType: .github,
-                                   systemIconName: "cat.fill",
-                                   engine: GitHubSearchEngine(),
-                                   defaultFilterIndex: 0)
-    
+extension SearchModeEnum {
     static func modeForTypeID(_ typeID: Int) -> SearchMode {
         switch typeID {
         // 0 is Mode, but we never need to set that mode manually
@@ -35,6 +20,8 @@ enum SearchModeEnum {
             return fonts
         case 4:
             return github
+        case 5:
+            return web
         default:
             return files
         }
@@ -46,31 +33,14 @@ class GlobalSearch {
     // MARK: - Search Modes
     public var activeMode: SearchMode? = nil {
         didSet {
-            if activeMode != nil {
-                queryString = ""
-                foundResults.removeAll()
-            }
+            activeModeChanged()
         }
-    }
-    private var modeList: [String : SearchMode] { // All modes instantiated below in an extension
-        ["Files": SearchModeEnum.files,
-         "Fonts": SearchModeEnum.fonts,
-         "GitHub": SearchModeEnum.github,
-         "Images": SearchModeEnum.images]
     }
     
     // MARK: - Query Properties
     private var queryString: String = "" {
         didSet {
-            if queryString.isEmpty { // Just feels wrong having results pop up after deleting query & resuming typing again w/o leading "/"
-                clearResults()
-            }
-            
-            if let first = queryString.first,
-               first == "/" {
-                activeMode = nil
-                searchModes() // No directory needed in mode search
-            }
+            queryStringChanged()
         }
     }
     public var queryBinding: Binding<String> {
@@ -78,6 +48,18 @@ class GlobalSearch {
             return self.queryString
         } set: { newQuery in
             self.queryString = newQuery
+        }
+    }
+    private var selectedFilterIndices: Set<Int> = Set<Int>() {
+        didSet {
+            filterIndicesChanged()
+        }
+    }
+    public var filterBinding: Binding<Set<Int>> {
+        Binding {
+            return self.selectedFilterIndices
+        } set: { newIndices in
+            self.selectedFilterIndices = newIndices
         }
     }
     
@@ -104,57 +86,13 @@ class GlobalSearch {
     
     // MARK: - Methods
     private func setupDelegates() {
+        SearchModeEnum.modes.engine.delegate = self
         SearchModeEnum.files.engine.delegate = self
         SearchModeEnum.images.engine.delegate = self
         SearchModeEnum.fonts.engine.delegate = self
         SearchModeEnum.github.engine.delegate = self
     }
-    
-    private func getHistory() -> [HistoryResult] {
-        let activeModeType: SearchModeType = (activeMode==nil) ? .mode : activeMode!.modeFilterType
         
-        let fetchDiscriptor = FetchDescriptor<Search>(
-            predicate: #Predicate { $0.filterModeID == activeModeType.id },
-            sortBy: [SortDescriptor(\.date, order: .reverse)]
-        )
-        
-        do {
-            let searchHistory = try modelContext.fetch(fetchDiscriptor)
-            return searchHistory.map { HistoryResult(content: $0) }
-        } catch {
-            print(error)
-        }
-        return [HistoryResult]()
-    }
-    
-    // Nothing crazy for the search algorithm here. Mode count should never end up exceeding 20-30, so there should be no performance issues doing a simple search
-    public func searchModes() {
-        guard !queryString.isEmpty else {
-            return
-        }
-        var foundResults = [ModeResult]()
-        let lowerQuery = queryString.lowercased()
-        let pastSlashIndex = lowerQuery.index(lowerQuery.startIndex, offsetBy: 1)
-        let queryWithoutSlash = lowerQuery.lowercased()[pastSlashIndex...]
-        
-        for modeName in modeList.keys {
-            if modeName.lowercased().contains(queryWithoutSlash) {
-                foundResults.append(ModeResult(content: modeList[modeName]!))
-            }
-        }
-        
-        // We just made the foundResults with search modes and the result mode names MUST contain our query, so force unwrap everything here.
-        foundResults.sort {
-            $0.content.name.lowercased().range(of: queryWithoutSlash)!.lowerBound
-            <
-            $1.content.name.lowercased().range(of: queryWithoutSlash)!.lowerBound
-        }
-        
-        // Rare case this is called in a non-search method. DO NOT DO THIS ANYWHERE ELSE.
-        // Calling convention for all other cases is to call this after running a private search method inside of the main public search method of an engine.
-        engineDidFindResults(results: foundResults)
-    }
-    
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
         if queryString.isEmpty || queryString=="/" { // Autocomplete
             autocompleteSearch(fromIndex: 0)
@@ -193,11 +131,68 @@ class GlobalSearch {
     }
 
     private func search(withActiveDirectory activeDirectory: String) {
-        activeMode?.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+        let activeMode = activeMode ?? SearchModeEnum.modes
+        activeMode.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
     }
         
     public func refreshResults() {
         search(withActiveDirectory: "")
+    }
+    
+    // MARK: - Attribute helpers
+    private func getHistory() -> [HistoryResult] {
+        let activeModeType: SearchModeType = (activeMode==nil) ? .mode : activeMode!.modeFilterType
+        
+        let fetchDiscriptor = FetchDescriptor<Search>(
+            predicate: #Predicate { $0.filterModeID == activeModeType.id },
+            sortBy: [SortDescriptor(\.date, order: .reverse)]
+        )
+        
+        do {
+            let searchHistory = try modelContext.fetch(fetchDiscriptor)
+            return searchHistory.map { HistoryResult(content: $0) }
+        } catch {
+            print(error)
+        }
+        return [HistoryResult]()
+    }
+
+    private func queryStringChanged() {
+        let activeMode = activeMode ?? SearchModeEnum.modes
+
+        if queryString.isEmpty && selectedFilterIndices.isEmpty { // Clear results after deleting the current query, just feels good as feedback
+            clearResults()
+        } else if queryString.isEmpty && activeMode.resultUpdateStyle == .onQueryOrFilter { //
+            if !selectedFilterIndices.isEmpty {
+                search(withActiveDirectory: "")
+            }
+        } else { // Default to mode search & search if mode supports active results
+            if let first = queryString.first,
+               first == "/" {
+                self.activeMode = nil
+            }
+            if activeMode.resultUpdateStyle == .active { // Actively search & update results if the engine wants active results
+                search(withActiveDirectory: "")
+            }
+        }
+    }
+    
+    private func activeModeChanged() {
+        selectedFilterIndices.removeAll()
+        if activeMode != nil {
+            queryString = ""
+            if let defaultFilterIndex = activeMode?.defaultFilterIndex {
+                selectedFilterIndices.insert(defaultFilterIndex)
+            }
+        }
+    }
+    
+    private func filterIndicesChanged() {
+        if selectedFilterIndices.isEmpty && queryString.isEmpty {
+            clearResults()
+        } else {
+            refreshResults()
+        }
     }
     
     private func clearResults() {

@@ -11,6 +11,7 @@ enum SearchModeType: Int, Codable, Identifiable {
     case images
     case font
     case github
+    case web
     
     var id: Int {
         return rawValue
@@ -28,13 +29,16 @@ enum SearchModeType: Int, Codable, Identifiable {
             return "Fonts"
         case .github:
             return "GitHub"
+        case .web:
+            return "Web"
         }
     }
 }
 
 enum SearchModeResultUpdateStyle {
-    case activeResults
-    case queryResults
+    case active
+    case onQuery
+    case onQueryOrFilter
 }
 
 class SearchMode {
@@ -52,7 +56,7 @@ class SearchMode {
     public let allowMultipleFilterSelections: Bool!
     
     init (modeType: SearchModeType,
-          resultUpdateStyle: SearchModeResultUpdateStyle = .queryResults,
+          resultUpdateStyle: SearchModeResultUpdateStyle = .onQuery,
           systemIconName: String,
           engine: any Engine,
           defaultFilterIndex: Int? = nil,

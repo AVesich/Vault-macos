@@ -32,11 +32,7 @@ class FontSearchEngine: Engine {
     private let MAX_RESULTS = 15 // TODO: Keep or remove
         
     // MARK: - Mode & Filters
-    private var selectedTraits = Set<HashableFontTrait>() {
-        didSet {
-            search(withQuery: "", inActiveDirectory: "")
-        }
-    }
+    private var selectedTraits = Set<HashableFontTrait>()
     public var searchFilters: [SearchFilter] {
         [SearchFilter(name: "Bold",
                       iconName: "bold",

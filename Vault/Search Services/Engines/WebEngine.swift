@@ -15,6 +15,7 @@ class WebEngine: Engine {
     }
     public let searchFilters = [SearchFilter]()
     
+    // Nothing crazy for the search algorithm here. Mode count should never end up exceeding 20-30, so there should be no performance issues doing a simple search
     func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
         // TODO
     }

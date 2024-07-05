@@ -11,7 +11,6 @@ import SwiftData
 struct ResultFilterList: View {
     
     @Environment(GlobalSearch.self) var searchModel
-    @State private var selectedIconIndices = Set<Int>()
     
     var body: some View {
         if let searchMode = searchModel.activeMode,
@@ -22,7 +21,7 @@ struct ResultFilterList: View {
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 8.0) {
                     ForEach(Array(searchMode.filters.enumerated()), id: \.offset) { (i, filter) in
-                        ResultFilterView(selectedIconIndices: $selectedIconIndices,
+                        ResultFilterView(selectedIconIndices: searchModel.filterBinding,
                                          selectionDefault: searchMode.defaultFilterIndex,
                                          selectionIndex: i,
                                          allowsMultipleSelection: searchMode.allowMultipleFilterSelections,
@@ -30,15 +29,6 @@ struct ResultFilterList: View {
                     }
                 }
                 .padding(.horizontal, 16.0)
-            }
-            .onAppear {
-                selectedIconIndices.removeAll()
-                if let filterDefault = searchMode.defaultFilterIndex {
-                    selectedIconIndices.insert(filterDefault)
-                }
-            }
-            .onChange(of: selectedIconIndices, initial: true) {
-                searchModel.refreshResults()
             }
             .padding(.bottom, 4.0)
             .frame(height: 36.0)
