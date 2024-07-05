@@ -18,6 +18,7 @@ class FileSystemSearchEngine: Engine {
         }
     }
     public var searchFilters = [SearchFilter]()
+    public var autocomplete: (() -> ())? = nil
     private var query = NSMetadataQuery()
     private let MAX_RESULTS = 5
     private let FILE_PREFIX = "File://"

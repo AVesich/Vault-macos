@@ -8,6 +8,7 @@
 enum SearchModeEnum {
     static let modes = SearchMode(modeType: .mode,
                                   resultUpdateStyle: .active,
+                                  canAutocomplete: true,
                                   systemIconName: "",
                                   engine: ModeSearchEngine())
     static let files = SearchMode(modeType: .file,
@@ -27,6 +28,7 @@ enum SearchModeEnum {
                                    defaultFilterIndex: 0)
     static let web = SearchMode(modeType: .web,
                                 resultUpdateStyle: .active,
+                                canAutocomplete: true,
                                 systemIconName: "globe",
                                 engine: WebEngine())
     
@@ -50,6 +52,7 @@ class ModeSearchEngine: Engine {
         }
     }
     public let searchFilters = [SearchFilter]()
+    public var autocomplete: (() -> ())? = nil
     
     func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
         guard !query.isEmpty && query.first == "/" else {

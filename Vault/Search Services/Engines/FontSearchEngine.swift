@@ -27,6 +27,7 @@ class FontSearchEngine: Engine {
             delegate?.engineDidFindResults(results: searchResults)
         }
     }
+    public var autocomplete: (() -> ())? = nil
     private var userQuery = NSMetadataQuery()
     private var systemQuery = NSMetadataQuery()
     private let MAX_RESULTS = 15 // TODO: Keep or remove

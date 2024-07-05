@@ -75,7 +75,8 @@ class GlobalSearch {
     }
     private var foundResults = [any SearchResult]()
     public var canAutocomplete: Bool {
-        return (queryString.isEmpty && foundResults.isEmpty) || (queryString.first == "/") // We are only showing history or mode results
+        let activeMode = activeMode ?? SearchModeEnum.modes
+        return (queryString.isEmpty && foundResults.isEmpty) || activeMode.canAutocomplete // We are only showing history or complete-able results
     }
         
     // MARK: - Dependencies
@@ -95,8 +96,14 @@ class GlobalSearch {
     }
         
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
-        if queryString.isEmpty || queryString=="/" { // Autocomplete
-            autocompleteSearch(fromIndex: 0)
+        if canAutocomplete { // Autocomplete
+            let activeMode = activeMode ?? SearchModeEnum.modes
+            if let autocompleteBehavior = activeMode.engine.autocomplete,
+               !foundResults.isEmpty {
+                autocompleteBehavior()
+            } else {
+                autocompleteSearch(fromIndex: 0)
+            }
         } else {
             makeSearchWithHistory()
         }
@@ -118,7 +125,6 @@ class GlobalSearch {
         
     private func makeSearchWithHistory() {
         if let result = foundResults.first as? ModeResult {
-            print(result.content.modeFilterType.id)
             modelContext.insert(Search(text: "/"+result.content.name,
                                        selectingModeID: result.content.modeFilterType.id,
                                        filterModeID: SearchModeType.mode.id))

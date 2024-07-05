@@ -13,11 +13,13 @@ protocol Engine {
     var delegate: EngineDelegate? { get set }
     var searchResults: [ResultType] { get set }
     var searchFilters: [SearchFilter] { get }
+    var autocomplete: (() -> ())? { get }
     
     mutating func search(withQuery query: String, inActiveDirectory activeDirectory: String)
 }
 
 extension Engine {
+    
     mutating func clearResults() {
         searchResults.removeAll()
     }

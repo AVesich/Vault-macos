@@ -16,6 +16,7 @@ class UnsplashSearchEngine: Engine {
         }
     }
     public var searchFilters = [SearchFilter]()
+    public var autocomplete: (() -> ())? = nil
     private let API = UnsplashAPI()
     
     func search(withQuery query: String, inActiveDirectory activeDirectory: String) {

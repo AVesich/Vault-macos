@@ -28,12 +28,13 @@ class GitHubSearchEngine: Engine {
     }
     
     // MARK: - Properties
-    public var searchResults: [any SearchResult] = [any SearchResult]() {
+    public var delegate: EngineDelegate?
+    internal var searchResults = [any SearchResult]() {
         didSet {
             delegate?.engineDidFindResults(results: searchResults)
         }
     }
-    internal var delegate: EngineDelegate?
+    public var autocomplete: (() -> ())? = nil
     private let API_URL = "https://api.github.com"
     private let RESULTS_PER_PAGE = 15
     
