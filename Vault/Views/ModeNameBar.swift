@@ -13,11 +13,11 @@ struct ModeNameBar: View {
     @Environment(GlobalSearch.self) var searchModel
     
     var body: some View {
-        if let searchMode = searchModel.activeMode {
+        if searchModel.activeMode.modeFilterType != .mode {
             HStack(spacing: 8.0) {
-                Image(systemName: searchMode.systemIconName)
+                Image(systemName: searchModel.activeMode.systemIconName)
                     .imageScale(.medium)
-                Text(searchMode.name)
+                Text(searchModel.activeMode.name)
                     .font(.manrope(12.0, weight: .semibold))
                 Spacer()
             }

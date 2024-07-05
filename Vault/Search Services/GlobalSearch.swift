@@ -31,7 +31,7 @@ extension SearchModeEnum {
 @Observable
 class GlobalSearch {
     // MARK: - Search Modes
-    public var activeMode: SearchMode? = nil {
+    public var activeMode: SearchMode = SearchModeEnum.modes {
         willSet {
             activeModeWillChange()
         }
@@ -90,6 +90,7 @@ class GlobalSearch {
     
     // MARK: - Methods
     private func setupDelegates() {
+        SearchModeEnum.modes.engine.delegate = self // Not searchable, so it's excluded from the dict iterated below
         for mode in SearchModeEnum.searchModes.values {
             mode.engine.delegate = self
         }
@@ -109,17 +110,20 @@ class GlobalSearch {
         }
     }
     
-    public func autocompleteSearch(fromIndex index: Int) {
-        guard index < publishedResults.count,
-              let historyElement = publishedResults[index].content as? Search else {
+    public func autocompleteSearch(fromIndex index: Int) { // Autocomplete a history result or a mode search, make this more general if needed later
+        guard index < publishedResults.count else {
             return
         }
         
-        if let modeID = historyElement.selectingModeID {
-            activeMode = SearchModeEnum.modeForTypeID(modeID)
-        } else {
-            queryString = historyElement.text
-            search(withActiveDirectory: "")
+        if let historyElement = publishedResults[index].content as? Search {
+            if let modeID = historyElement.selectingModeID {
+                activeMode = SearchModeEnum.modeForTypeID(modeID)
+            } else {
+                queryString = historyElement.text
+                search(withActiveDirectory: "")
+            }
+        } else if let resultMode = publishedResults[index].content as? SearchMode {
+            activeMode = resultMode
         }
     }
         
@@ -129,7 +133,7 @@ class GlobalSearch {
                                        selectingModeID: result.content.modeFilterType.id,
                                        filterModeID: SearchModeType.mode.id))
             activeMode = result.content
-        } else if let activeMode {
+        } else {
             modelContext.insert(Search(text: queryString,
                                        filterModeID: activeMode.modeFilterType.id))
             search(withActiveDirectory: "")
@@ -138,7 +142,6 @@ class GlobalSearch {
     }
 
     private func search(withActiveDirectory activeDirectory: String) {
-        let activeMode = activeMode ?? SearchModeEnum.modes
         activeMode.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
     }
         
@@ -148,10 +151,9 @@ class GlobalSearch {
     
     // MARK: - Attribute helpers
     private func getHistory() -> [HistoryResult] {
-        let activeModeType: SearchModeType = (activeMode==nil) ? .mode : activeMode!.modeFilterType
-        
+        let activeFilterID = activeMode.modeFilterType.id
         let fetchDiscriptor = FetchDescriptor<Search>(
-            predicate: #Predicate { $0.filterModeID == activeModeType.id },
+            predicate: #Predicate { $0.filterModeID == activeFilterID },
             sortBy: [SortDescriptor(\.date, order: .reverse)]
         )
         
@@ -165,8 +167,6 @@ class GlobalSearch {
     }
 
     private func queryStringChanged() {
-        let activeMode = activeMode ?? SearchModeEnum.modes
-
         if queryString.isEmpty && selectedFilterIndices.isEmpty { // Clear results after deleting the current query, just feels good as feedback
             clearResults()
         } else if queryString.isEmpty && activeMode.resultUpdateStyle == .onQueryOrFilter { //
@@ -176,7 +176,7 @@ class GlobalSearch {
         } else { // Default to mode search & search if mode supports active results
             if let first = queryString.first,
                first == "/" {
-                self.activeMode = nil
+                self.activeMode = SearchModeEnum.modes
             }
             if activeMode.resultUpdateStyle == .active { // Actively search & update results if the engine wants active results
                 search(withActiveDirectory: "")
@@ -185,14 +185,14 @@ class GlobalSearch {
     }
     
     private func activeModeWillChange() {
-        activeMode?.engine.clearResults()
+        activeMode.engine.clearResults()
     }
     
     private func activeModeChanged() {
-        if activeMode != nil {
+        if activeMode.modeFilterType != .mode {
             queryString = ""
             selectedFilterIndices.removeAll()
-            if let defaultFilterIndex = activeMode?.defaultFilterIndex {
+            if let defaultFilterIndex = activeMode.defaultFilterIndex {
                 selectedFilterIndices.insert(defaultFilterIndex)
             }
         }

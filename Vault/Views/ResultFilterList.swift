@@ -13,18 +13,18 @@ struct ResultFilterList: View {
     @Environment(GlobalSearch.self) var searchModel
     
     var body: some View {
-        if let searchMode = searchModel.activeMode,
-           !searchMode.filters.isEmpty {
+        if searchModel.activeMode.modeFilterType != .mode &&
+           !searchModel.activeMode.filters.isEmpty {
             Divider()
                 .padding(.horizontal, 16.0)
                 .padding(.bottom, 4.0)
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 8.0) {
-                    ForEach(Array(searchMode.filters.enumerated()), id: \.offset) { (i, filter) in
+                    ForEach(Array(searchModel.activeMode.filters.enumerated()), id: \.offset) { (i, filter) in
                         ResultFilterView(selectedIconIndices: searchModel.filterBinding,
-                                         selectionDefault: searchMode.defaultFilterIndex,
+                                         selectionDefault: searchModel.activeMode.defaultFilterIndex,
                                          selectionIndex: i,
-                                         allowsMultipleSelection: searchMode.allowMultipleFilterSelections,
+                                         allowsMultipleSelection: searchModel.activeMode.allowMultipleFilterSelections,
                                          filter: filter)
                     }
                 }
