@@ -13,7 +13,14 @@ protocol Engine {
     var delegate: EngineDelegate? { get set }
     var searchResults: [ResultType] { get set }
     var searchFilters: [SearchFilter] { get }
-    func search(withQuery query: String, inActiveDirectory activeDirectory: String)
+    
+    mutating func search(withQuery query: String, inActiveDirectory activeDirectory: String)
+}
+
+extension Engine {
+    mutating func clearResults() {
+        searchResults.removeAll()
+    }
 }
 
 protocol EngineDelegate {

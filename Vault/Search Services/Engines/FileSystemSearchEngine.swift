@@ -43,7 +43,7 @@ class FileSystemSearchEngine: Engine {
     }
     
     public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
-        indexedFileSearch(withQuery: query, inActiveDirectory: activeDirectory)
+        indexedFileSearch(withQuery: query, inActiveDirectory: FileManager.default.homeDirectoryForCurrentUser.relativePath)
     }
 
     private func indexedFileSearch(withQuery query: String, inActiveDirectory activeDirectory: String) {

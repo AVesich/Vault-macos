@@ -32,6 +32,9 @@ extension SearchModeEnum {
 class GlobalSearch {
     // MARK: - Search Modes
     public var activeMode: SearchMode? = nil {
+        willSet {
+            activeModeWillChange()
+        }
         didSet {
             activeModeChanged()
         }
@@ -177,10 +180,14 @@ class GlobalSearch {
         }
     }
     
+    private func activeModeWillChange() {
+        activeMode?.engine.clearResults()
+    }
+    
     private func activeModeChanged() {
-        selectedFilterIndices.removeAll()
         if activeMode != nil {
             queryString = ""
+            selectedFilterIndices.removeAll()
             if let defaultFilterIndex = activeMode?.defaultFilterIndex {
                 selectedFilterIndices.insert(defaultFilterIndex)
             }
