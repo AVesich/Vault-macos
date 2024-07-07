@@ -102,7 +102,6 @@ struct VaultApp: App {
         .modelContainer(modelContainer)
         MenuBarExtra() {
             Button("Show Window") {
-                
             }
             Button("Quit Rockit") {
                 NSApplication.shared.terminate(self)

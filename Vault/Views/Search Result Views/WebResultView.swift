@@ -12,6 +12,7 @@ struct WebResultView: View {
     @State private var isHovering: Bool = false
     var urlString: String
     private let GOOGLE_API_URL = "https://www.google.com/s2/favicons?"
+    private let GOOGLE_QUERY_URL = "https://www.google.com/search?q="
     private let API_FAVICON_SIZE: Int = 256
     private var imageURL: URL {
         if let iconURL = URL(string: GOOGLE_API_URL+"domain=\(urlString)"+"&sz=\(API_FAVICON_SIZE)") {
@@ -29,7 +30,7 @@ struct WebResultView: View {
                     .frame(width: 24.0, height: 24.0) // Display smaller than the requested icon size to prevent pixelated icons
             }
             .padding(.vertical, 8.0)
-            Text(urlString)
+            Text(urlString.starts(with: GOOGLE_QUERY_URL) ? urlString.substring(32) : urlString) // Remove google url from a google suggestion
                 .font(.manrope(16.0))
             
             Spacer()
@@ -43,7 +44,7 @@ struct WebResultView: View {
             isHovering = hovering
         }
         .onTapGesture {
-            if let url = URL(string: urlString) {
+            if let url = URLUtil.getURLToOpen(fromString: urlString) {
                 NSWorkspace.shared.open(url)
             }
         }

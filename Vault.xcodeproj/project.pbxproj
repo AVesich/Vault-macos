@@ -13,6 +13,7 @@
 		D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F402C01B4520055BC7E /* DirectoryUI.swift */; };
 		D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */; };
 		D917122A2C3648EF00367174 /* ModeSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712292C3648EA00367174 /* ModeSearchEngine.swift */; };
+		D917122C2C3A5F8600367174 /* URLUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917122B2C3A5F8300367174 /* URLUtil.swift */; };
 		D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92192D22BFE4E8D002D5A7F /* ResultsList.swift */; };
 		D92F3D892C228F210009A701 /* TextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F3D882C228F210009A701 /* TextResultView.swift */; };
 		D92F3D8F2C23CAD90009A701 /* ScrollViewSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F3D8E2C23CAD90009A701 /* ScrollViewSizeExtension.swift */; };
@@ -96,6 +97,7 @@
 		D9079F402C01B4520055BC7E /* DirectoryUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUI.swift; sourceTree = "<group>"; };
 		D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryRecommendationView.swift; sourceTree = "<group>"; };
 		D91712292C3648EA00367174 /* ModeSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeSearchEngine.swift; sourceTree = "<group>"; };
+		D917122B2C3A5F8300367174 /* URLUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLUtil.swift; sourceTree = "<group>"; };
 		D92192D22BFE4E8D002D5A7F /* ResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsList.swift; sourceTree = "<group>"; };
 		D92F3D882C228F210009A701 /* TextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultView.swift; sourceTree = "<group>"; };
 		D92F3D8E2C23CAD90009A701 /* ScrollViewSizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewSizeExtension.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 		D93E1FC52C1692FB00BA309E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D917122B2C3A5F8300367174 /* URLUtil.swift */,
 				D93E1FC62C16930E00BA309E /* APIDecoder.swift */,
 				D93E1FC82C16A4E900BA309E /* PlistHelper.swift */,
 				D93062D42C1801D200CDB9FA /* APIJSONHelpers.swift */,
@@ -591,6 +594,7 @@
 				D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */,
 				D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */,
 				D9A877152C150114001EAA1C /* ArrayExtension.swift in Sources */,
+				D917122C2C3A5F8600367174 /* URLUtil.swift in Sources */,
 				D9405D1C2C2F948100C1BE6C /* Search.swift in Sources */,
 				D93E1FC42C16903700BA309E /* UnsplashResults.swift in Sources */,
 				D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */,
