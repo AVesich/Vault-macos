@@ -78,6 +78,7 @@ class GlobalSearch {
         let activeMode = activeMode ?? SearchModeEnum.modes
         return (queryString.isEmpty && foundResults.isEmpty) || activeMode.canAutocomplete // We are only showing history or complete-able results
     }
+    private let MAX_HISTORY_SIZE = 5
         
     // MARK: - Dependencies
     public var modelContext: ModelContext!
@@ -123,7 +124,7 @@ class GlobalSearch {
                 search(withActiveDirectory: "")
             }
         } else if let resultMode = publishedResults[index].content as? SearchMode {
-            activeMode = resultMode
+            makeSearchWithHistory() // Adds history & updates mode
         }
     }
         
@@ -158,18 +159,27 @@ class GlobalSearch {
         )
         
         do {
-            let searchHistory = try modelContext.fetch(fetchDiscriptor)
+            var searchHistory = try modelContext.fetch(fetchDiscriptor)
+            pruneHistoryToMaxSize(&searchHistory)
             return searchHistory.map { HistoryResult(content: $0) }
         } catch {
             print(error)
         }
+        
         return [HistoryResult]()
+    }
+    
+    private func pruneHistoryToMaxSize(_ history: inout [Search]) {
+        while history.count > MAX_HISTORY_SIZE {
+            let lastHistory = history.removeLast()
+            modelContext.delete(lastHistory)
+        }
     }
 
     private func queryStringChanged() {
         if queryString.isEmpty && selectedFilterIndices.isEmpty { // Clear results after deleting the current query, just feels good as feedback
             clearResults()
-        } else if queryString.isEmpty && activeMode.resultUpdateStyle == .onQueryOrFilter { //
+        } else if queryString.isEmpty && activeMode.resultUpdateStyle == .onQueryOrFilter {
             if !selectedFilterIndices.isEmpty {
                 search(withActiveDirectory: "")
             }

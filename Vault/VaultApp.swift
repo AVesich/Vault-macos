@@ -100,6 +100,16 @@ struct VaultApp: App {
         .windowStyle(.hiddenTitleBar)
         .defaultPosition(.center)
         .modelContainer(modelContainer)
+        MenuBarExtra() {
+            Button("Show Window") {
+                
+            }
+            Button("Quit Rockit") {
+                NSApplication.shared.terminate(self)
+            }
+        } label: {
+            Text("🚀")
+        }
     }
     
     private func activateAIChangeGradient() {
