@@ -199,12 +199,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		D9079F3D2C004AA70055BC7E /* Styles */ = {
+		D9079F3D2C004AA70055BC7E /* Styles_Modifiers */ = {
 			isa = PBXGroup;
 			children = (
 				D9079F3E2C004AB50055BC7E /* ToggleStyles.swift */,
 			);
-			path = Styles;
+			path = Styles_Modifiers;
 			sourceTree = "<group>";
 		};
 		D93E1FBF2C168F3E00BA309E /* API Adapters */ = {
@@ -261,7 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				D93E1FC52C1692FB00BA309E /* Utilities */,
-				D9079F3D2C004AA70055BC7E /* Styles */,
+				D9079F3D2C004AA70055BC7E /* Styles_Modifiers */,
 				D9079F3A2C0049D90055BC7E /* Models */,
 				D94CAFC12BF9C6E1009AC3E1 /* Extensions */,
 				D94CAFB52BF9A28F009AC3E1 /* Search Services */,

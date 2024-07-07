@@ -27,9 +27,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func removeStoplights(from window: NSWindow) {
         // Hide stoplights
-        window.standardWindowButton(.closeButton)!.isHidden = true
-        window.standardWindowButton(.miniaturizeButton)!.isHidden = true
-        window.standardWindowButton(.zoomButton)!.isHidden = true
+        window.standardWindowButton(.closeButton)?.isHidden = true
+        window.standardWindowButton(.miniaturizeButton)?.isHidden = true
+        window.standardWindowButton(.zoomButton)?.isHidden = true
     }
 
     private func makeBackgroundClear(from window: NSWindow) {
@@ -38,6 +38,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }    
 }
 
+@available(macOS 15.0, *)
 @main
 struct VaultApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -62,7 +63,7 @@ struct VaultApp: App {
             ZStack {
                 RoundedRectangle(cornerRadius: 8.0)
                     .fill(.clear)
-                    .frame(width: .infinity, height: .infinity)
+                    .frame(width: NSScreen.main!.visibleFrame.width, height: NSScreen.main!.visibleFrame.height)
                     .allowsHitTesting(false)
                                     
                 MainSearch(usingAI: $usingAI)
@@ -92,8 +93,11 @@ struct VaultApp: App {
             .background { // Rectangle at the back of the stack is just meant to give something resizable to allow fullscreening, this actually is the background that allows defocus
                 Color.black.opacity(0.0001).ignoresSafeArea()
                     .onTapGesture {
-//                        NSApp.hide(nil)
+                        NSApp.hide(nil)
                     }
+            }
+            .onAppear {
+                NSApplication.shared.windows.last?.setFrameOrigin(CGPoint(x: 0, y: 0))
             }
         }
         .windowResizability(.contentSize)
