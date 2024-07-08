@@ -46,7 +46,7 @@ struct VaultApp: App {
     @State private var usingAI: Bool = false
     @State private var showAIGradient: Bool = false
     @State private var searchModel: GlobalSearch
-    @State private var showModeGradient: Bool = false
+    @State private var modeChanged: Bool = false
     let modelContainer: ModelContainer
     
     init () {
@@ -67,27 +67,28 @@ struct VaultApp: App {
                     .allowsHitTesting(false)
                                     
                 MainSearch(usingAI: $usingAI)
+                    .animation(.spring(response: 0.35, dampingFraction: 0.75, blendDuration: 0.3))
                     .overlay {
                         RoundedRectangle(cornerRadius: 16.0)
                             .fill(.clear)
                             .stroke(usingAI ? .purple : .clear, lineWidth: 6.0)
                             .clipShape(RoundedRectangle(cornerRadius: 16.0))
                     }
-                    .animation(.spring(response: 0.35, dampingFraction: 0.75, blendDuration: 0.3))
-                    .onChange(of: usingAI) {
-                        if usingAI {
-                            activateAIChangeGradient()
-                        }
-                    }
+                    .animation(.easeOut(duration: 0.15), value: usingAI)
                     .onChange(of: searchModel.activeMode) {
-                        if searchModel.activeMode != nil {
+                        if !(searchModel.activeMode.modeFilterType == .mode) {
                             activateModeChangeGradient()
                         }
                     }
-                    .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
-                    .shadow(color: showModeGradient ? .red.opacity(0.0) : .red, radius: showModeGradient ? 96.0 : 0.0)
-                    .animation(showAIGradient ? .easeOut(duration: 0.65) : .none, value: showAIGradient)
-                    .animation(showModeGradient ? .easeOut(duration: 0.65) : .none, value: showModeGradient)
+                    .backgroundPulse(enabled: usingAI, color: .purple)
+                    .backgroundPulse(enabled: modeChanged, color: .red)
+                    .sizePress(press: usingAI)
+                    .shadow(color: .black.opacity(0.75), radius: 25.0)
+//                    .backgroundPulse(enabled: showModeGradient, color: .red)
+//                    .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
+//                    .shadow(color: showModeGradient ? .red.opacity(0.0) : .red, radius: showModeGradient ? 96.0 : 0.0)
+//                    .animation(showAIGradient ? .easeOut(duration: 0.65) : .none, value: showAIGradient)
+//                    .animation(showModeGradient ? .easeOut(duration: 0.65) : .none, value: showModeGradient)
             }
             .environment(searchModel)
             .background { // Rectangle at the back of the stack is just meant to give something resizable to allow fullscreening, this actually is the background that allows defocus
@@ -115,21 +116,12 @@ struct VaultApp: App {
         }
     }
     
-    private func activateAIChangeGradient() {
-        DispatchQueue.main.async {
-            showAIGradient = true
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
-            showAIGradient = false
-        }
-    }
-    
     private func activateModeChangeGradient() {
         DispatchQueue.main.async {
-            showModeGradient = true
+            modeChanged = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
-            showModeGradient = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            modeChanged = false
         }
     }
 }
