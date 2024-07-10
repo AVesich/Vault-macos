@@ -82,7 +82,7 @@ struct VaultApp: App {
                     }
                     .backgroundPulse(enabled: usingAI, color: .purple)
                     .backgroundPulse(enabled: modeChanged, color: .red)
-                    .sizePress(press: usingAI)
+//                    .sizePress(press: usingAI)
                     .shadow(color: .black.opacity(0.75), radius: 25.0)
 //                    .backgroundPulse(enabled: showModeGradient, color: .red)
 //                    .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
