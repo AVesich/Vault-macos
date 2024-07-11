@@ -16,11 +16,11 @@ struct SizePress: ViewModifier {
             content
                 .onChange(of: press) {
                     if press {
-                        withAnimation(.spring(response: 0.15, dampingFraction: 0.65, blendDuration: 0.15)) {
+                        withAnimation(.easeOut(duration: 0.1)) {
                             scaleEffect = 0.98
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                            withAnimation(.spring(response: 0.15, dampingFraction: 0.65, blendDuration: 0.15)) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            withAnimation(.spring(response: 0.25, dampingFraction: 0.5, blendDuration: 0.2)) {
                                 scaleEffect = 1.0
                             }
                         }

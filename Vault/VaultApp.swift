@@ -67,14 +67,14 @@ struct VaultApp: App {
                     .allowsHitTesting(false)
                                     
                 MainSearch(usingAI: $usingAI)
-                    .animation(.spring(response: 0.35, dampingFraction: 0.75, blendDuration: 0.3))
+                    .animation(.spring(response: 0.35, dampingFraction: 0.7, blendDuration: 0.3))
                     .overlay {
                         RoundedRectangle(cornerRadius: 16.0)
                             .fill(.clear)
                             .stroke(usingAI ? .purple : .clear, lineWidth: 6.0)
                             .clipShape(RoundedRectangle(cornerRadius: 16.0))
+                            .animation(.easeOut(duration: 0.15), value: usingAI)
                     }
-                    .animation(.easeOut(duration: 0.15), value: usingAI)
                     .onChange(of: searchModel.activeMode) {
                         if !(searchModel.activeMode.modeFilterType == .mode) {
                             activateModeChangeGradient()
@@ -82,7 +82,7 @@ struct VaultApp: App {
                     }
                     .backgroundPulse(enabled: usingAI, color: .purple)
                     .backgroundPulse(enabled: modeChanged, color: .red)
-//                    .sizePress(press: usingAI)
+                    .sizePress(press: usingAI)
                     .shadow(color: .black.opacity(0.75), radius: 25.0)
 //                    .backgroundPulse(enabled: showModeGradient, color: .red)
 //                    .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
@@ -106,6 +106,8 @@ struct VaultApp: App {
         .defaultPosition(.center)
         .modelContainer(modelContainer)
         MenuBarExtra() {
+            Button("Settings") {
+            }
             Button("Show Window") {
             }
             Button("Quit Rockit") {
@@ -120,7 +122,7 @@ struct VaultApp: App {
         DispatchQueue.main.async {
             modeChanged = true
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             modeChanged = false
         }
     }
