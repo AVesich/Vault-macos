@@ -1,0 +1,20 @@
+query  GitHubRepoQuery($query: String!, $numResults: Int!, $afterCursor: String) {
+  search(type: REPOSITORY, query: $query, first: $numResults, after: $afterCursor) {
+    repos: edges {
+      repo: node {
+        ... on Repository {
+          url
+          name
+          owner {
+            avatarUrl
+          }
+        }
+      }
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+    }
+  }
+}

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,12 @@
 		D91712322C421FB600367174 /* String+Filepath.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712312C421FB600367174 /* String+Filepath.swift */; };
 		D91712342C421FB800367174 /* String+Substring.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712332C421FB800367174 /* String+Substring.swift */; };
 		D91712362C42201000367174 /* Color+Vibrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712352C42201000367174 /* Color+Vibrance.swift */; };
+		D917123B2C422EA400367174 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712382C422AED00367174 /* API.swift */; };
+		D917123C2C422EA900367174 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712392C422C5B00367174 /* GitHubAPI.swift */; };
+		D91712402C42346D00367174 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = D917123F2C42346D00367174 /* Apollo */; };
+		D91712452C423A2900367174 /* GithubSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = D91712442C423A2900367174 /* GithubSchema.graphqls */; };
+		D917124C2C423E0200367174 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D917124B2C423DDE00367174 /* Config.plist */; };
+		D917124E2C423E0E00367174 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917124D2C423E0700367174 /* APIConfig.swift */; };
 		D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92192D22BFE4E8D002D5A7F /* ResultsList.swift */; };
 		D92F3D892C228F210009A701 /* TextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F3D882C228F210009A701 /* TextResultView.swift */; };
 		D92F3D8F2C23CAD90009A701 /* View+SizePreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F3D8E2C23CAD90009A701 /* View+SizePreference.swift */; };
@@ -107,6 +113,12 @@
 		D91712312C421FB600367174 /* String+Filepath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Filepath.swift"; sourceTree = "<group>"; };
 		D91712332C421FB800367174 /* String+Substring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Substring.swift"; sourceTree = "<group>"; };
 		D91712352C42201000367174 /* Color+Vibrance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Vibrance.swift"; sourceTree = "<group>"; };
+		D91712382C422AED00367174 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		D91712392C422C5B00367174 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
+		D91712432C42352300367174 /* GithubRepoQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GithubRepoQuery.graphql; sourceTree = "<group>"; };
+		D91712442C423A2900367174 /* GithubSchema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = GithubSchema.graphqls; sourceTree = "<group>"; };
+		D917124B2C423DDE00367174 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = "<group>"; };
+		D917124D2C423E0700367174 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		D92192D22BFE4E8D002D5A7F /* ResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsList.swift; sourceTree = "<group>"; };
 		D92F3D882C228F210009A701 /* TextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultView.swift; sourceTree = "<group>"; };
 		D92F3D8E2C23CAD90009A701 /* View+SizePreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+SizePreference.swift"; sourceTree = "<group>"; };
@@ -174,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94CAFCA2BFB95F7009AC3E1 /* GoogleGenerativeAI in Frameworks */,
+				D91712402C42346D00367174 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +213,6 @@
 				D9405D1B2C2F947500C1BE6C /* Search.swift */,
 				D9405D192C2D1C2900C1BE6C /* SearchMode.swift */,
 				D934EDB72C2B9D5500DC2472 /* SearchFilter.swift */,
-				D93E1FC22C16902500BA309E /* API Models */,
 				D94CAFCD2BFCF99C009AC3E1 /* SearchResult.swift */,
 				D9079F3B2C0049ED0055BC7E /* DirectoryProfile.swift */,
 			);
@@ -217,6 +229,46 @@
 			path = Styles_Modifiers;
 			sourceTree = "<group>";
 		};
+		D917123A2C422E7F00367174 /* APIs */ = {
+			isa = PBXGroup;
+			children = (
+				D91712382C422AED00367174 /* API.swift */,
+				D917124D2C423E0700367174 /* APIConfig.swift */,
+				D91712492C423DA500367174 /* GitHub */,
+				D93E1FC22C16902500BA309E /* Models */,
+			);
+			path = APIs;
+			sourceTree = "<group>";
+		};
+		D917123D2C4232F600367174 /* GraphQL */ = {
+			isa = PBXGroup;
+			children = (
+				D91712432C42352300367174 /* GithubRepoQuery.graphql */,
+				D91712442C423A2900367174 /* GithubSchema.graphqls */,
+			);
+			path = GraphQL;
+			sourceTree = "<group>";
+		};
+		D91712492C423DA500367174 /* GitHub */ = {
+			isa = PBXGroup;
+			children = (
+				D91712392C422C5B00367174 /* GitHubAPI.swift */,
+				D917124B2C423DDE00367174 /* Config.plist */,
+				D917124A2C423DB600367174 /* Models */,
+				D917123D2C4232F600367174 /* GraphQL */,
+			);
+			path = GitHub;
+			sourceTree = "<group>";
+		};
+		D917124A2C423DB600367174 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D96C61F72C2A5B43009AB564 /* GitHubRepoSearchResult.swift */,
+				D9E173802C31D42800091752 /* GitHubUserSearchResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		D93E1FBF2C168F3E00BA309E /* API Adapters */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,14 +277,12 @@
 			path = "API Adapters";
 			sourceTree = "<group>";
 		};
-		D93E1FC22C16902500BA309E /* API Models */ = {
+		D93E1FC22C16902500BA309E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D9E173802C31D42800091752 /* GitHubUserSearchResult.swift */,
-				D96C61F72C2A5B43009AB564 /* GitHubRepoSearchResult.swift */,
 				D93E1FC32C16903700BA309E /* UnsplashResults.swift */,
 			);
-			path = "API Models";
+			path = Models;
 			sourceTree = "<group>";
 		};
 		D93E1FC52C1692FB00BA309E /* Utilities */ = {
@@ -270,6 +320,7 @@
 		D94CAF732BF82801009AC3E1 /* Vault */ = {
 			isa = PBXGroup;
 			children = (
+				D917123A2C422E7F00367174 /* APIs */,
 				D93E1FC52C1692FB00BA309E /* Utilities */,
 				D9079F3D2C004AA70055BC7E /* Styles_Modifiers */,
 				D9079F3A2C0049D90055BC7E /* Models */,
@@ -433,6 +484,7 @@
 			name = Vault;
 			packageProductDependencies = (
 				D94CAFC92BFB95F7009AC3E1 /* GoogleGenerativeAI */,
+				D917123F2C42346D00367174 /* Apollo */,
 			);
 			productName = Vault;
 			productReference = D94CAF712BF82801009AC3E1 /* Vault.app */;
@@ -510,6 +562,8 @@
 			mainGroup = D94CAF682BF82801009AC3E1;
 			packageReferences = (
 				D94CAFC82BFB95F7009AC3E1 /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+				D917123E2C42346D00367174 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				D97FFE582C42785F002588E1 /* XCLocalSwiftPackageReference "GitHubAPI" */,
 			);
 			productRefGroup = D94CAF722BF82801009AC3E1 /* Products */;
 			projectDirPath = "";
@@ -528,8 +582,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94CAF7E2BF82803009AC3E1 /* Preview Assets.xcassets in Resources */,
+				D91712452C423A2900367174 /* GithubSchema.graphqls in Resources */,
 				D94CAFC72BFB94D6009AC3E1 /* APIKeys.plist in Resources */,
 				D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */,
+				D917124C2C423E0200367174 /* Config.plist in Resources */,
 				D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */,
 				D96C61F42C2A529D009AB564 /* Manrope-Medium.otf in Resources */,
 				D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */,
@@ -578,6 +634,7 @@
 				D96C61F02C28D138009AB564 /* SearchResultView.swift in Sources */,
 				D93E1FBE2C168A8800BA309E /* TestFileSystemEngineDelegate.swift in Sources */,
 				D93062D52C1801D200CDB9FA /* APIJSONHelpers.swift in Sources */,
+				D917124E2C423E0E00367174 /* APIConfig.swift in Sources */,
 				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
 				D9A877132C0D5B15001EAA1C /* URL+FileIcon.swift in Sources */,
 				D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */,
@@ -600,6 +657,7 @@
 				D96C61F62C2A5616009AB564 /* GitHubSearchEngine.swift in Sources */,
 				D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */,
 				D934EDB62C2B9C8E00DC2472 /* ResultFilterList.swift in Sources */,
+				D917123C2C422EA900367174 /* GitHubAPI.swift in Sources */,
 				D94CAFB42BF99E7F009AC3E1 /* SearchBar.swift in Sources */,
 				D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */,
 				D934EDB82C2B9D5800DC2472 /* SearchFilter.swift in Sources */,
@@ -608,6 +666,7 @@
 				D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */,
 				D91712362C42201000367174 /* Color+Vibrance.swift in Sources */,
 				D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */,
+				D917123B2C422EA400367174 /* API.swift in Sources */,
 				D917122C2C3A5F8600367174 /* URLUtil.swift in Sources */,
 				D9405D1C2C2F948100C1BE6C /* Search.swift in Sources */,
 				D93E1FC42C16903700BA309E /* UnsplashResults.swift in Sources */,
@@ -942,7 +1001,22 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		D97FFE582C42785F002588E1 /* XCLocalSwiftPackageReference "GitHubAPI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = GitHubAPI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
+		D917123E2C42346D00367174 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.13.0;
+			};
+		};
 		D94CAFC82BFB95F7009AC3E1 /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/generative-ai-swift";
@@ -954,6 +1028,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D917123F2C42346D00367174 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D917123E2C42346D00367174 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
 		D94CAFC92BFB95F7009AC3E1 /* GoogleGenerativeAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D94CAFC82BFB95F7009AC3E1 /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
