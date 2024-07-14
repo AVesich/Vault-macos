@@ -7,7 +7,7 @@ public class GitHubRepoQuery: GraphQLQuery {
   public static let operationName: String = "GitHubRepoQuery"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query GitHubRepoQuery($query: String!, $numResults: Int!, $afterCursor: String) { search(type: REPOSITORY, query: $query, first: $numResults, after: $afterCursor) { __typename repos: edges { __typename repo: node { __typename ... on Repository { url name owner { __typename avatarUrl } } } } pageInfo { __typename startCursor endCursor hasNextPage } } }"#
+      #"query GitHubRepoQuery($query: String!, $numResults: Int!, $afterCursor: String) { search(type: REPOSITORY, query: $query, first: $numResults, after: $afterCursor) { __typename repos: edges { __typename repo: node { __typename ... on Repository { url name owner { __typename login avatarUrl } } } } pageInfo { __typename startCursor endCursor hasNextPage } } }"#
     ))
 
   public var query: String
@@ -129,9 +129,12 @@ public class GitHubRepoQuery: GraphQLQuery {
               public static var __parentType: any ApolloAPI.ParentType { GitHubAPI.Interfaces.RepositoryOwner }
               public static var __selections: [ApolloAPI.Selection] { [
                 .field("__typename", String.self),
+                .field("login", String.self),
                 .field("avatarUrl", GitHubAPI.URI.self),
               ] }
 
+              /// The username used to login.
+              public var login: String { __data["login"] }
               /// A URL pointing to the owner's public avatar.
               public var avatarUrl: GitHubAPI.URI { __data["avatarUrl"] }
             }

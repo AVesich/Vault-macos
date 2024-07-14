@@ -55,9 +55,8 @@ struct GitHubRepoResultView: View {
 }
 
 #Preview {
-    GitHubRepoResultView(repoResult: GitHubRepoSearchResult(id: 0,
-                                                        name: "Test Repo",
-                                                        owner: GitHubUser(login: "avesich",
-                                                                          avatar_url: "https://avatars.githubusercontent.com/u/75646434?v=4"),
-                                                                          html_url: "google.com"))
+    GitHubRepoResultView(repoResult: GitHubRepoSearchResult(name: "Test Repo",
+                                                            html_url: "google.com",
+                                                            owner: GitHubUser(login: "avesich",
+                                                                              avatar_url: "https://avatars.githubusercontent.com/u/75646434?v=4")))
 }

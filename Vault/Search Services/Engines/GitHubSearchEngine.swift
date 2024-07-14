@@ -28,6 +28,7 @@ class GitHubSearchEngine: Engine {
     }
     
     // MARK: - Properties
+    internal let name = "GitHub"
     public var delegate: EngineDelegate?
     internal var searchResults = [any SearchResult]() {
         didSet {
@@ -37,6 +38,7 @@ class GitHubSearchEngine: Engine {
     public var autocomplete: (() -> ())? = nil
     private let API_URL = "https://api.github.com"
     private let RESULTS_PER_PAGE = 15
+    private var api: GitHubAPI!
     
     // MARK: - Search Filters
     private var activeFilter: FilterMode = .repos
@@ -65,12 +67,18 @@ class GitHubSearchEngine: Engine {
             return searchRepositories
         }
     }
+    
+    init() {
+        api = GitHubAPI(MAX_RESULTS: self.MAX_RESULTS,
+                        RESULTS_PER_PAGE: self.RESULTS_PER_PAGE)
+    }
 
     // MARK: - Methods
     public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
-        Task {
-            await activeSearchMethod(query)
-        }
+//        Task {
+//            await activeSearchMethod(query)
+//        }
+        api.updateResults(for: query, start: nil, end: nil)
     }
     
     private func searchRepositories(withQuery query: String) async {

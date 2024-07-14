@@ -10,6 +10,7 @@ import Foundation
 protocol Engine {
     associatedtype ResultType
     
+    var name: String { get }
     var delegate: EngineDelegate? { get set }
     var searchResults: [ResultType] { get set }
     var searchFilters: [SearchFilter] { get }
@@ -19,7 +20,13 @@ protocol Engine {
 }
 
 extension Engine {
-    
+    var RESULTS_PER_PAGE: Int {
+        return PlistHelper.get(value: name+"_RESULTS_PER_PAGE", from: "EngineConfig")
+    }
+    var MAX_RESULTS: Int {
+        return PlistHelper.get(value: name+"_MAX_RESULTS", from: "EngineConfig")
+    }
+        
     mutating func clearResults() {
         searchResults.removeAll()
     }

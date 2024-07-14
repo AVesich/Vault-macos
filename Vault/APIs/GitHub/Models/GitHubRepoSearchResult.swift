@@ -21,10 +21,9 @@ struct GitHubRepoSearchWrapper: GitHubResultWrapper {
 
 
 struct GitHubRepoSearchResult: Codable {
-    let id: Int
     let name: String
-    let owner: GitHubUser
     let html_url: String
+    let owner: GitHubUser
 }
 
 struct GitHubUser: Codable {

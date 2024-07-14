@@ -6,58 +6,78 @@
 //
 
 import Apollo
+import ApolloAPI
 import GitHubAPI
+import Foundation
 
 final class GitHubAPI: API {
+    
     // MARK: - Properties
+    internal var MAX_RESULTS: Int!
+    internal var RESULTS_PER_PAGE: Int!
+    private var currentMode: any GitHubAPIMode = .repoMode
     public var results = [any SearchResult]()
     internal var prevQuery: String?
-    internal let RESULTS_PER_PAGE = 30
-    internal let MAX_RESULTS = 300
-    private let graphQLClient: ApolloClient?
+    private var graphQLClient: ApolloClient!
     private var nextPageKey: String = ""
     
     // MARK: - Initialization
-    init() {
-        let config = APIConfig(configFileName: "Config")
+    init(MAX_RESULTS: Int, RESULTS_PER_PAGE: Int) {
+        let config = APIConfig(configFileName: "GitHubConfig")
         guard let apiURL = config.apiURL else {
             fatalError("Failed to get ApiUrl from Github API config file")
         }
-        graphQLClient = ApolloClient(url: apiURL)
+        
+        self.MAX_RESULTS = MAX_RESULTS
+        self.RESULTS_PER_PAGE = RESULTS_PER_PAGE
+
+        self.graphQLClient = getGraphQLClient(withEndpointURL: apiURL, andAuthToken: "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")
+    }
+    
+    private func getGraphQLClient(withEndpointURL endpointURL: URL, andAuthToken authToken: String) -> ApolloClient {
+        let client = URLSessionClient()
+        let cache = InMemoryNormalizedCache()
+        let store = ApolloStore(cache: cache)
+        let provider = AuthInterceptorProvider(client: client, store: store, authToken: authToken)
+        let transport = RequestChainNetworkTransport(interceptorProvider: provider, endpointURL: endpointURL)
+        
+        return ApolloClient(networkTransport: transport, store: store)
     }
     
     // MARK: - Methods
     public func updateResults(for query: String, start: String?, end: String?) { // No end needed, github wants start key & number to load from there
-        if query != prevQuery { // Make a new search, NOT a new page
-            results = getFirstPageResults(for: query)
-            return
+        Task {
+            if query != prevQuery { // Make a new search, NOT a new page
+                results = await getFirstPageResults(for: query)
+                prevQuery = query
+                return
+            }
+            
+            if let start {
+                results.append(contentsOf: getNextPageOfResults(startingAt: start))
+                prevQuery = query
+            }
         }
-        
-        guard let start else {
-            return
-        }
-        results.append(contentsOf: getNextPageOfResults(startingAt: start))
-        
-        prevQuery = query
     }
     
-    internal func getFirstPageResults(for query: String) -> [any SearchResult] {
+    internal func getFirstPageResults(for query: String) async -> [any SearchResult] {
         guard let graphQLClient else {
             return []
         }
         
-        let apiResults = graphQLClient.fetch(query: GitHubRepoQuery(query: query, numResults: RESULTS_PER_PAGE, afterCursor: GraphQLNullable<String>(nilLiteral: ()))) { response in
-            switch response {
-            case .success(let graphQLResponse):
-                let data = graphQLResponse.data
-                print("Successful request! Response: \(graphQLResponse)")
-                print("Data: \(data)")
-            case .failure(let error):
-                print("Failed request! Error: \(error)")
-            }
+        var results = [any SearchResult]()
+        do {
+            results = try await currentMode.fetch(withGraphQLClient: graphQLClient, query: query, numResults: RESULTS_PER_PAGE)
+        } catch {
+            print("Failed to fetch with error: \(error)")
         }
         
-        return []
+        dump(results.first)
+        return results
+    }
+    
+    private func getResponseDataAsResults() {
+        
     }
     
     internal func getNextPageOfResults(startingAt start: String) -> [any SearchResult] {

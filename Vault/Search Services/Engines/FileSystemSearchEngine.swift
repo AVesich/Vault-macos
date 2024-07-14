@@ -11,6 +11,7 @@ import CoreSpotlight
 class FileSystemSearchEngine: Engine {
 
     // MARK: - Properties
+    internal let name = "Files"
     public var delegate: EngineDelegate?
     internal var searchResults = [FileResult]() {
         didSet {

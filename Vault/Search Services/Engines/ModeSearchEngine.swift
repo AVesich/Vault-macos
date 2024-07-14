@@ -45,6 +45,7 @@ enum SearchModeEnum {
 
 class ModeSearchEngine: Engine {
     
+    internal let name = "Modes"
     public var delegate: EngineDelegate?
     internal var searchResults = [ModeResult]() {
         didSet {

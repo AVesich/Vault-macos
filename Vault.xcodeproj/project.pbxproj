@@ -23,7 +23,7 @@
 		D917123C2C422EA900367174 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712392C422C5B00367174 /* GitHubAPI.swift */; };
 		D91712402C42346D00367174 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = D917123F2C42346D00367174 /* Apollo */; };
 		D91712452C423A2900367174 /* GithubSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = D91712442C423A2900367174 /* GithubSchema.graphqls */; };
-		D917124C2C423E0200367174 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D917124B2C423DDE00367174 /* Config.plist */; };
+		D917124C2C423E0200367174 /* GitHubConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D917124B2C423DDE00367174 /* GitHubConfig.plist */; };
 		D917124E2C423E0E00367174 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917124D2C423E0700367174 /* APIConfig.swift */; };
 		D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92192D22BFE4E8D002D5A7F /* ResultsList.swift */; };
 		D92F3D892C228F210009A701 /* TextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F3D882C228F210009A701 /* TextResultView.swift */; };
@@ -72,6 +72,9 @@
 		D96C61FA2C2A5D11009AB564 /* GitHubRepoResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C61F92C2A5D11009AB564 /* GitHubRepoResultView.swift */; };
 		D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A0092C33AB9B00A14DEC /* WebEngine.swift */; };
 		D986A00E2C34D55C00A14DEC /* WebResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A00D2C34D55C00A14DEC /* WebResultView.swift */; };
+		D988C71C2C43435200ACA594 /* GitHubAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D988C71B2C43435200ACA594 /* GitHubAPI */; };
+		D988C71E2C43467400ACA594 /* Apollo+FetchAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */; };
+		D988C7202C435C3500ACA594 /* GitHubAPIModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988C71F2C435C3100ACA594 /* GitHubAPIModes.swift */; };
 		D9A8770C2C0D3343001EAA1C /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8770B2C0D3343001EAA1C /* Engine.swift */; };
 		D9A8770E2C0D370A001EAA1C /* FileSystemSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */; };
 		D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */; };
@@ -79,6 +82,8 @@
 		D9A877192C154DCF001EAA1C /* ColorResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877182C154DCF001EAA1C /* ColorResultView.swift */; };
 		D9A8771B2C164216001EAA1C /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8771A2C164216001EAA1C /* Color+Hex.swift */; };
 		D9A8771D2C164CA0001EAA1C /* FontResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8771C2C164CA0001EAA1C /* FontResultView.swift */; };
+		D9C3846D2C43219C003F8DC3 /* AuthInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C3846C2C432197003F8DC3 /* AuthInterceptor.swift */; };
+		D9C3846F2C43231F003F8DC3 /* AuthInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C3846E2C432319003F8DC3 /* AuthInterceptorProvider.swift */; };
 		D9E173812C31D43000091752 /* GitHubUserSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E173802C31D42800091752 /* GitHubUserSearchResult.swift */; };
 		D9E173832C31DC1300091752 /* GitHubUserResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E173822C31DC1300091752 /* GitHubUserResultView.swift */; };
 /* End PBXBuildFile section */
@@ -117,7 +122,7 @@
 		D91712392C422C5B00367174 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
 		D91712432C42352300367174 /* GithubRepoQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GithubRepoQuery.graphql; sourceTree = "<group>"; };
 		D91712442C423A2900367174 /* GithubSchema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = GithubSchema.graphqls; sourceTree = "<group>"; };
-		D917124B2C423DDE00367174 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Config.plist; sourceTree = "<group>"; };
+		D917124B2C423DDE00367174 /* GitHubConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GitHubConfig.plist; sourceTree = "<group>"; };
 		D917124D2C423E0700367174 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		D92192D22BFE4E8D002D5A7F /* ResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsList.swift; sourceTree = "<group>"; };
 		D92F3D882C228F210009A701 /* TextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultView.swift; sourceTree = "<group>"; };
@@ -169,6 +174,8 @@
 		D96C61F92C2A5D11009AB564 /* GitHubRepoResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubRepoResultView.swift; sourceTree = "<group>"; };
 		D986A0092C33AB9B00A14DEC /* WebEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebEngine.swift; sourceTree = "<group>"; };
 		D986A00D2C34D55C00A14DEC /* WebResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResultView.swift; sourceTree = "<group>"; };
+		D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+FetchAsync.swift"; sourceTree = "<group>"; };
+		D988C71F2C435C3100ACA594 /* GitHubAPIModes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIModes.swift; sourceTree = "<group>"; };
 		D9A8770B2C0D3343001EAA1C /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemSearchEngine.swift; sourceTree = "<group>"; };
 		D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePathResultView.swift; sourceTree = "<group>"; };
@@ -176,6 +183,8 @@
 		D9A877182C154DCF001EAA1C /* ColorResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorResultView.swift; sourceTree = "<group>"; };
 		D9A8771A2C164216001EAA1C /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		D9A8771C2C164CA0001EAA1C /* FontResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontResultView.swift; sourceTree = "<group>"; };
+		D9C3846C2C432197003F8DC3 /* AuthInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptor.swift; sourceTree = "<group>"; };
+		D9C3846E2C432319003F8DC3 /* AuthInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptorProvider.swift; sourceTree = "<group>"; };
 		D9E173802C31D42800091752 /* GitHubUserSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserSearchResult.swift; sourceTree = "<group>"; };
 		D9E173822C31DC1300091752 /* GitHubUserResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserResultView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -187,6 +196,7 @@
 			files = (
 				D94CAFCA2BFB95F7009AC3E1 /* GoogleGenerativeAI in Frameworks */,
 				D91712402C42346D00367174 /* Apollo in Frameworks */,
+				D988C71C2C43435200ACA594 /* GitHubAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,10 +262,13 @@
 		D91712492C423DA500367174 /* GitHub */ = {
 			isa = PBXGroup;
 			children = (
+				D988C71F2C435C3100ACA594 /* GitHubAPIModes.swift */,
+				D9C3846E2C432319003F8DC3 /* AuthInterceptorProvider.swift */,
+				D9C3846C2C432197003F8DC3 /* AuthInterceptor.swift */,
 				D91712392C422C5B00367174 /* GitHubAPI.swift */,
-				D917124B2C423DDE00367174 /* Config.plist */,
 				D917124A2C423DB600367174 /* Models */,
 				D917123D2C4232F600367174 /* GraphQL */,
+				D917124B2C423DDE00367174 /* GitHubConfig.plist */,
 			);
 			path = GitHub;
 			sourceTree = "<group>";
@@ -421,6 +434,7 @@
 		D94CAFC12BF9C6E1009AC3E1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */,
 				D94CAFC22BF9C707009AC3E1 /* Font+Manrope.swift */,
 				D94CAFC42BFAD3C7009AC3E1 /* String+Similarity.swift */,
 				D91712312C421FB600367174 /* String+Filepath.swift */,
@@ -485,6 +499,7 @@
 			packageProductDependencies = (
 				D94CAFC92BFB95F7009AC3E1 /* GoogleGenerativeAI */,
 				D917123F2C42346D00367174 /* Apollo */,
+				D988C71B2C43435200ACA594 /* GitHubAPI */,
 			);
 			productName = Vault;
 			productReference = D94CAF712BF82801009AC3E1 /* Vault.app */;
@@ -563,7 +578,7 @@
 			packageReferences = (
 				D94CAFC82BFB95F7009AC3E1 /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
 				D917123E2C42346D00367174 /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				D97FFE582C42785F002588E1 /* XCLocalSwiftPackageReference "GitHubAPI" */,
+				D988C71A2C43435200ACA594 /* XCLocalSwiftPackageReference "GitHubAPI" */,
 			);
 			productRefGroup = D94CAF722BF82801009AC3E1 /* Products */;
 			projectDirPath = "";
@@ -585,7 +600,7 @@
 				D91712452C423A2900367174 /* GithubSchema.graphqls in Resources */,
 				D94CAFC72BFB94D6009AC3E1 /* APIKeys.plist in Resources */,
 				D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */,
-				D917124C2C423E0200367174 /* Config.plist in Resources */,
+				D917124C2C423E0200367174 /* GitHubConfig.plist in Resources */,
 				D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */,
 				D96C61F42C2A529D009AB564 /* Manrope-Medium.otf in Resources */,
 				D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */,
@@ -615,6 +630,7 @@
 			files = (
 				D91712342C421FB800367174 /* String+Substring.swift in Sources */,
 				D9A8771D2C164CA0001EAA1C /* FontResultView.swift in Sources */,
+				D988C7202C435C3500ACA594 /* GitHubAPIModes.swift in Sources */,
 				D93062D12C17D3EF00CDB9FA /* ImagesResultView.swift in Sources */,
 				D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */,
 				D96C61FA2C2A5D11009AB564 /* GitHubRepoResultView.swift in Sources */,
@@ -638,6 +654,8 @@
 				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
 				D9A877132C0D5B15001EAA1C /* URL+FileIcon.swift in Sources */,
 				D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */,
+				D9C3846F2C43231F003F8DC3 /* AuthInterceptorProvider.swift in Sources */,
+				D9C3846D2C43219C003F8DC3 /* AuthInterceptor.swift in Sources */,
 				D9A8770C2C0D3343001EAA1C /* Engine.swift in Sources */,
 				D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */,
 				D93062D32C17D75200CDB9FA /* ResultImageView.swift in Sources */,
@@ -655,6 +673,7 @@
 				D93062DB2C1D253300CDB9FA /* FontSearchEngine.swift in Sources */,
 				D94CAFCC2BFB9613009AC3E1 /* GenerativeAI.swift in Sources */,
 				D96C61F62C2A5616009AB564 /* GitHubSearchEngine.swift in Sources */,
+				D988C71E2C43467400ACA594 /* Apollo+FetchAsync.swift in Sources */,
 				D94CAFB22BF99DBE009AC3E1 /* DirectorySearchBar.swift in Sources */,
 				D934EDB62C2B9C8E00DC2472 /* ResultFilterList.swift in Sources */,
 				D917123C2C422EA900367174 /* GitHubAPI.swift in Sources */,
@@ -1002,7 +1021,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		D97FFE582C42785F002588E1 /* XCLocalSwiftPackageReference "GitHubAPI" */ = {
+		D988C71A2C43435200ACA594 /* XCLocalSwiftPackageReference "GitHubAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = GitHubAPI;
 		};
@@ -1037,6 +1056,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D94CAFC82BFB95F7009AC3E1 /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
 			productName = GoogleGenerativeAI;
+		};
+		D988C71B2C43435200ACA594 /* GitHubAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GitHubAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

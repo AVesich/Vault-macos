@@ -10,6 +10,7 @@ import AppKit
 
 class WebEngine: Engine {
     
+    internal let name = "Web"
     public var delegate: EngineDelegate?
     internal var searchResults = [WebResult]() {
         didSet {

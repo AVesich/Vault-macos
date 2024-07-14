@@ -19,4 +19,16 @@ struct PlistHelper {
         
         return value
     }
+    
+    public static func get<T>(value: String, from plistName: String) -> T {
+        guard let filePath = Bundle.main.path(forResource: plistName, ofType: "plist") else {
+            fatalError("Failed to find APIKeys.plist")
+        }
+        let plist = NSDictionary(contentsOfFile: filePath)
+        guard let value = plist?.object(forKey: value) as? T else {
+            fatalError("Couldn't find key '\(value)' in '\(plistName).plist'.")
+        }
+        
+        return value
+    }
 }

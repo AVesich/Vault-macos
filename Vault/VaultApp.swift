@@ -72,7 +72,7 @@ struct VaultApp: App {
                             .fill(.clear)
                             .stroke(usingAI ? .purple : .clear, lineWidth: 6.0)
                             .clipShape(RoundedRectangle(cornerRadius: 16.0))
-                            .animation(.easeOut(duration: 0.15), value: usingAI)
+//                            .animation(.easeOut(duration: 0.15), value: usingAI)
                     }
                     .animation(.spring(response: 0.35, dampingFraction: 0.7, blendDuration: 0.3))
                     .onChange(of: searchModel.activeMode) {
@@ -83,7 +83,7 @@ struct VaultApp: App {
                     .backgroundPulse(enabled: usingAI, color: .purple)
                     .backgroundPulse(enabled: modeChanged, color: .orange)
                     .sizePress(press: usingAI)
-                    .sizePress(press: modeChanged)
+//                    .sizePress(press: modeChanged)
                     .shadow(color: .black.opacity(0.75), radius: 25.0)
 //                    .backgroundPulse(enabled: showModeGradient, color: .red)
 //                    .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)

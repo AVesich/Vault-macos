@@ -12,17 +12,7 @@ struct APIConfig {
     var apiKey: String?
     
     init(configFileName: String) {
-        guard let filePath = Bundle.main.path(forResource: configFileName, ofType: "plist") else {
-            fatalError("Failed to find \(configFileName).plist")
-        }
-        let plist = NSDictionary(contentsOfFile: filePath)
-        
-        if let apiURLString = plist?.object(forKey: "ApiURL") as? String {
-            apiURL = URL(string: apiURLString)
-        }
-        
-        if let apiKeyString = plist?.object(forKey: "ApiKey") as? String {
-            apiKey = apiKeyString
-        }
+        apiURL = URL(string: PlistHelper.get(value: "ApiUrl", from: configFileName))
+        apiURL = PlistHelper.get(value: "ApiKey", from: configFileName)
     }
 }

@@ -11,6 +11,7 @@ import SwiftUI
 
 // Uses the same code as FileSystemSearchEngine, but adds additional file extension comparison
 class FontSearchEngine: Engine {
+    
     // MARK: - Font traits
     struct HashableFontTrait: Hashable {
         let trait: NSFontTraitMask
@@ -21,6 +22,7 @@ class FontSearchEngine: Engine {
     }
     
     // MARK: - Declaring properties
+    internal let name = "Fonts"
     public var delegate: EngineDelegate?
     internal var searchResults = [FontResult]() {
         didSet {

@@ -6,6 +6,7 @@ query  GitHubRepoQuery($query: String!, $numResults: Int!, $afterCursor: String)
           url
           name
           owner {
+            login
             avatarUrl
           }
         }

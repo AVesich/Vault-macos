@@ -8,7 +8,7 @@
 import Foundation
 
 class UnsplashSearchEngine: Engine {
-    
+    internal let name = "Unsplash"
     public var delegate: EngineDelegate?
     internal var searchResults = [ImagesResult]() {
         didSet {
