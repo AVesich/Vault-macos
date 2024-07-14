@@ -9,6 +9,7 @@ import GitHubAPI
 import Apollo
 import ApolloAPI
 
+// MARK: - Mode Protocol
 protocol GitHubAPIMode {
     associatedtype Query: GraphQLQuery
     
@@ -17,12 +18,7 @@ protocol GitHubAPIMode {
     func getResponseDataAsResults<ResponseData>(_ responseData: ResponseData?) -> [any SearchResult]
 }
 
-extension GraphQLQuery {
-    func getResponseDataType() -> GraphQLResult<Self.Data>.Type {
-        GraphQLResult<Self.Data>.self
-    }
-}
-
+// MARK: - Mode Implementations
 final class GitHubAPIRepoMode: GitHubAPIMode {
     typealias Repository = GitHubRepoQuery.Data.Search.Repo.Repo.AsRepository
         
@@ -54,6 +50,7 @@ final class GitHubAPIRepoMode: GitHubAPIMode {
     }
 }
 
+// MARK: - Mode Extension + Variables
 extension GitHubAPIMode where Self == GitHubAPIRepoMode {
     static var repoMode: GitHubAPIRepoMode {
         return GitHubAPIRepoMode()

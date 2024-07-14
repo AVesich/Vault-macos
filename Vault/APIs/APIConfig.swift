@@ -11,8 +11,10 @@ struct APIConfig {
     var apiURL: URL?
     var apiKey: String?
     
-    init(configFileName: String) {
+    init(configFileName: String, apiNeedsKey: Bool = false) {
         apiURL = URL(string: PlistHelper.get(value: "ApiUrl", from: configFileName))
-        apiURL = PlistHelper.get(value: "ApiKey", from: configFileName)
+        if apiNeedsKey {
+            apiURL = PlistHelper.get(value: "ApiKey", from: configFileName)
+        }
     }
 }

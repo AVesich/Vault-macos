@@ -13,6 +13,7 @@ protocol API {
     // Pagination page tracking changes from API to API, so it isn't a field
     
     associatedtype APIPageMarker
+    func getResults() -> [any SearchResult]
     func updateResults(for query: String, start: APIPageMarker?, end: APIPageMarker?) // Appends results onto the result list, either a new page or a new query
     func getFirstPageResults(for query: String) async -> [any SearchResult]
 }

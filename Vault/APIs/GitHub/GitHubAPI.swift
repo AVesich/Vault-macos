@@ -16,14 +16,14 @@ final class GitHubAPI: API {
     internal var MAX_RESULTS: Int!
     internal var RESULTS_PER_PAGE: Int!
     private var currentMode: any GitHubAPIMode = .repoMode
-    public var results = [any SearchResult]()
+    internal var results = [any SearchResult]()
     internal var prevQuery: String?
     private var graphQLClient: ApolloClient!
     private var nextPageKey: String = ""
     
     // MARK: - Initialization
     init(MAX_RESULTS: Int, RESULTS_PER_PAGE: Int) {
-        let config = APIConfig(configFileName: "GitHubConfig")
+        let config = APIConfig(configFileName: "GitHubAPIConfig")
         guard let apiURL = config.apiURL else {
             fatalError("Failed to get ApiUrl from Github API config file")
         }
@@ -45,6 +45,10 @@ final class GitHubAPI: API {
     }
     
     // MARK: - Methods
+    public func getResults() -> [any SearchResult] {
+        return results
+    }
+    
     public func updateResults(for query: String, start: String?, end: String?) { // No end needed, github wants start key & number to load from there
         Task {
             if query != prevQuery { // Make a new search, NOT a new page
@@ -58,6 +62,10 @@ final class GitHubAPI: API {
                 prevQuery = query
             }
         }
+    }
+    
+    public func setActiveMode(to newMode: any GitHubAPIMode) {
+        currentMode = newMode
     }
     
     internal func getFirstPageResults(for query: String) async -> [any SearchResult] {

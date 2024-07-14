@@ -23,7 +23,7 @@
 		D917123C2C422EA900367174 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712392C422C5B00367174 /* GitHubAPI.swift */; };
 		D91712402C42346D00367174 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = D917123F2C42346D00367174 /* Apollo */; };
 		D91712452C423A2900367174 /* GithubSchema.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = D91712442C423A2900367174 /* GithubSchema.graphqls */; };
-		D917124C2C423E0200367174 /* GitHubConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D917124B2C423DDE00367174 /* GitHubConfig.plist */; };
+		D917124C2C423E0200367174 /* GitHubAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D917124B2C423DDE00367174 /* GitHubAPIConfig.plist */; };
 		D917124E2C423E0E00367174 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917124D2C423E0700367174 /* APIConfig.swift */; };
 		D92192D32BFE4E8D002D5A7F /* ResultsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92192D22BFE4E8D002D5A7F /* ResultsList.swift */; };
 		D92F3D892C228F210009A701 /* TextResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92F3D882C228F210009A701 /* TextResultView.swift */; };
@@ -44,6 +44,7 @@
 		D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */; };
 		D9405D1A2C2D1C3000C1BE6C /* SearchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9405D192C2D1C2900C1BE6C /* SearchMode.swift */; };
 		D9405D1C2C2F948100C1BE6C /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9405D1B2C2F947500C1BE6C /* Search.swift */; };
+		D944F40E2C43CD9A00812B17 /* EngineConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D944F40D2C43CD8B00812B17 /* EngineConfig.plist */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* MainSearch.swift */; };
 		D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */; };
@@ -122,7 +123,7 @@
 		D91712392C422C5B00367174 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
 		D91712432C42352300367174 /* GithubRepoQuery.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GithubRepoQuery.graphql; sourceTree = "<group>"; };
 		D91712442C423A2900367174 /* GithubSchema.graphqls */ = {isa = PBXFileReference; lastKnownFileType = text; path = GithubSchema.graphqls; sourceTree = "<group>"; };
-		D917124B2C423DDE00367174 /* GitHubConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GitHubConfig.plist; sourceTree = "<group>"; };
+		D917124B2C423DDE00367174 /* GitHubAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = GitHubAPIConfig.plist; sourceTree = "<group>"; };
 		D917124D2C423E0700367174 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		D92192D22BFE4E8D002D5A7F /* ResultsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsList.swift; sourceTree = "<group>"; };
 		D92F3D882C228F210009A701 /* TextResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextResultView.swift; sourceTree = "<group>"; };
@@ -143,6 +144,7 @@
 		D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchEngine.swift; sourceTree = "<group>"; };
 		D9405D192C2D1C2900C1BE6C /* SearchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMode.swift; sourceTree = "<group>"; };
 		D9405D1B2C2F947500C1BE6C /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
+		D944F40D2C43CD8B00812B17 /* EngineConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = EngineConfig.plist; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
 		D94CAF762BF82801009AC3E1 /* MainSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearch.swift; sourceTree = "<group>"; };
@@ -268,7 +270,6 @@
 				D91712392C422C5B00367174 /* GitHubAPI.swift */,
 				D917124A2C423DB600367174 /* Models */,
 				D917123D2C4232F600367174 /* GraphQL */,
-				D917124B2C423DDE00367174 /* GitHubConfig.plist */,
 			);
 			path = GitHub;
 			sourceTree = "<group>";
@@ -309,6 +310,16 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		D944F40C2C43CD7100812B17 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				D944F40D2C43CD8B00812B17 /* EngineConfig.plist */,
+				D917124B2C423DDE00367174 /* GitHubAPIConfig.plist */,
+				D94CAFC62BFB94D6009AC3E1 /* APIKeys.plist */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		D94CAF682BF82801009AC3E1 = {
 			isa = PBXGroup;
 			children = (
@@ -333,6 +344,7 @@
 		D94CAF732BF82801009AC3E1 /* Vault */ = {
 			isa = PBXGroup;
 			children = (
+				D944F40C2C43CD7100812B17 /* Config */,
 				D917123A2C422E7F00367174 /* APIs */,
 				D93E1FC52C1692FB00BA309E /* Utilities */,
 				D9079F3D2C004AA70055BC7E /* Styles_Modifiers */,
@@ -345,7 +357,6 @@
 				D94CAFBA2BF9C5B5009AC3E1 /* Fonts */,
 				D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */,
 				D94CAF7F2BF82803009AC3E1 /* Vault.entitlements */,
-				D94CAFC62BFB94D6009AC3E1 /* APIKeys.plist */,
 				D94CAF7C2BF82803009AC3E1 /* Preview Content */,
 			);
 			path = Vault;
@@ -600,10 +611,11 @@
 				D91712452C423A2900367174 /* GithubSchema.graphqls in Resources */,
 				D94CAFC72BFB94D6009AC3E1 /* APIKeys.plist in Resources */,
 				D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */,
-				D917124C2C423E0200367174 /* GitHubConfig.plist in Resources */,
+				D917124C2C423E0200367174 /* GitHubAPIConfig.plist in Resources */,
 				D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */,
 				D96C61F42C2A529D009AB564 /* Manrope-Medium.otf in Resources */,
 				D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */,
+				D944F40E2C43CD9A00812B17 /* EngineConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
