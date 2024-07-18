@@ -13,32 +13,33 @@ import ApolloAPI
 protocol GitHubAPIMode {
     associatedtype Query: GraphQLQuery
     
-    func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int) async throws  -> [any SearchResult]
-    func getQueryWithParams(_ query: String, numResults: Int, start: String?) -> Query
-    func getResponseDataAsResults<ResponseData>(_ responseData: ResponseData?) -> [any SearchResult]
+    func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws  -> (results: [any SearchResult], nextPageInfo: NextPageInfo)
+    func getQueryWithParams(_ query: String, numResults: Int, startCursor: String?) -> Query
+    func getResponseResults<ResponseData>(fromData responseData: ResponseData?) -> [any SearchResult]
+    func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo
 }
 
 // MARK: - Mode Implementations
 final class GitHubAPIRepoMode: GitHubAPIMode {
     typealias Repository = GitHubRepoQuery.Data.Search.Repo.Repo.AsRepository
         
-    public func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int) async throws -> [any SearchResult] {
-        let query = getQueryWithParams(query, numResults: numResults)
+    public func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws -> (results: [any SearchResult], nextPageInfo: NextPageInfo) {
+        let query = getQueryWithParams(query, numResults: numResults, startCursor: nextCursor)
         let response = try await client.fetchAsync(query: query)
-        return getResponseDataAsResults(response.data)
+        return (getResponseResults(fromData: response.data), getResponseNextPageInfo(fromData: response.data))
     }
     
-    internal func getQueryWithParams(_ query: String, numResults: Int, start: String? = nil) -> GitHubRepoQuery {
+    internal func getQueryWithParams(_ query: String, numResults: Int, startCursor: String? = nil) -> GitHubRepoQuery {
         var afterCursor = GraphQLNullable<String>(nilLiteral: ())
-        if let start {
-            afterCursor = GraphQLNullable<String>(stringLiteral: start)
+        if let startCursor {
+            afterCursor = GraphQLNullable<String>(stringLiteral: startCursor)
         }
         return GitHubRepoQuery(query: query,
                                numResults: numResults,
                                afterCursor: afterCursor)
     }
     
-    internal func getResponseDataAsResults<ResponseData>(_ responseData: ResponseData?) -> [any SearchResult] {
+    internal func getResponseResults<ResponseData>(fromData responseData: ResponseData?) -> [any SearchResult] {
         guard let responseData = responseData as? GitHubRepoQuery.Data else {
             return []
         }
@@ -48,6 +49,17 @@ final class GitHubAPIRepoMode: GitHubAPIMode {
                                                                             owner: GitHubUser(login: $0.owner.login,
                                                                                               avatar_url: $0.owner.avatarUrl))) }
     }
+    
+    internal func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo {
+        guard let responseData = responseData as? GitHubRepoQuery.Data else {
+            return NextPageInfo(nextPageCursor: nil, 
+                                         hasNextPage: false)
+        }
+        let pageInfo = responseData.search.pageInfo
+        return NextPageInfo(nextPageCursor: pageInfo.endCursor,
+                                     hasNextPage: (pageInfo.endCursor == nil) ? false : pageInfo.hasNextPage)
+    }
+
 }
 
 // MARK: - Mode Extension + Variables

@@ -15,5 +15,13 @@ protocol API {
     associatedtype APIPageMarker
     func getResults() -> [any SearchResult]
     func updateResults(for query: String, start: APIPageMarker?, end: APIPageMarker?) // Appends results onto the result list, either a new page or a new query
-    func getFirstPageResults(for query: String) async -> [any SearchResult]
+    func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo)
 }
+
+struct NextPageInfo {
+    let nextPageCursor: String?
+    let hasNextPage: Bool
+    
+    static let firstPageInfo = NextPageInfo(nextPageCursor: nil, hasNextPage: true)
+}
+

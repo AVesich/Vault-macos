@@ -53,6 +53,9 @@ class GlobalSearch {
             self.queryString = newQuery
         }
     }
+    
+    // MARK: - Filter properties
+    private var filtersNeedReset: Bool = false // This is set to true when the mode changes & prevents refresh due to the initial filter reset
     private var selectedFilterIndices: Set<Int> = Set<Int>() {
         didSet {
             filterIndicesChanged()
@@ -195,20 +198,30 @@ class GlobalSearch {
     }
     
     private func activeModeWillChange() {
-        activeMode.engine.clearResults()
+        clearResults()
     }
     
     private func activeModeChanged() {
-        if activeMode.modeFilterType != .mode {
+        filtersNeedReset = true
+        resetFilters()
+        if activeMode.modeFilterType != .mode { // Don't want to clear the '/'
             queryString = ""
-            selectedFilterIndices.removeAll()
-            if let defaultFilterIndex = activeMode.defaultFilterIndex {
-                selectedFilterIndices.insert(defaultFilterIndex)
-            }
         }
     }
     
+    private func resetFilters() {
+        selectedFilterIndices.removeAll()
+        if let defaultIndex = activeMode.defaultFilterIndex {
+            selectedFilterIndices.insert(defaultIndex)
+        }
+        filtersNeedReset = false
+    }
+    
     private func filterIndicesChanged() {
+        if filtersNeedReset {
+            return
+        }
+        
         if selectedFilterIndices.isEmpty && queryString.isEmpty {
             clearResults()
         } else {
@@ -217,7 +230,7 @@ class GlobalSearch {
     }
     
     private func clearResults() {
-        foundResults.removeAll()
+        activeMode.engine.clearResults()
     }
 }
 

@@ -13,7 +13,6 @@ query  GitHubRepoQuery($query: String!, $numResults: Int!, $afterCursor: String)
       }
     }
     pageInfo {
-      startCursor
       endCursor
       hasNextPage
     }

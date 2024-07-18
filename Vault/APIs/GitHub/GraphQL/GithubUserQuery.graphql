@@ -1,0 +1,17 @@
+query GitHubUserQuery($query: String!, $numResults: Int!, $afterCursor: String) {
+  search(type: USER, query: $query, first: $numResults, after: $afterCursor) {
+    repos: edges {
+      repo: node {
+        ... on User {
+          name
+          url
+          avatarUrl
+        }
+      }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+  }
+}

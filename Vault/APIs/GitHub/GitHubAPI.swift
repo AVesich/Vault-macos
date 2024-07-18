@@ -10,7 +10,7 @@ import ApolloAPI
 import GitHubAPI
 import Foundation
 
-final class GitHubAPI: API {
+final class GitHubAPI: API {    
     
     // MARK: - Properties
     internal var MAX_RESULTS: Int!
@@ -19,7 +19,8 @@ final class GitHubAPI: API {
     internal var results = [any SearchResult]()
     internal var prevQuery: String?
     private var graphQLClient: ApolloClient!
-    private var nextPageKey: String = ""
+    private var isLoadingNewPage: Bool = false
+    private var nextPageInfo: NextPageInfo = .firstPageInfo
     
     // MARK: - Initialization
     init(MAX_RESULTS: Int, RESULTS_PER_PAGE: Int) {
@@ -51,16 +52,19 @@ final class GitHubAPI: API {
     
     public func updateResults(for query: String, start: String?, end: String?) { // No end needed, github wants start key & number to load from there
         Task {
-            if query != prevQuery { // Make a new search, NOT a new page
-                results = await getFirstPageResults(for: query)
-                prevQuery = query
-                return
+            let newQuery = query != prevQuery
+            if newQuery { // Make a new search, NOT a new page
+                nextPageInfo = .firstPageInfo
+            }
+            prevQuery = query
+            
+            let resultData = await getResultData(for: query)
+            if newQuery {
+                results.removeAll()
             }
             
-            if let start {
-                results.append(contentsOf: getNextPageOfResults(startingAt: start))
-                prevQuery = query
-            }
+            results.append(contentsOf: resultData.results)
+            nextPageInfo = resultData.nextPageInfo
         }
     }
     
@@ -68,33 +72,35 @@ final class GitHubAPI: API {
         currentMode = newMode
     }
     
-    internal func getFirstPageResults(for query: String) async -> [any SearchResult] {
-        guard let graphQLClient else {
-            return []
+    internal func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo) {
+        var fetchedResults = [any SearchResult]()
+        var fetchedNextPageInfo = NextPageInfo(nextPageCursor: nil, hasNextPage: false)
+        isLoadingNewPage = true
+        defer {
+            isLoadingNewPage = false
         }
         
-        var results = [any SearchResult]()
+        guard let graphQLClient, (results.isEmpty || nextPageInfo.hasNextPage) else {
+            return (fetchedResults, fetchedNextPageInfo)
+        }
+        
         do {
-            results = try await currentMode.fetch(withGraphQLClient: graphQLClient, query: query, numResults: RESULTS_PER_PAGE)
+            let resultData = try await currentMode.fetch(withGraphQLClient: graphQLClient, query: query, numResults: RESULTS_PER_PAGE, nextCursor: nextPageInfo.nextPageCursor)
+            fetchedResults = resultData.results
+            fetchedNextPageInfo = resultData.nextPageInfo
         } catch {
             print("Failed to fetch with error: \(error)")
         }
-        
-        dump(results.first)
-        return results
+        return (fetchedResults, fetchedNextPageInfo)
     }
     
-    private func getResponseDataAsResults() {
-        
-    }
-    
-    internal func getNextPageOfResults(startingAt start: String) -> [any SearchResult] {
-        guard let graphQLClient, let prevQuery, results.count < MAX_RESULTS else {
-            return []
-        }
-        
-        let apiResults = graphQLClient.fetch(query: GitHubRepoQuery(query: prevQuery, numResults: RESULTS_PER_PAGE, afterCursor: GraphQLNullable<String>(stringLiteral: nextPageKey)))
-        
-        return []
-    }
+//    internal func getNextPageOfResults(startingAt start: String) -> [any SearchResult] {
+//        guard let graphQLClient, let prevQuery, results.count < MAX_RESULTS else {
+//            return []
+//        }
+//        
+//        let apiResults = graphQLClient.fetch(query: GitHubRepoQuery(query: prevQuery, numResults: RESULTS_PER_PAGE, afterCursor: GraphQLNullable<String>(stringLiteral: nextPageKey)))
+//        
+//        return []
+//    }
 }
