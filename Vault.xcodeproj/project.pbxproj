@@ -12,6 +12,7 @@
 		D9079F3F2C004AB50055BC7E /* ToggleStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F3E2C004AB50055BC7E /* ToggleStyles.swift */; };
 		D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F402C01B4520055BC7E /* DirectoryUI.swift */; };
 		D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9079F422C01B5FA0055BC7E /* DirectoryRecommendationView.swift */; };
+		D9086D262C4A1D3A00E5B590 /* GitHubAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D9086D252C4A1D3A00E5B590 /* GitHubAPI */; };
 		D917122A2C3648EF00367174 /* ModeSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D91712292C3648EA00367174 /* ModeSearchEngine.swift */; };
 		D917122C2C3A5F8600367174 /* URLUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917122B2C3A5F8300367174 /* URLUtil.swift */; };
 		D917122E2C3B58DF00367174 /* BackgroundPulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D917122D2C3B58CA00367174 /* BackgroundPulse.swift */; };
@@ -74,7 +75,6 @@
 		D96C61FA2C2A5D11009AB564 /* GitHubRepoResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96C61F92C2A5D11009AB564 /* GitHubRepoResultView.swift */; };
 		D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A0092C33AB9B00A14DEC /* WebEngine.swift */; };
 		D986A00E2C34D55C00A14DEC /* WebResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A00D2C34D55C00A14DEC /* WebResultView.swift */; };
-		D988C71C2C43435200ACA594 /* GitHubAPI in Frameworks */ = {isa = PBXBuildFile; productRef = D988C71B2C43435200ACA594 /* GitHubAPI */; };
 		D988C71E2C43467400ACA594 /* Apollo+FetchAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */; };
 		D988C7202C435C3500ACA594 /* GitHubAPIModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988C71F2C435C3100ACA594 /* GitHubAPIModes.swift */; };
 		D9A8770C2C0D3343001EAA1C /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8770B2C0D3343001EAA1C /* Engine.swift */; };
@@ -200,7 +200,7 @@
 			files = (
 				D94CAFCA2BFB95F7009AC3E1 /* GoogleGenerativeAI in Frameworks */,
 				D91712402C42346D00367174 /* Apollo in Frameworks */,
-				D988C71C2C43435200ACA594 /* GitHubAPI in Frameworks */,
+				D9086D262C4A1D3A00E5B590 /* GitHubAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -513,7 +513,7 @@
 			packageProductDependencies = (
 				D94CAFC92BFB95F7009AC3E1 /* GoogleGenerativeAI */,
 				D917123F2C42346D00367174 /* Apollo */,
-				D988C71B2C43435200ACA594 /* GitHubAPI */,
+				D9086D252C4A1D3A00E5B590 /* GitHubAPI */,
 			);
 			productName = Vault;
 			productReference = D94CAF712BF82801009AC3E1 /* Vault.app */;
@@ -592,7 +592,7 @@
 			packageReferences = (
 				D94CAFC82BFB95F7009AC3E1 /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
 				D917123E2C42346D00367174 /* XCRemoteSwiftPackageReference "apollo-ios" */,
-				D988C71A2C43435200ACA594 /* XCLocalSwiftPackageReference "GitHubAPI" */,
+				D9086D242C4A1D3A00E5B590 /* XCLocalSwiftPackageReference "GitHubAPI" */,
 			);
 			productRefGroup = D94CAF722BF82801009AC3E1 /* Products */;
 			projectDirPath = "";
@@ -1037,7 +1037,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		D988C71A2C43435200ACA594 /* XCLocalSwiftPackageReference "GitHubAPI" */ = {
+		D9086D242C4A1D3A00E5B590 /* XCLocalSwiftPackageReference "GitHubAPI" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = GitHubAPI;
 		};
@@ -1063,6 +1063,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D9086D252C4A1D3A00E5B590 /* GitHubAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GitHubAPI;
+		};
 		D917123F2C42346D00367174 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D917123E2C42346D00367174 /* XCRemoteSwiftPackageReference "apollo-ios" */;
@@ -1072,10 +1076,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D94CAFC82BFB95F7009AC3E1 /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
 			productName = GoogleGenerativeAI;
-		};
-		D988C71B2C43435200ACA594 /* GitHubAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GitHubAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

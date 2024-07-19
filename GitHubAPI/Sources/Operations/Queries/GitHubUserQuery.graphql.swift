@@ -7,7 +7,7 @@ public class GitHubUserQuery: GraphQLQuery {
   public static let operationName: String = "GitHubUserQuery"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query GitHubUserQuery($query: String!, $numResults: Int!, $afterCursor: String) { search(type: USER, query: $query, first: $numResults, after: $afterCursor) { __typename repos: edges { __typename repo: node { __typename ... on User { name url avatarUrl } } } pageInfo { __typename endCursor hasNextPage } } }"#
+      #"query GitHubUserQuery($query: String!, $numResults: Int!, $afterCursor: String) { search(type: USER, query: $query, first: $numResults, after: $afterCursor) { __typename users: edges { __typename user: node { __typename ... on User { login url avatarUrl } } } pageInfo { __typename endCursor hasNextPage } } }"#
     ))
 
   public var query: String
@@ -57,35 +57,35 @@ public class GitHubUserQuery: GraphQLQuery {
       public static var __parentType: any ApolloAPI.ParentType { GitHubAPI.Objects.SearchResultItemConnection }
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .field("edges", alias: "repos", [Repo?]?.self),
+        .field("edges", alias: "users", [User?]?.self),
         .field("pageInfo", PageInfo.self),
       ] }
 
       /// A list of edges.
-      public var repos: [Repo?]? { __data["repos"] }
+      public var users: [User?]? { __data["users"] }
       /// Information to aid in pagination.
       public var pageInfo: PageInfo { __data["pageInfo"] }
 
-      /// Search.Repo
+      /// Search.User
       ///
       /// Parent Type: `SearchResultItemEdge`
-      public struct Repo: GitHubAPI.SelectionSet {
+      public struct User: GitHubAPI.SelectionSet {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: any ApolloAPI.ParentType { GitHubAPI.Objects.SearchResultItemEdge }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
-          .field("node", alias: "repo", Repo?.self),
+          .field("node", alias: "user", User?.self),
         ] }
 
         /// The item at the end of the edge.
-        public var repo: Repo? { __data["repo"] }
+        public var user: User? { __data["user"] }
 
-        /// Search.Repo.Repo
+        /// Search.User.User
         ///
         /// Parent Type: `SearchResultItem`
-        public struct Repo: GitHubAPI.SelectionSet {
+        public struct User: GitHubAPI.SelectionSet {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -97,23 +97,23 @@ public class GitHubUserQuery: GraphQLQuery {
 
           public var asUser: AsUser? { _asInlineFragment() }
 
-          /// Search.Repo.Repo.AsUser
+          /// Search.User.User.AsUser
           ///
           /// Parent Type: `User`
           public struct AsUser: GitHubAPI.InlineFragment {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public typealias RootEntityType = GitHubUserQuery.Data.Search.Repo.Repo
+            public typealias RootEntityType = GitHubUserQuery.Data.Search.User.User
             public static var __parentType: any ApolloAPI.ParentType { GitHubAPI.Objects.User }
             public static var __selections: [ApolloAPI.Selection] { [
-              .field("name", String?.self),
+              .field("login", String.self),
               .field("url", GitHubAPI.URI.self),
               .field("avatarUrl", GitHubAPI.URI.self),
             ] }
 
-            /// The user's public profile name.
-            public var name: String? { __data["name"] }
+            /// The username used to login.
+            public var login: String { __data["login"] }
             /// The HTTP URL for this user
             public var url: GitHubAPI.URI { __data["url"] }
             /// A URL pointing to the user's public avatar.

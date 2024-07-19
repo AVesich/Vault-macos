@@ -68,5 +68,51 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A60D0D5A-3A39-4F7B-B134-64649426747A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Vault/APIs/GitHub/GitHubAPI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "updateResults(for:start:end:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A60D0D5A-3A39-4F7B-B134-64649426747A - 8268fb2ad2e96ec8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Vault.GitHubAPI.updateResults(for: Swift.String, start: Swift.Optional&lt;Swift.String&gt;, end: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
+                  moduleName = "Vault.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/austin/Documents/Vault-macos/Vault/Vault/APIs/GitHub/GitHubAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66">
+               </Location>
+               <Location
+                  uuid = "A60D0D5A-3A39-4F7B-B134-64649426747A - 669d8c3e0fadea56"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Vault.GitHubAPI.updateResults(for: Swift.String, start: Swift.Optional&lt;Swift.String&gt;, end: Swift.Optional&lt;Swift.String&gt;) async -&gt; ()"
+                  moduleName = "Vault.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/austin/Documents/Vault-macos/Vault/Vault/APIs/GitHub/GitHubAPI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

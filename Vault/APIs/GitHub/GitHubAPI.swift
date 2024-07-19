@@ -50,22 +50,20 @@ final class GitHubAPI: API {
         return results
     }
     
-    public func updateResults(for query: String, start: String?, end: String?) { // No end needed, github wants start key & number to load from there
-        Task {
-            let newQuery = query != prevQuery
-            if newQuery { // Make a new search, NOT a new page
-                nextPageInfo = .firstPageInfo
-            }
-            prevQuery = query
-            
-            let resultData = await getResultData(for: query)
-            if newQuery {
-                results.removeAll()
-            }
-            
-            results.append(contentsOf: resultData.results)
-            nextPageInfo = resultData.nextPageInfo
+    public func updateResults(for query: String, start: String?, end: String?) async { // No end needed, github wants start key & number to load from there
+        let newQuery = query != prevQuery
+        if newQuery { // Make a new search, NOT a new page
+            nextPageInfo = .firstPageInfo
         }
+        prevQuery = query
+        
+        let resultData = await getResultData(for: query)
+        if newQuery {
+            results.removeAll()
+        }
+        
+        results.append(contentsOf: resultData.results)
+        nextPageInfo = resultData.nextPageInfo
     }
     
     public func setActiveMode(to newMode: any GitHubAPIMode) {

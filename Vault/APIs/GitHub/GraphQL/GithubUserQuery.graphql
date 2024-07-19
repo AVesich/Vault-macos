@@ -1,9 +1,9 @@
 query GitHubUserQuery($query: String!, $numResults: Int!, $afterCursor: String) {
   search(type: USER, query: $query, first: $numResults, after: $afterCursor) {
-    repos: edges {
-      repo: node {
+    users: edges {
+      user: node {
         ... on User {
-          name
+          login
           url
           avatarUrl
         }
