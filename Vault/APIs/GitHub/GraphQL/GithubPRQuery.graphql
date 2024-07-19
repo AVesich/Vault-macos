@@ -1,0 +1,25 @@
+query GitHubPRQuery($numResults: Int!, $afterCursor: String) {
+  viewer {
+    pullRequests(first: $numResults, after: $afterCursor) {
+      pullRequests: edges {
+        pullRequests: node {
+          author {
+            login
+            url
+            avatarUrl
+          }
+          closed
+          merged
+          title
+          url
+            baseRefName
+          headRefName
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
