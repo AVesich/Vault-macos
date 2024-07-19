@@ -32,6 +32,8 @@ final class GitHubAPI: API {
         self.MAX_RESULTS = MAX_RESULTS
         self.RESULTS_PER_PAGE = RESULTS_PER_PAGE
 
+        // avesich: "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"
+        // rhit-vesichab: "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"
         self.graphQLClient = getGraphQLClient(withEndpointURL: apiURL, andAuthToken: "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")
     }
     
