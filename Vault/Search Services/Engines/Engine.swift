@@ -12,13 +12,12 @@
 import Foundation
 
 protocol Engine {
-    var delegate: EngineDelegate? { get set }
-    var API: (any API) { get set }
-    var searchFilters: [SearchFilter] { get set }
-    var autocompleteMethod: (() -> ())? { get set }
+    associatedtype EngineAPI: API
     
-    func clearResults()
-    func search(withQuery query: String, inActiveDirectory activeDirectory: String) async
+    var delegate: EngineDelegate? { get set }
+    var API: EngineAPI! { get set }
+    var searchFilters: [SearchFilter] { get }
+    var autocompleteMethod: (() -> ())? { get }
 }
 
 extension Engine {

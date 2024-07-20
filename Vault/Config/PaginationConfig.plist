@@ -6,10 +6,6 @@
 	<integer>100</integer>
 	<key>Web_RESULTS_PER_PAGE</key>
 	<integer>25</integer>
-	<key>Files_MAX_RESULTS</key>
-	<integer>100</integer>
-	<key>Files_RESULTS_PER_PAGE</key>
-	<integer>25</integer>
 	<key>Unsplash_MAX_RESULTS</key>
 	<integer>150</integer>
 	<key>Unsplash_RESULTS_PER_PAGE</key>

@@ -6,16 +6,18 @@
 //
 
 protocol API {
+    associatedtype PageCursorType
+    
     var apiConfig: APIConfig! { get set }
     var results: [any SearchResult] { get set }
     var prevQuery: String? { get set }
-    var nextPageInfo: NextPageInfo { get set }
+    var nextPageInfo: NextPageInfo<PageCursorType> { get set }
     var isLoadingNewPage: Bool { get set }
     
     init()
     init(configFileName: String, apiHasURL: Bool, apiNeedsKey: Bool)
     
-    func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo)
+    func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo<PageCursorType>)
 }
 
 extension API {
@@ -40,7 +42,7 @@ extension API {
     public mutating func updateResults(forQuery query: String) async {
         let newQuery = query != prevQuery
         if newQuery { // Make a new search, NOT a new page
-            nextPageInfo = .firstPageInfo
+            nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
         }
         prevQuery = query
         
@@ -54,10 +56,10 @@ extension API {
     }
 }
 
-struct NextPageInfo {
-    let nextPageCursor: String?
+struct NextPageInfo<CursorType> {
+    let nextPageCursor: CursorType?
     let hasNextPage: Bool
     
-    static let firstPageInfo = NextPageInfo(nextPageCursor: nil, hasNextPage: true)
+    static let firstPageInfo = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: true)
 }
 

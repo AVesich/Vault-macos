@@ -16,7 +16,7 @@ final class GitHubAPI: API {
     internal var apiConfig: APIConfig!
     internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
-    internal var nextPageInfo: NextPageInfo = .firstPageInfo
+    internal var nextPageInfo: NextPageInfo<String> = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: true)
     internal var isLoadingNewPage: Bool = false
     private var currentMode: any GitHubAPIMode = .repoMode
     private var graphQLClient: ApolloClient!
@@ -49,9 +49,9 @@ final class GitHubAPI: API {
         currentMode = newMode
     }
     
-    internal func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo) {
+    internal func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo<String>) {
         var fetchedResults = [any SearchResult]()
-        var fetchedNextPageInfo = NextPageInfo(nextPageCursor: nil, hasNextPage: false)
+        var fetchedNextPageInfo = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: false)
         isLoadingNewPage = true
         defer {
             isLoadingNewPage = false
