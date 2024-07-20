@@ -50,11 +50,11 @@ class GitHubSearchEngine: Engine {
          SearchFilter(name: "Users",
                       iconName: "person.fill",
                       selectAction: { [weak self] in self?.api.setActiveMode(to: .userMode) },
+                      deselectAction: nil),
+         SearchFilter(name: "Pull Requests",
+                      iconName: "arrow.trianglehead.pull",
+                      selectAction: { [weak self] in self?.api.setActiveMode(to: .pullRequestMode) },
                       deselectAction: nil)]
-//         SearchFilter(name: "My Pull Requests",
-//                      iconName: "arrow.trianglehead.pull",
-//                      selectAction: { [weak self] in self?.activeFilter = .prs },
-//                      deselectAction: nil)]
     }
     
     init() {

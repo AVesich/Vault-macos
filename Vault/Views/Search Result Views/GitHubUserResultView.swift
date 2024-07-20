@@ -10,11 +10,11 @@ import SwiftUI
 struct GitHubUserResultView: View {
     
     @State private var isHovering: Bool = false
-    public var userResult: GitHubUserSearchResult
+    public var userResult: GitHubUserAPIResult
     
     var body: some View {
         HStack(alignment: .center, spacing: 16.0) {
-            if let avatarURL = URL(string: userResult.avatar_url) {
+            if let avatarURL = URL(string: userResult.avatarURLString) {
                 AsyncImage(url: avatarURL) { result in
                     result.image?
                         .resizable()
@@ -38,7 +38,7 @@ struct GitHubUserResultView: View {
             isHovering = hovering
         }
         .onTapGesture {
-            if let url = URL(string: userResult.html_url) {
+            if let url = URL(string: userResult.htmlURLString) {
                 NSWorkspace.shared.open(url)
             }
         }
@@ -46,8 +46,8 @@ struct GitHubUserResultView: View {
 }
 
 #Preview {
-    GitHubRepoResultView(repoResult: GitHubRepoSearchResult(name: "Test Repo",
-                                                            html_url: "google.com",
-                                                            owner: GitHubUser(login: "avesich",
-                                                                              avatar_url: "https://avatars.githubusercontent.com/u/75646434?v=4")))
+    GitHubRepoResultView(repoResult: GitHubRepoAPIResult(name: "Test Repo",
+                                                         htmlURLString: "google.com",
+                                                         ownerUsername: "avesich",
+                                                         ownerAvatarURLString: "https://avatars.githubusercontent.com/u/75646434?v=4"))
 }

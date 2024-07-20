@@ -79,7 +79,7 @@ struct ImagesResult: SearchResult {
 
 struct GitHubRepoResult: SearchResult {
     let id = UUID()
-    let content: GitHubRepoSearchResult
+    let content: GitHubRepoAPIResult
     var view: some View {
         GitHubRepoResultView(repoResult: content)
     }
@@ -87,9 +87,17 @@ struct GitHubRepoResult: SearchResult {
 
 struct GitHubUserResult: SearchResult {
     let id = UUID()
-    let content: GitHubUserSearchResult
+    let content: GitHubUserAPIResult
     var view: some View {
         GitHubUserResultView(userResult: content)
+    }
+}
+
+struct GitHubPullRequestResult: SearchResult {
+    let id = UUID()
+    let content: GitHubPullRequestAPIResult
+    var view: some View {
+        GitHubPullRequestResultView(pullRequestResult: content)
     }
 }
 

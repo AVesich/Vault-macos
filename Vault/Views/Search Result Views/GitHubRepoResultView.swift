@@ -10,7 +10,7 @@ import SwiftUI
 struct GitHubRepoResultView: View {
     
     @State private var isHovering: Bool = false
-    public var repoResult: GitHubRepoSearchResult
+    public var repoResult: GitHubRepoAPIResult
     
     var body: some View {
         HStack(alignment: .center, spacing: 16.0) {
@@ -21,7 +21,7 @@ struct GitHubRepoResultView: View {
                 Text(repoResult.name)
                     .font(.manrope(24.0))
                 HStack(spacing: 8.0) {
-                    if let avatarURL = URL(string: repoResult.owner.avatar_url) {
+                    if let avatarURL = URL(string: repoResult.ownerAvatarURLString) {
                         AsyncImage(url: avatarURL) { result in
                             result.image?
                                 .resizable()
@@ -30,7 +30,7 @@ struct GitHubRepoResultView: View {
                                 .clipShape(Circle())
                         }
                     }
-                    Text(repoResult.owner.login)
+                    Text(repoResult.ownerUsername)
                         .font(.manrope(12.0, weight: .bold))
                 }
                 .padding(.bottom, 8.0)
@@ -47,7 +47,7 @@ struct GitHubRepoResultView: View {
             isHovering = hovering
         }
         .onTapGesture {
-            if let url = URL(string: repoResult.html_url) {
+            if let url = URL(string: repoResult.htmlURLString) {
                 NSWorkspace.shared.open(url)
             }
         }
@@ -55,8 +55,8 @@ struct GitHubRepoResultView: View {
 }
 
 #Preview {
-    GitHubRepoResultView(repoResult: GitHubRepoSearchResult(name: "Test Repo",
-                                                            html_url: "google.com",
-                                                            owner: GitHubUser(login: "avesich",
-                                                                              avatar_url: "https://avatars.githubusercontent.com/u/75646434?v=4")))
+    GitHubRepoResultView(repoResult: GitHubRepoAPIResult(name: "Test Repo",
+                                                         htmlURLString: "google.com",
+                                                         ownerUsername: "avesich",
+                                                         ownerAvatarURLString: "https://avatars.githubusercontent.com/u/75646434?v=4"))
 }
