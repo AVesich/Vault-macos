@@ -12,7 +12,7 @@ class TestFileSystemEngineDelegate: EngineDelegate {
         self.completionFunction = completionFunction
     }
     
-    func engineDidFindResults(results: [any SearchResult]) {
+    func engineGotResults(results: [any SearchResult]) {
         if let results = results as? [FileResult] {
             completionFunction(results)
         }

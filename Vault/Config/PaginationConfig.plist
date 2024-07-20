@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>GitHub_MAX_RESULTS</key>
-	<integer>100</integer>
-	<key>GitHub_RESULTS_PER_PAGE</key>
-	<integer>25</integer>
 	<key>Web_MAX_RESULTS</key>
 	<integer>100</integer>
 	<key>Web_RESULTS_PER_PAGE</key>

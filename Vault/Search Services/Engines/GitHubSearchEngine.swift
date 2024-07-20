@@ -32,7 +32,7 @@ class GitHubSearchEngine: Engine {
     public var delegate: EngineDelegate?
     internal var searchResults = [any SearchResult]() {
         didSet {
-            delegate?.engineDidFindResults(results: searchResults)
+            delegate?.engineGotResults(results: searchResults)
         }
     }
     public var autocomplete: (() -> ())? = nil

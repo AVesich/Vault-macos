@@ -10,31 +10,28 @@ import ApolloAPI
 import GitHubAPI
 import Foundation
 
-final class GitHubAPI: API {    
-    
+final class GitHubAPI: API {
+
     // MARK: - Properties
-    internal var MAX_RESULTS: Int!
-    internal var RESULTS_PER_PAGE: Int!
-    private var currentMode: any GitHubAPIMode = .repoMode
+    internal var apiConfig: APIConfig!
     internal var results = [any SearchResult]()
-    internal var prevQuery: String?
+    internal var prevQuery: String? = nil
+    internal var nextPageInfo: NextPageInfo = .firstPageInfo
+    internal var isLoadingNewPage: Bool = false
+    private var currentMode: any GitHubAPIMode = .repoMode
     private var graphQLClient: ApolloClient!
-    private var isLoadingNewPage: Bool = false
-    private var nextPageInfo: NextPageInfo = .firstPageInfo
     
     // MARK: - Initialization
-    init(MAX_RESULTS: Int, RESULTS_PER_PAGE: Int) {
-        let config = APIConfig(configFileName: "GitHubAPIConfig")
-        guard let apiURL = config.apiURL else {
-            fatalError("Failed to get ApiUrl from Github API config file")
+    init() {}
+    init(configFileName: String, apiHasURL: Bool, apiNeedsKey: Bool) { // Re-declaration of default file name & key initializer from the protocol so that graphql client assignment can happen
+        apiConfig = APIConfig(configFileName: configFileName, apiHasURL: apiHasURL, apiNeedsKey: apiNeedsKey)
+        if apiHasURL && apiConfig.API_URL==nil {
+            fatalError("Failed to get ApiUrl from config file \(configFileName)")
         }
         
-        self.MAX_RESULTS = MAX_RESULTS
-        self.RESULTS_PER_PAGE = RESULTS_PER_PAGE
-
         // avesich: "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"
         // rhit-vesichab: "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"
-        self.graphQLClient = getGraphQLClient(withEndpointURL: apiURL, andAuthToken: "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")
+        self.graphQLClient = getGraphQLClient(withEndpointURL: apiConfig.API_URL!, andAuthToken: "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")
     }
     
     private func getGraphQLClient(withEndpointURL endpointURL: URL, andAuthToken authToken: String) -> ApolloClient {
@@ -48,26 +45,6 @@ final class GitHubAPI: API {
     }
     
     // MARK: - Methods
-    public func getResults() -> [any SearchResult] {
-        return results
-    }
-    
-    public func updateResults(for query: String, start: String?, end: String?) async { // No end needed, github wants start key & number to load from there
-        let newQuery = query != prevQuery
-        if newQuery { // Make a new search, NOT a new page
-            nextPageInfo = .firstPageInfo
-        }
-        prevQuery = query
-        
-        let resultData = await getResultData(for: query)
-        if newQuery {
-            results.removeAll()
-        }
-        
-        results.append(contentsOf: resultData.results)
-        nextPageInfo = resultData.nextPageInfo
-    }
-    
     public func setActiveMode(to newMode: any GitHubAPIMode) {
         currentMode = newMode
     }
@@ -85,7 +62,7 @@ final class GitHubAPI: API {
         }
         
         do {
-            let resultData = try await currentMode.fetch(withGraphQLClient: graphQLClient, query: query, numResults: RESULTS_PER_PAGE, nextCursor: nextPageInfo.nextPageCursor)
+            let resultData = try await currentMode.fetch(withGraphQLClient: graphQLClient, query: query, numResults: apiConfig.RESULTS_PER_PAGE, nextCursor: nextPageInfo.nextPageCursor)
             fetchedResults = resultData.results
             fetchedNextPageInfo = resultData.nextPageInfo
         } catch {
@@ -93,14 +70,4 @@ final class GitHubAPI: API {
         }
         return (fetchedResults, fetchedNextPageInfo)
     }
-    
-//    internal func getNextPageOfResults(startingAt start: String) -> [any SearchResult] {
-//        guard let graphQLClient, let prevQuery, results.count < MAX_RESULTS else {
-//            return []
-//        }
-//        
-//        let apiResults = graphQLClient.fetch(query: GitHubRepoQuery(query: prevQuery, numResults: RESULTS_PER_PAGE, afterCursor: GraphQLNullable<String>(stringLiteral: nextPageKey)))
-//        
-//        return []
-//    }
 }

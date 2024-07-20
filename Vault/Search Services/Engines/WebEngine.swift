@@ -14,7 +14,7 @@ class WebEngine: Engine {
     public var delegate: EngineDelegate?
     internal var searchResults = [WebResult]() {
         didSet {
-            delegate?.engineDidFindResults(results: searchResults)
+            delegate?.engineGotResults(results: searchResults)
         }
     }
     public let searchFilters = [SearchFilter]()

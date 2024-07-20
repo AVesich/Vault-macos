@@ -26,7 +26,7 @@ class FontSearchEngine: Engine {
     public var delegate: EngineDelegate?
     internal var searchResults = [FontResult]() {
         didSet {
-            delegate?.engineDidFindResults(results: searchResults)
+            delegate?.engineGotResults(results: searchResults)
         }
     }
     public var autocomplete: (() -> ())? = nil

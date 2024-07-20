@@ -235,7 +235,7 @@ class GlobalSearch {
 }
 
 extension GlobalSearch: EngineDelegate {
-    func engineDidFindResults(results: [any SearchResult]) {
+    func engineGotResults(results: [any SearchResult]) {
         self.foundResults = results
     }
 }
