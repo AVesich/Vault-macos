@@ -17,7 +17,7 @@ final class FileSystemAPI: API {
     private var query = NSMetadataQuery()
     private let FILE_PREFIX = "File://"
     private var activeDirectory: String = FileManager.default.homeDirectoryForCurrentUser.relativePath
-    private var queryContinuation: CheckedContinuation<Void, Never>? // This is used to make fetching results with a callback/notification-based system perform like it's async
+    private var queryContinuation: CheckedContinuation<APIResponse<Int>, Never>? // This is used to make fetching results with a callback/notification-based system perform like it's async
     
     // MARK: - Initialization
     init() {
@@ -26,7 +26,7 @@ final class FileSystemAPI: API {
     }
     
     deinit {
-        queryContinuation?.resume() // Resume if we haven't resumed before deinit
+        queryContinuation?.resume(returning: APIResponse(results: [FileResult](), nextPageInfo: NextPageInfo(nextPageCursor: nil, hasNextPage: false))) // Resume if we haven't resumed before deinit
         queryContinuation = nil
         query.disableUpdates()
     }
@@ -42,7 +42,7 @@ final class FileSystemAPI: API {
         NotificationCenter.default.addObserver(self, selector: #selector(handleQueryFinishNotification), name: NSNotification.Name.NSMetadataQueryGatheringProgress, object: query)
     }
     
-    internal func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo<Int>) {
+    internal func getResultData(for query: String) async -> APIResponse<Int> {
         isLoadingNewPage = true
         defer {
             isLoadingNewPage = false
@@ -52,13 +52,14 @@ final class FileSystemAPI: API {
         self.query.predicate = NSPredicate(format: "%K CONTAINS[cd] %@", argumentArray: [NSMetadataItemDisplayNameKey, query])
         self.query.searchScopes = [NSString(string: activeDirectory)]
         
-        queryContinuation?.resume() // 
-        await withCheckedContinuation { continuation in // Continuation is resumed in query finding results notification
+//        queryContinuation?.resume(returning: [FileResult]())
+        let apiResult = await withCheckedContinuation { continuation in // Continuation is resumed in query finding results notification
             queryContinuation = continuation
             self.query.start()
         }
         
-        return (results, nextPageInfo)
+        queryContinuation = nil
+        return apiResult
     }
     
     private func getSearchResults(fromMetadata metadata: [NSMetadataItem]) -> [FileResult] {
@@ -81,15 +82,23 @@ final class FileSystemAPI: API {
 
     @objc func handleQueryFinishNotification() {
         print("finish")
+        
+        var pageResults = [FileResult]()
+        let startingIndexInt = nextPageInfo.nextPageCursor ?? 0 // Cursor isn't updated yet, so next cursor is start
+        let endIndexInt = startingIndexInt+apiConfig.RESULTS_PER_PAGE
+
         if let resultMetadata = query.results as? [NSMetadataItem] {
-            let trimmedResults = getSearchResults(fromMetadata: resultMetadata)//.trimmed(toLength: MAX_RESULTS)
-            self.results = trimmedResults
+            pageResults = getSearchResults(fromMetadata: resultMetadata)
+            let startingIndex = pageResults.index(pageResults.startIndex, offsetBy: startingIndexInt)
+            let endingIndex = pageResults.index(pageResults.startIndex, offsetBy: endIndexInt)
+            pageResults = Array(pageResults[startingIndex..<endingIndex])
         }
+        
+        let hasResultsAvailable = endIndexInt < apiConfig.MAX_RESULTS
+        let nextPageInfo = NextPageInfo(nextPageCursor: endIndexInt, hasNextPage: hasResultsAvailable)
         
         // Stop our query & end async search function continuation
         query.stop()
-        queryContinuation?.resume()
-        queryContinuation = nil
+        queryContinuation?.resume(returning: APIResponse(results: pageResults, nextPageInfo: nextPageInfo))
     }
-
 }

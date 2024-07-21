@@ -17,11 +17,11 @@ protocol API {
     init()
     init(configFileName: String, apiHasURL: Bool, apiNeedsKey: Bool)
     
-    func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo<PageCursorType>)
+    func getResultData(for query: String) async -> APIResponse<PageCursorType>
 }
 
 extension API {
-    init(configFileName: String, apiHasURL: Bool, apiNeedsKey: Bool) {
+    init(configFileName: String, apiHasURL: Bool = false, apiNeedsKey: Bool = false) {
         self.init()
         apiConfig = APIConfig(configFileName: configFileName, apiHasURL: apiHasURL, apiNeedsKey: apiNeedsKey)
         if apiHasURL && apiConfig.API_URL==nil {
@@ -60,7 +60,5 @@ extension API {
 struct NextPageInfo<CursorType> {
     let nextPageCursor: CursorType?
     let hasNextPage: Bool
-    
-    static let firstPageInfo = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: true)
 }
 

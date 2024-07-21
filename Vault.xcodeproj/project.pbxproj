@@ -45,7 +45,6 @@
 		D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */; };
 		D9405D1A2C2D1C3000C1BE6C /* SearchMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9405D192C2D1C2900C1BE6C /* SearchMode.swift */; };
 		D9405D1C2C2F948100C1BE6C /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9405D1B2C2F947500C1BE6C /* Search.swift */; };
-		D944F40E2C43CD9A00812B17 /* PaginationConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D944F40D2C43CD8B00812B17 /* PaginationConfig.plist */; };
 		D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF742BF82801009AC3E1 /* VaultApp.swift */; };
 		D94CAF772BF82801009AC3E1 /* MainSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94CAF762BF82801009AC3E1 /* MainSearch.swift */; };
 		D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94CAF7A2BF82803009AC3E1 /* Assets.xcassets */; };
@@ -78,6 +77,13 @@
 		D97C64712C4B7B60004A2E59 /* GitHubPullRequestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C64702C4B7B60004A2E59 /* GitHubPullRequestResultView.swift */; };
 		D97C64732C4B8EB2004A2E59 /* FileSystemAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C64722C4B8EB2004A2E59 /* FileSystemAPIConfig.plist */; };
 		D97C64762C4B9701004A2E59 /* FileSystemAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C64752C4B96FC004A2E59 /* FileSystemAPI.swift */; };
+		D97C64792C4C93BB004A2E59 /* FontAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C64782C4C93B9004A2E59 /* FontAPI.swift */; };
+		D97C647B2C4C9559004A2E59 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C647A2C4C9556004A2E59 /* APIResponse.swift */; };
+		D97C647E2C4CA00A004A2E59 /* ModeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C647D2C4CA006004A2E59 /* ModeAPI.swift */; };
+		D97C64802C4CA487004A2E59 /* ModeAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C647F2C4CA487004A2E59 /* ModeAPIConfig.plist */; };
+		D97C64822C4CA4C6004A2E59 /* FontAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C64812C4CA4C6004A2E59 /* FontAPIConfig.plist */; };
+		D97C64842C4CA4E3004A2E59 /* WebAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C64832C4CA4E3004A2E59 /* WebAPIConfig.plist */; };
+		D97C64862C4CA4F6004A2E59 /* UnslpashAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C64852C4CA4F6004A2E59 /* UnslpashAPIConfig.plist */; };
 		D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A0092C33AB9B00A14DEC /* WebEngine.swift */; };
 		D986A00E2C34D55C00A14DEC /* WebResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A00D2C34D55C00A14DEC /* WebResultView.swift */; };
 		D988C71E2C43467400ACA594 /* Apollo+FetchAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */; };
@@ -151,7 +157,6 @@
 		D93E1FCC2C16AA4800BA309E /* UnsplashSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchEngine.swift; sourceTree = "<group>"; };
 		D9405D192C2D1C2900C1BE6C /* SearchMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMode.swift; sourceTree = "<group>"; };
 		D9405D1B2C2F947500C1BE6C /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
-		D944F40D2C43CD8B00812B17 /* PaginationConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PaginationConfig.plist; sourceTree = "<group>"; };
 		D94CAF712BF82801009AC3E1 /* Vault.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vault.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D94CAF742BF82801009AC3E1 /* VaultApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultApp.swift; sourceTree = "<group>"; };
 		D94CAF762BF82801009AC3E1 /* MainSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearch.swift; sourceTree = "<group>"; };
@@ -186,6 +191,13 @@
 		D97C64702C4B7B60004A2E59 /* GitHubPullRequestResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubPullRequestResultView.swift; sourceTree = "<group>"; };
 		D97C64722C4B8EB2004A2E59 /* FileSystemAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FileSystemAPIConfig.plist; sourceTree = "<group>"; };
 		D97C64752C4B96FC004A2E59 /* FileSystemAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemAPI.swift; sourceTree = "<group>"; };
+		D97C64782C4C93B9004A2E59 /* FontAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontAPI.swift; sourceTree = "<group>"; };
+		D97C647A2C4C9556004A2E59 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		D97C647D2C4CA006004A2E59 /* ModeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeAPI.swift; sourceTree = "<group>"; };
+		D97C647F2C4CA487004A2E59 /* ModeAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ModeAPIConfig.plist; sourceTree = "<group>"; };
+		D97C64812C4CA4C6004A2E59 /* FontAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FontAPIConfig.plist; sourceTree = "<group>"; };
+		D97C64832C4CA4E3004A2E59 /* WebAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WebAPIConfig.plist; sourceTree = "<group>"; };
+		D97C64852C4CA4F6004A2E59 /* UnslpashAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UnslpashAPIConfig.plist; sourceTree = "<group>"; };
 		D986A0092C33AB9B00A14DEC /* WebEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebEngine.swift; sourceTree = "<group>"; };
 		D986A00D2C34D55C00A14DEC /* WebResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResultView.swift; sourceTree = "<group>"; };
 		D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+FetchAsync.swift"; sourceTree = "<group>"; };
@@ -256,8 +268,11 @@
 		D917123A2C422E7F00367174 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
+				D97C647C2C4C9FFF004A2E59 /* Modes */,
+				D97C647A2C4C9556004A2E59 /* APIResponse.swift */,
 				D91712382C422AED00367174 /* API.swift */,
 				D917124D2C423E0700367174 /* APIConfig.swift */,
+				D97C64772C4C93B1004A2E59 /* Fonts */,
 				D97C64742C4B96F2004A2E59 /* File System */,
 				D91712492C423DA500367174 /* GitHub */,
 				D93E1FC22C16902500BA309E /* Models */,
@@ -329,8 +344,11 @@
 		D944F40C2C43CD7100812B17 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				D944F40D2C43CD8B00812B17 /* PaginationConfig.plist */,
 				D917124B2C423DDE00367174 /* GitHubAPIConfig.plist */,
+				D97C64832C4CA4E3004A2E59 /* WebAPIConfig.plist */,
+				D97C64852C4CA4F6004A2E59 /* UnslpashAPIConfig.plist */,
+				D97C647F2C4CA487004A2E59 /* ModeAPIConfig.plist */,
+				D97C64812C4CA4C6004A2E59 /* FontAPIConfig.plist */,
 				D97C64722C4B8EB2004A2E59 /* FileSystemAPIConfig.plist */,
 				D94CAFC62BFB94D6009AC3E1 /* APIKeys.plist */,
 			);
@@ -481,6 +499,22 @@
 				D97C64752C4B96FC004A2E59 /* FileSystemAPI.swift */,
 			);
 			path = "File System";
+			sourceTree = "<group>";
+		};
+		D97C64772C4C93B1004A2E59 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D97C64782C4C93B9004A2E59 /* FontAPI.swift */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		D97C647C2C4C9FFF004A2E59 /* Modes */ = {
+			isa = PBXGroup;
+			children = (
+				D97C647D2C4CA006004A2E59 /* ModeAPI.swift */,
+			);
+			path = Modes;
 			sourceTree = "<group>";
 		};
 		D9A8770A2C0D332C001EAA1C /* Engines */ = {
@@ -634,7 +668,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D94CAF7E2BF82803009AC3E1 /* Preview Assets.xcassets in Resources */,
+				D97C64842C4CA4E3004A2E59 /* WebAPIConfig.plist in Resources */,
 				D91712452C423A2900367174 /* GithubSchema.graphqls in Resources */,
+				D97C64822C4CA4C6004A2E59 /* FontAPIConfig.plist in Resources */,
 				D94CAFC72BFB94D6009AC3E1 /* APIKeys.plist in Resources */,
 				D94CAFBF2BF9C674009AC3E1 /* Manrope-Bold.otf in Resources */,
 				D97C64682C4A4FDC004A2E59 /* GithubPRQuery.graphql in Resources */,
@@ -642,9 +678,10 @@
 				D94CAF7B2BF82803009AC3E1 /* Assets.xcassets in Resources */,
 				D96C61F42C2A529D009AB564 /* Manrope-Medium.otf in Resources */,
 				D94CAFC02BF9C674009AC3E1 /* Manrope-Regular.otf in Resources */,
+				D97C64802C4CA487004A2E59 /* ModeAPIConfig.plist in Resources */,
 				D91A9BEC2C48CF19004E39E9 /* GithubUserQuery.graphql in Resources */,
 				D97C64732C4B8EB2004A2E59 /* FileSystemAPIConfig.plist in Resources */,
-				D944F40E2C43CD9A00812B17 /* PaginationConfig.plist in Resources */,
+				D97C64862C4CA4F6004A2E59 /* UnslpashAPIConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -679,6 +716,7 @@
 				D94CAFA32BF9513B009AC3E1 /* HotkeyLoop.swift in Sources */,
 				D93E1FC72C16930E00BA309E /* APIDecoder.swift in Sources */,
 				D9405D1A2C2D1C3000C1BE6C /* SearchMode.swift in Sources */,
+				D97C64792C4C93BB004A2E59 /* FontAPI.swift in Sources */,
 				D92F3D892C228F210009A701 /* TextResultView.swift in Sources */,
 				D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */,
 				D9A8771B2C164216001EAA1C /* Color+Hex.swift in Sources */,
@@ -731,9 +769,11 @@
 				D9079F412C01B4520055BC7E /* DirectoryUI.swift in Sources */,
 				D917123B2C422EA400367174 /* API.swift in Sources */,
 				D917122C2C3A5F8600367174 /* URLUtil.swift in Sources */,
+				D97C647B2C4C9559004A2E59 /* APIResponse.swift in Sources */,
 				D9405D1C2C2F948100C1BE6C /* Search.swift in Sources */,
 				D93E1FC42C16903700BA309E /* UnsplashResults.swift in Sources */,
 				D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */,
+				D97C647E2C4CA00A004A2E59 /* ModeAPI.swift in Sources */,
 				D91712302C3B6CE400367174 /* SizePress.swift in Sources */,
 				D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */,
 				D917122E2C3B58DF00367174 /* BackgroundPulse.swift in Sources */,
