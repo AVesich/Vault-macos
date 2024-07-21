@@ -115,5 +115,3 @@ class FontSearchEngine: Engine {
         return fontNames
     }
 }
-
-protocol FontSearchEngineDelegate: EngineDelegate {}

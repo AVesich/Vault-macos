@@ -26,5 +26,3 @@ class UnsplashSearchEngine: Engine {
         }
     }
 }
-
-protocol UnsplashSearchEngineDelegate: EngineDelegate {}

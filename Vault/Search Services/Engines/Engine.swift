@@ -22,7 +22,7 @@ protocol Engine {
 
 extension Engine {
     public mutating func clearResults() {
-        API.clearResults()
+        API.resetQueryCache()
     }
     
     public mutating func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {

@@ -12,8 +12,8 @@ import SwiftUI
 final class GitHubSearchEngine: Engine {
     // MARK: - Properties
     public var delegate: EngineDelegate?
-    internal var API: GitHubAPI!
-    var searchFilters: [SearchFilter] {
+    internal var API: GitHubAPI! = GitHubAPI()
+    public var searchFilters: [SearchFilter] {
         [SearchFilter(name: "Repositories",
                       iconName: "externaldrive.connected.to.line.below.fill",
                       selectAction: { [weak self] in self?.API.setActiveMode(to: .repoMode) },

@@ -27,29 +27,30 @@ extension API {
         if apiHasURL && apiConfig.API_URL==nil {
             fatalError("Failed to get ApiUrl from config file \(configFileName)")
         }
-            
     }
     
     public func getResults() -> [any SearchResult] {
         return results
     }
     
-    public mutating func clearResults() {
+    public mutating func resetQueryCache() {
         results.removeAll()
         prevQuery = nil // Force next search to be new, not loading from a page
+        nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
     }
     
     public mutating func updateResults(forQuery query: String) async {
         let newQuery = query != prevQuery
         if newQuery { // Make a new search, NOT a new page
-            nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
+//            nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
+            resetQueryCache()
         }
-        prevQuery = query
+//        prevQuery = query
         
         let resultData = await getResultData(for: query)
-        if newQuery {
-            results.removeAll()
-        }
+//        if newQuery {
+//            results.removeAll()
+//        }
         
         results.append(contentsOf: resultData.results)
         nextPageInfo = resultData.nextPageInfo
