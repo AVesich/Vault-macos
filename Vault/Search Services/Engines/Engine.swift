@@ -15,7 +15,7 @@ protocol Engine {
     associatedtype EngineAPI: API
     
     var delegate: EngineDelegate? { get set }
-    var API: EngineAPI! { get }
+    var API: EngineAPI! { get set }
     var searchFilters: [SearchFilter] { get }
     var autocompleteMethod: (() -> ())? { get }
 }

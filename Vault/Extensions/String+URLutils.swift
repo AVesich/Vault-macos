@@ -35,4 +35,12 @@ extension String {
         }
         return false
     }
+    
+    public func getImageDataFromSelfAsURL() async -> Data? {
+        if let url = URL(string: self),
+           let (data, _) = try? await URLSession.shared.data(from: url) {
+            return data
+        }
+        return nil
+    }
 }

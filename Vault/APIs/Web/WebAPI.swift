@@ -28,6 +28,6 @@ final class WebAPI: API {
             results.append(WebResult(content: GOOGLE_QUERY+query))
         }
         
-        return APIResponse<Int>(results: results, nextPageInfo: nextPageInfo) // Return the same next page info every time. No pagination should be used.
+        return APIResponse(results: results, nextPageInfo: nextPageInfo) // Return the same next page info every time. No pagination should be used.
     }
 }

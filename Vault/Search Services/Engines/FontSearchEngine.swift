@@ -15,7 +15,7 @@ class FontSearchEngine: Engine {
     // MARK: - Declaring properties
     public var delegate: EngineDelegate?
     public var autocompleteMethod: (() -> ())? = nil
-    internal let API: FontAPI! = FontAPI(configFileName: "FontAPIConfig")
+    internal var API: FontAPI! = FontAPI(configFileName: "FontAPIConfig")
         
     // MARK: - Mode & Filters
     public var searchFilters: [SearchFilter] {

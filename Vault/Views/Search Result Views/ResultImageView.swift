@@ -37,7 +37,7 @@ struct ResultImageView: View {
                 return NSItemProvider(item: nil, typeIdentifier: nil)
             }
             .task {
-                data = await UnsplashAPI.getImageDataForURL(urls.raw)
+                data = await urls.raw.getImageDataFromSelfAsURL()
             }
     }
     

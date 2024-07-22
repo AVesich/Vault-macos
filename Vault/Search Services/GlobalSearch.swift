@@ -103,7 +103,7 @@ class GlobalSearch {
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
         if canAutocomplete { // Autocomplete
             let activeMode = activeMode ?? SearchModeEnum.modes
-            if let autocompleteBehavior = activeMode.engine.autocomplete,
+            if let autocompleteBehavior = activeMode.engine.autocompleteMethod,
                !foundResults.isEmpty {
                 autocompleteBehavior()
             } else {
@@ -146,7 +146,9 @@ class GlobalSearch {
     }
 
     private func search(withActiveDirectory activeDirectory: String) {
-        activeMode.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+        Task {
+            await activeMode.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+        }
     }
         
     public func refreshResults() {

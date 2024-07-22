@@ -38,7 +38,7 @@ final class FontAPI: API {
         selectedTraits.remove(HashableFontTrait(trait: trait))
     }
 
-    internal func getResultData(for query: String) async -> APIResponse<PageCursorType> {
+    internal func getResultData(for query: String) async -> APIResponse<Int> {
         let fontNames = getFontNameResults(forQuery: query)
         
         var results: [FontResult] = fontNames.compactMap {

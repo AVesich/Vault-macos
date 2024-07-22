@@ -12,7 +12,7 @@ class WebEngine: Engine {
 
     public var delegate: EngineDelegate?
     public var autocompleteMethod: (() -> ())?// { openTopResultInGoogle }
-    internal let API: WebAPI! = WebAPI(configFileName: "WebAPIConfig", apiHasURL: true)
+    internal var API: WebAPI! = WebAPI(configFileName: "WebAPIConfig", apiHasURL: true)
     public let searchFilters = [SearchFilter]()
     
     // Nothing crazy for the search algorithm here. Mode count should never end up exceeding 20-30, so there should be no performance issues doing a simple search

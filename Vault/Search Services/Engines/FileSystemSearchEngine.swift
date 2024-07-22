@@ -12,7 +12,7 @@ class FileSystemSearchEngine: Engine {
 
     // MARK: - Properties
     public var delegate: EngineDelegate?
-    internal let API: FileSystemAPI! = FileSystemAPI(configFileName: "FileSystemAPIConfig")
+    internal var API: FileSystemAPI! = FileSystemAPI(configFileName: "FileSystemAPIConfig")
     public var searchFilters = [SearchFilter]()
     public var autocompleteMethod: (() -> ())? = nil
     
