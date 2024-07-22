@@ -3,12 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>API_URL</key>
-	<string></string>
+	<string>&quot;https://www.google.com/search?q=&quot;</string>
 	<key>API_KEY</key>
 	<string></string>
 	<key>MAX_RESULTS</key>
-	<integer>100</integer>
+	<integer>-1</integer>
 	<key>RESULTS_PER_PAGE</key>
-	<integer>25</integer>
+	<integer>-1</integer>
 </dict>
 </plist>
