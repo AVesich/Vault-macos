@@ -22,15 +22,10 @@ final class GitHubAPI: API {
     private var graphQLClient: ApolloClient!
     
     // MARK: - Initialization
-    init() {}
-    init(configFileName: String, apiHasURL: Bool, apiNeedsKey: Bool) { // Re-declaration of default file name & key initializer from the protocol so that graphql client assignment can happen
-        apiConfig = APIConfig(configFileName: configFileName, apiHasURL: apiHasURL, apiNeedsKey: apiNeedsKey)
-        if apiHasURL && apiConfig.API_URL==nil {
-            fatalError("Failed to get ApiUrl from config file \(configFileName)")
-        }
-        
-        // avesich: "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"
-        // rhit-vesichab: "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"
+    // Keys
+    // avesich: "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"
+    // rhit-vesichab: "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"
+    internal func postInitSetup() {
         self.graphQLClient = getGraphQLClient(withEndpointURL: apiConfig.API_URL!, andAuthToken: "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")
     }
     
@@ -49,7 +44,7 @@ final class GitHubAPI: API {
         currentMode = newMode
     }
     
-    internal func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo<String>) {
+    internal func getResultData(for query: String) async -> APIResponse<String> {
         var fetchedResults = [any SearchResult]()
         var fetchedNextPageInfo = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: false)
         isLoadingNewPage = true
@@ -58,7 +53,7 @@ final class GitHubAPI: API {
         }
         
         guard let graphQLClient, (results.isEmpty || nextPageInfo.hasNextPage) else {
-            return (fetchedResults, fetchedNextPageInfo)
+            return APIResponse(results: fetchedResults, nextPageInfo: fetchedNextPageInfo)
         }
         
         do {
@@ -68,6 +63,6 @@ final class GitHubAPI: API {
         } catch {
             print("Failed to fetch with error: \(error)")
         }
-        return (fetchedResults, fetchedNextPageInfo)
+        return APIResponse(results: fetchedResults, nextPageInfo: fetchedNextPageInfo)
     }
 }

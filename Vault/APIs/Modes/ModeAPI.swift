@@ -53,6 +53,8 @@ final class ModeAPI: API {
     internal var isLoadingNewPage: Bool = false
 
     // MARK: - Methods
+    internal func postInitSetup() { }
+
     internal func getResultData(for query: String) async -> APIResponse<PageCursorType> {
         guard !query.isEmpty && query.first == "/" else {
             return APIResponse(results: [ModeResult](), nextPageInfo: nextPageInfo) // Don't set new values, keep what we have & reject the result

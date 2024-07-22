@@ -16,6 +16,8 @@ final class WebAPI: API {
     private let GOOGLE_QUERY = "https://www.google.com/search?q="
     
     // MARK: - Methods
+    internal func postInitSetup() { }
+    
     public func getResultData(for query: String) async -> APIResponse<Int> {
         var results = [WebResult]()
         

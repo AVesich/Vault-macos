@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct UnsplashAPI {
+struct UnsplashAPI_O {
     private let API_URL = "https://api.unsplash.com"
     private let SEARCH_PARAMS: Dictionary<String, String> = [
         "client_id" : PlistHelper.getAPIPlistValue(forKey: "UnsplashKey"),

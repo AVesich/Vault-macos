@@ -37,7 +37,6 @@
 		D934EDB82C2B9D5800DC2472 /* SearchFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D934EDB72C2B9D5500DC2472 /* SearchFilter.swift */; };
 		D93E1FB72C16613300BA309E /* PasteboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FB62C16613300BA309E /* PasteboardView.swift */; };
 		D93E1FBE2C168A8800BA309E /* TestFileSystemEngineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */; };
-		D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */; };
 		D93E1FC42C16903700BA309E /* UnsplashResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC32C16903700BA309E /* UnsplashResults.swift */; };
 		D93E1FC72C16930E00BA309E /* APIDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC62C16930E00BA309E /* APIDecoder.swift */; };
 		D93E1FC92C16A4E900BA309E /* PlistHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93E1FC82C16A4E900BA309E /* PlistHelper.swift */; };
@@ -82,9 +81,10 @@
 		D97C64802C4CA487004A2E59 /* ModeAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C647F2C4CA487004A2E59 /* ModeAPIConfig.plist */; };
 		D97C64822C4CA4C6004A2E59 /* FontAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C64812C4CA4C6004A2E59 /* FontAPIConfig.plist */; };
 		D97C64842C4CA4E3004A2E59 /* WebAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C64832C4CA4E3004A2E59 /* WebAPIConfig.plist */; };
-		D97C64862C4CA4F6004A2E59 /* UnslpashAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C64852C4CA4F6004A2E59 /* UnslpashAPIConfig.plist */; };
+		D97C64862C4CA4F6004A2E59 /* UnsplashAPIConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D97C64852C4CA4F6004A2E59 /* UnsplashAPIConfig.plist */; };
 		D97C648B2C4DDCCD004A2E59 /* WebAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C648A2C4DDCCA004A2E59 /* WebAPI.swift */; };
 		D97C648D2C4DE08B004A2E59 /* String+URLutils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C648C2C4DE07C004A2E59 /* String+URLutils.swift */; };
+		D97C64902C4DE5C8004A2E59 /* UnsplashAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97C648F2C4DE5C4004A2E59 /* UnsplashAPI.swift */; };
 		D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A0092C33AB9B00A14DEC /* WebEngine.swift */; };
 		D986A00E2C34D55C00A14DEC /* WebResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A00D2C34D55C00A14DEC /* WebResultView.swift */; };
 		D988C71E2C43467400ACA594 /* Apollo+FetchAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */; };
@@ -150,7 +150,7 @@
 		D934EDB72C2B9D5500DC2472 /* SearchFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilter.swift; sourceTree = "<group>"; };
 		D93E1FB62C16613300BA309E /* PasteboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardView.swift; sourceTree = "<group>"; };
 		D93E1FBA2C16854400BA309E /* TestFileSystemEngineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileSystemEngineDelegate.swift; sourceTree = "<group>"; };
-		D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
+		D93E1FC02C168FF800BA309E /* UnsplashAPI_O.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI_O.swift; sourceTree = "<group>"; };
 		D93E1FC32C16903700BA309E /* UnsplashResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashResults.swift; sourceTree = "<group>"; };
 		D93E1FC62C16930E00BA309E /* APIDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDecoder.swift; sourceTree = "<group>"; };
 		D93E1FC82C16A4E900BA309E /* PlistHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistHelper.swift; sourceTree = "<group>"; };
@@ -197,9 +197,10 @@
 		D97C647F2C4CA487004A2E59 /* ModeAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ModeAPIConfig.plist; sourceTree = "<group>"; };
 		D97C64812C4CA4C6004A2E59 /* FontAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = FontAPIConfig.plist; sourceTree = "<group>"; };
 		D97C64832C4CA4E3004A2E59 /* WebAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = WebAPIConfig.plist; sourceTree = "<group>"; };
-		D97C64852C4CA4F6004A2E59 /* UnslpashAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UnslpashAPIConfig.plist; sourceTree = "<group>"; };
+		D97C64852C4CA4F6004A2E59 /* UnsplashAPIConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = UnsplashAPIConfig.plist; sourceTree = "<group>"; };
 		D97C648A2C4DDCCA004A2E59 /* WebAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAPI.swift; sourceTree = "<group>"; };
 		D97C648C2C4DE07C004A2E59 /* String+URLutils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+URLutils.swift"; sourceTree = "<group>"; };
+		D97C648F2C4DE5C4004A2E59 /* UnsplashAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashAPI.swift; sourceTree = "<group>"; };
 		D986A0092C33AB9B00A14DEC /* WebEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebEngine.swift; sourceTree = "<group>"; };
 		D986A00D2C34D55C00A14DEC /* WebResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResultView.swift; sourceTree = "<group>"; };
 		D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+FetchAsync.swift"; sourceTree = "<group>"; };
@@ -276,7 +277,7 @@
 				D97C64742C4B96F2004A2E59 /* File System */,
 				D97C64772C4C93B1004A2E59 /* Fonts */,
 				D91712492C423DA500367174 /* GitHub */,
-				D93E1FC22C16902500BA309E /* Models */,
+				D97C648E2C4DE5B5004A2E59 /* Images */,
 				D97C647C2C4C9FFF004A2E59 /* Modes */,
 				D97C64892C4DDCC7004A2E59 /* Web */,
 			);
@@ -320,7 +321,7 @@
 		D93E1FBF2C168F3E00BA309E /* API Adapters */ = {
 			isa = PBXGroup;
 			children = (
-				D93E1FC02C168FF800BA309E /* UnsplashAPI.swift */,
+				D93E1FC02C168FF800BA309E /* UnsplashAPI_O.swift */,
 			);
 			path = "API Adapters";
 			sourceTree = "<group>";
@@ -348,7 +349,7 @@
 			children = (
 				D917124B2C423DDE00367174 /* GitHubAPIConfig.plist */,
 				D97C64832C4CA4E3004A2E59 /* WebAPIConfig.plist */,
-				D97C64852C4CA4F6004A2E59 /* UnslpashAPIConfig.plist */,
+				D97C64852C4CA4F6004A2E59 /* UnsplashAPIConfig.plist */,
 				D97C647F2C4CA487004A2E59 /* ModeAPIConfig.plist */,
 				D97C64812C4CA4C6004A2E59 /* FontAPIConfig.plist */,
 				D97C64722C4B8EB2004A2E59 /* FileSystemAPIConfig.plist */,
@@ -528,6 +529,15 @@
 			path = Web;
 			sourceTree = "<group>";
 		};
+		D97C648E2C4DE5B5004A2E59 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D97C648F2C4DE5C4004A2E59 /* UnsplashAPI.swift */,
+				D93E1FC22C16902500BA309E /* Models */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		D9A8770A2C0D332C001EAA1C /* Engines */ = {
 			isa = PBXGroup;
 			children = (
@@ -692,7 +702,7 @@
 				D97C64802C4CA487004A2E59 /* ModeAPIConfig.plist in Resources */,
 				D91A9BEC2C48CF19004E39E9 /* GithubUserQuery.graphql in Resources */,
 				D97C64732C4B8EB2004A2E59 /* FileSystemAPIConfig.plist in Resources */,
-				D97C64862C4CA4F6004A2E59 /* UnslpashAPIConfig.plist in Resources */,
+				D97C64862C4CA4F6004A2E59 /* UnsplashAPIConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,9 +756,9 @@
 				D917124E2C423E0E00367174 /* APIConfig.swift in Sources */,
 				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
 				D9A877132C0D5B15001EAA1C /* URL+FileIcon.swift in Sources */,
-				D93E1FC12C168FF800BA309E /* UnsplashAPI.swift in Sources */,
 				D9C3846F2C43231F003F8DC3 /* AuthInterceptorProvider.swift in Sources */,
 				D9C3846D2C43219C003F8DC3 /* AuthInterceptor.swift in Sources */,
+				D97C64902C4DE5C8004A2E59 /* UnsplashAPI.swift in Sources */,
 				D97C648B2C4DDCCD004A2E59 /* WebAPI.swift in Sources */,
 				D9A8770C2C0D3343001EAA1C /* Engine.swift in Sources */,
 				D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */,

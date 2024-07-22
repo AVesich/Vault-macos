@@ -30,6 +30,8 @@ final class FileSystemAPI: API {
         queryContinuation = nil
         query.disableUpdates()
     }
+    
+    internal func postInitSetup() { }
         
     // MARK: - Methods
     private func oneTimeQueryConfig() {

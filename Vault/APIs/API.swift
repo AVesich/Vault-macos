@@ -17,6 +17,7 @@ protocol API {
     init()
     init(configFileName: String, apiHasURL: Bool, apiNeedsKey: Bool)
     
+    func postInitSetup()
     func getResultData(for query: String) async -> APIResponse<PageCursorType>
 }
 
@@ -27,6 +28,7 @@ extension API {
         if apiHasURL && apiConfig.API_URL==nil {
             fatalError("Failed to get ApiUrl from config file \(configFileName)")
         }
+        postInitSetup()
     }
     
     public func getResults() -> [any SearchResult] {

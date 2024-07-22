@@ -26,6 +26,9 @@ final class FontAPI: API {
     internal var isLoadingNewPage: Bool = false
     private var selectedTraits = Set<HashableFontTrait>()
     
+    // MARK: - Initialization
+    internal func postInitSetup() { }
+    
     // MARK: - Methods
     public func addTraitFilter(_ trait: NSFontTraitMask) {
         selectedTraits.insert(HashableFontTrait(trait: trait))

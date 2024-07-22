@@ -7,7 +7,7 @@
 
 class ModeSearchEngine: Engine {
     public var delegate: EngineDelegate?
-    internal var API: ModeAPI! = ModeAPI(configFileName: "ModeAPIConfig")
+    internal let API: ModeAPI! = ModeAPI(configFileName: "ModeAPIConfig")
     public let searchFilters = [SearchFilter]()
     public var autocompleteMethod: (() -> ())? = nil
 }
