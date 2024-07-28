@@ -7,7 +7,7 @@
 	<key>API_KEY</key>
 	<string></string>
 	<key>MAX_RESULTS</key>
-	<integer>25</integer>
+	<integer>100</integer>
 	<key>RESULTS_PER_PAGE</key>
 	<integer>25</integer>
 </dict>

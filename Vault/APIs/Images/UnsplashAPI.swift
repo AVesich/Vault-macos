@@ -14,13 +14,7 @@ final class UnsplashAPI: API {
     var apiConfig: APIConfig!
     var results = [any SearchResult]()
     var prevQuery: String?
-    var nextPageInfo: NextPageInfo<Int> = .init(nextPageCursor: nil, hasNextPage: true) {
-        didSet {
-            if let nextPageNumber = nextPageInfo.nextPageCursor {
-                searchParams["page"] = String(nextPageNumber)
-            }
-        }
-    }
+    var nextPageInfo: NextPageInfo<Int> = .init(nextPageCursor: nil, hasNextPage: true)
     var isLoadingNewPage: Bool = false
     private var searchParams: Dictionary<String, String>!
     
@@ -39,6 +33,9 @@ final class UnsplashAPI: API {
     public func getResultData(for query: String) async -> APIResponse<Int> {
         guard let apiURL = apiConfig.API_URL else {
             fatalError("Unsplash api url unavaliable in config files.")
+        }
+        if !nextPageInfo.hasNextPage {
+            return APIResponse(results: [ImagesResult](), nextPageInfo: nextPageInfo)
         }
         
         var photoURLs = [PhotoURLs]()
@@ -61,22 +58,21 @@ final class UnsplashAPI: API {
             }
             
             let result = ImagesResult(content: photoURLs)
-            let nextPageCursor = (nextPageInfo.nextPageCursor ?? 0) + 1
+            let nextPageCursor = (nextPageInfo.nextPageCursor ?? 1) + 1
             let hasNextPage = result.content.count < apiConfig.MAX_RESULTS
 
             return APIResponse(results: [result], nextPageInfo: NextPageInfo(nextPageCursor: nextPageCursor, hasNextPage: hasNextPage))
         }
         
-        
-        
-        return APIResponse(results: [any SearchResult](), nextPageInfo: NextPageInfo(nextPageCursor: nextPageInfo.nextPageCursor, hasNextPage: true))
+        return APIResponse(results: [ImagesResult](), nextPageInfo: nextPageInfo)
     }
     
     private func getSearchPhotosRequest(forURLString urlString: String, withQuery query: String) -> URLRequest {
+        dump(nextPageInfo.nextPageCursor)
+        searchParams["page"] = String((nextPageInfo.nextPageCursor ?? 1))
         searchParams["query"] = query
         if var request = APIJSONHelpers.getURLRequest(withURLString: urlString, andParams: searchParams) {
             request.httpMethod = "GET"
-            dump(request)
             return request
         } else {
             return URLRequest(url: URL(string: "")!)
