@@ -7,8 +7,10 @@
 
 import Foundation
 
-final class FileSystemAPI: API {
+final class FileSystemAPI: LocalAPI {
+    
     // MARK: - Properties
+    internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
     internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil

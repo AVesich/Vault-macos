@@ -5,7 +5,7 @@
 	<key>API_URL</key>
 	<string>https://api.unsplash.com</string>
 	<key>API_KEY</key>
-	<string></string>
+	<string>c_d0ynvcrtU9ujdM9JYKsUAoIDAW8zr-rzPz5jbze2Y</string>
 	<key>MAX_RESULTS</key>
 	<integer>100</integer>
 	<key>RESULTS_PER_PAGE</key>

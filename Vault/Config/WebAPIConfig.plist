@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>API_URL</key>
-	<string>&quot;https://www.google.com/search?q=&quot;</string>
+	<string>https://www.google.com/search?q=</string>
 	<key>API_KEY</key>
 	<string></string>
 	<key>MAX_RESULTS</key>

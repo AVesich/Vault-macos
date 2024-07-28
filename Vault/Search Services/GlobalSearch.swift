@@ -78,10 +78,13 @@ class GlobalSearch {
     }
     private var foundResults = [any SearchResult]()
     public var canAutocomplete: Bool {
-        let activeMode = activeMode ?? SearchModeEnum.modes
+        let activeMode = activeMode
         return (queryString.isEmpty && foundResults.isEmpty) || activeMode.canAutocomplete // We are only showing history or complete-able results
     }
     private let MAX_HISTORY_SIZE = 5
+    
+    // MARK: - Fields
+    private var isSearching = false
         
     // MARK: - Dependencies
     public var modelContext: ModelContext!
@@ -146,8 +149,13 @@ class GlobalSearch {
     }
 
     private func search(withActiveDirectory activeDirectory: String) {
+        if isSearching {
+            return
+        }
+        isSearching = true
         Task {
             await activeMode.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+            isSearching = false
         }
     }
         
@@ -238,6 +246,8 @@ class GlobalSearch {
 
 extension GlobalSearch: EngineDelegate {
     func engineGotResults(results: [any SearchResult]) {
-        self.foundResults = results
+        DispatchQueue.main.sync { // TODO: - Find workaround to this problem - foundResults being updated by a non-main thread due to the delegate being called from a Task causes the app to crash
+            self.foundResults = results
+        }
     }
 }

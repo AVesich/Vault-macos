@@ -10,6 +10,7 @@ import Foundation
 final class UnsplashAPI: API {
 
     // MARK: - Properties
+    internal var isReset: Bool = false
     var apiConfig: APIConfig!
     var results = [any SearchResult]()
     var prevQuery: String?
@@ -41,24 +42,33 @@ final class UnsplashAPI: API {
         }
         
         var photoURLs = [PhotoURLs]()
-        if let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURLString: apiURL.absoluteString+"/search/photos/?", withQuery: query)) {
-            let decoder = APIDecoder<UnsplashPhotoSearchResult>()
-            if let decodedResult = decoder.decodeValueFromData(data) {
-                photoURLs = getImagesURLsFromSearchResult(decodedResult)
+//        do {
+            if let (data, _) = try? await URLSession.shared.data(for: getSearchPhotosRequest(forURLString: apiURL.absoluteString+"/search/photos/?", withQuery: query)) {
+                let decoder = APIDecoder<UnsplashPhotoSearchResult>()
+                if let decodedResult = decoder.decodeValueFromData(data) {
+                    photoURLs = getImagesURLsFromSearchResult(decodedResult)
+                }
             }
-        }
+//        } catch {
+//            print(error)
+//        }
         
-        
-        // Rare occurance that we touch the existing results. DON'T DO THIS NORMALLY.
-        if let images = results.first?.content as? [PhotoURLs] {
-            let result = ImagesResult(content: images+photoURLs)
-            results.removeAll() // Remove the first result, as it is to be replaced with the new result (only 1 result with many images is shown for unsplash)
+        if !photoURLs.isEmpty {
+            // Rare occurance that we touch the existing results. DON'T DO THIS NORMALLY.
+            if let images = results.first?.content as? [PhotoURLs] {
+                photoURLs.insert(contentsOf: images, at: 0) // We build the new page onto the end of the old page
+                results.removeAll() // Remove the first result, as it is to be replaced with the new result (only 1 result with many images is shown for unsplash)
+            }
             
+            let result = ImagesResult(content: photoURLs)
             let nextPageCursor = (nextPageInfo.nextPageCursor ?? 0) + 1
             let hasNextPage = result.content.count < apiConfig.MAX_RESULTS
 
-            return APIResponse(results: [], nextPageInfo: NextPageInfo(nextPageCursor: nextPageCursor, hasNextPage: hasNextPage))
+            return APIResponse(results: [result], nextPageInfo: NextPageInfo(nextPageCursor: nextPageCursor, hasNextPage: hasNextPage))
         }
+        
+        
+        
         return APIResponse(results: [any SearchResult](), nextPageInfo: NextPageInfo(nextPageCursor: nextPageInfo.nextPageCursor, hasNextPage: true))
     }
     
@@ -66,6 +76,7 @@ final class UnsplashAPI: API {
         searchParams["query"] = query
         if var request = APIJSONHelpers.getURLRequest(withURLString: urlString, andParams: searchParams) {
             request.httpMethod = "GET"
+            dump(request)
             return request
         } else {
             return URLRequest(url: URL(string: "")!)

@@ -43,9 +43,10 @@ enum SearchModeEnum {
     }
 }
 
-final class ModeAPI: API {
+final class ModeAPI: LocalAPI {
     
     // MARK: - Properties
+    internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
     internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
@@ -77,14 +78,7 @@ final class ModeAPI: API {
             $1.content.name.lowercased().range(of: queryWithoutSlash)!.lowerBound
         }
         
-        let startingIndexInt = nextPageInfo.nextPageCursor ?? 0 // Cursor isn't updated yet, so next cursor is start
-        let endIndexInt = startingIndexInt+apiConfig.RESULTS_PER_PAGE
-        let startingIndex = results.index(results.startIndex, offsetBy: startingIndexInt)
-        let endingIndex = results.index(results.startIndex, offsetBy: endIndexInt)
-        foundResults = Array(foundResults[startingIndex..<endingIndex])
-        
-        let hasResultsAvailable = endIndexInt < apiConfig.MAX_RESULTS
-        let nextPageInfo = NextPageInfo(nextPageCursor: endIndexInt, hasNextPage: hasResultsAvailable)
+        let nextPageInfo = concatResultsAndGetPageInfo(foundResults: &foundResults)
         
         return APIResponse(results: foundResults, nextPageInfo: nextPageInfo)
     }

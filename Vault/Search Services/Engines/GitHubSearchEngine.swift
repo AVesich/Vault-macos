@@ -12,7 +12,7 @@ import SwiftUI
 final class GitHubSearchEngine: Engine {
     // MARK: - Properties
     public var delegate: EngineDelegate?
-    internal var API: GitHubAPI! = GitHubAPI(configFileName: "GitHubAPIConfig", apiHasURL: false, apiNeedsKey: false)
+    internal var API: GitHubAPI! = GitHubAPI(configFileName: "GitHubAPIConfig", apiHasURL: true, apiNeedsKey: true)
     public var searchFilters: [SearchFilter] {
         [SearchFilter(name: "Repositories",
                       iconName: "externaldrive.connected.to.line.below.fill",

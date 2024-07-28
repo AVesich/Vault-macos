@@ -100,6 +100,8 @@
 		D9C3846F2C43231F003F8DC3 /* AuthInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C3846E2C432319003F8DC3 /* AuthInterceptorProvider.swift */; };
 		D9E173812C31D43000091752 /* GitHubUserAPIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E173802C31D42800091752 /* GitHubUserAPIResult.swift */; };
 		D9E173832C31DC1300091752 /* GitHubUserResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E173822C31DC1300091752 /* GitHubUserResultView.swift */; };
+		D9FD2DEC2C55C106002B43D4 /* LocalAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FD2DEB2C55C106002B43D4 /* LocalAPI.swift */; };
+		D9FD2DEE2C55C9D9002B43D4 /* Array+MaxIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FD2DED2C55C9D4002B43D4 /* Array+MaxIndex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +218,8 @@
 		D9C3846E2C432319003F8DC3 /* AuthInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInterceptorProvider.swift; sourceTree = "<group>"; };
 		D9E173802C31D42800091752 /* GitHubUserAPIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserAPIResult.swift; sourceTree = "<group>"; };
 		D9E173822C31DC1300091752 /* GitHubUserResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubUserResultView.swift; sourceTree = "<group>"; };
+		D9FD2DEB2C55C106002B43D4 /* LocalAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAPI.swift; sourceTree = "<group>"; };
+		D9FD2DED2C55C9D4002B43D4 /* Array+MaxIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+MaxIndex.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +277,7 @@
 			children = (
 				D97C647A2C4C9556004A2E59 /* APIResponse.swift */,
 				D91712382C422AED00367174 /* API.swift */,
+				D9FD2DEB2C55C106002B43D4 /* LocalAPI.swift */,
 				D917124D2C423E0700367174 /* APIConfig.swift */,
 				D97C64742C4B96F2004A2E59 /* File System */,
 				D97C64772C4C93B1004A2E59 /* Fonts */,
@@ -483,6 +488,7 @@
 		D94CAFC12BF9C6E1009AC3E1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D9FD2DED2C55C9D4002B43D4 /* Array+MaxIndex.swift */,
 				D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */,
 				D94CAFC22BF9C707009AC3E1 /* Font+Manrope.swift */,
 				D91712312C421FB600367174 /* String+Filepath.swift */,
@@ -756,6 +762,7 @@
 				D917124E2C423E0E00367174 /* APIConfig.swift in Sources */,
 				D94CAFB92BF9A2CC009AC3E1 /* DirectorySearch.swift in Sources */,
 				D9A877132C0D5B15001EAA1C /* URL+FileIcon.swift in Sources */,
+				D9FD2DEC2C55C106002B43D4 /* LocalAPI.swift in Sources */,
 				D9C3846F2C43231F003F8DC3 /* AuthInterceptorProvider.swift in Sources */,
 				D9C3846D2C43219C003F8DC3 /* AuthInterceptor.swift in Sources */,
 				D97C64902C4DE5C8004A2E59 /* UnsplashAPI.swift in Sources */,
@@ -795,6 +802,7 @@
 				D9405D1C2C2F948100C1BE6C /* Search.swift in Sources */,
 				D93E1FC42C16903700BA309E /* UnsplashResults.swift in Sources */,
 				D986A00A2C33ABA000A14DEC /* WebEngine.swift in Sources */,
+				D9FD2DEE2C55C9D9002B43D4 /* Array+MaxIndex.swift in Sources */,
 				D97C647E2C4CA00A004A2E59 /* ModeAPI.swift in Sources */,
 				D91712302C3B6CE400367174 /* SizePress.swift in Sources */,
 				D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */,

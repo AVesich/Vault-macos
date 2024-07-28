@@ -27,6 +27,8 @@ extension Engine {
     
     public mutating func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {
         await API.updateResults(forQuery: query)
+//        return API.getResults()
+//        print (API.getResults())
         delegate?.engineGotResults(results: API.getResults())
     }
 }

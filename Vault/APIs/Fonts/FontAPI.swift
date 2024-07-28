@@ -8,7 +8,7 @@
 import Foundation
 import AppKit
 
-final class FontAPI: API {
+final class FontAPI: LocalAPI {
     
     struct HashableFontTrait: Hashable {
         let trait: NSFontTraitMask
@@ -19,15 +19,34 @@ final class FontAPI: API {
     }
     
     // MARK: - Properties
+    internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
     internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
     internal var nextPageInfo: NextPageInfo<Int> = NextPageInfo<Int>(nextPageCursor: nil, hasNextPage: true)
     internal var isLoadingNewPage: Bool = false
+    private var cachedFoundFontNames = Set<String>()
     private var selectedTraits = Set<HashableFontTrait>()
     
     // MARK: - Initialization
     internal func postInitSetup() { }
+    
+    // MARK: - "Overrides"
+    public func resetQueryCache() {
+        if isReset { // Multiple things can cause a reset, so this value is used to prevent 2x and 3x resets
+            return
+        }
+        isReset = true
+        
+        // This is the only line different from the default implementation
+        cachedFoundFontNames.removeAll()
+        // End diff
+        
+        results.removeAll()
+        prevQuery = nil // Force next search to be new, not loading from a page
+        nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
+    }
+
     
     // MARK: - Methods
     public func addTraitFilter(_ trait: NSFontTraitMask) {
@@ -38,26 +57,33 @@ final class FontAPI: API {
         selectedTraits.remove(HashableFontTrait(trait: trait))
     }
 
+    // ONLY GET NAMES OF FONTS WE HAVEN'T SEARCHED YET
     internal func getResultData(for query: String) async -> APIResponse<Int> {
+        if !nextPageInfo.hasNextPage {
+            return APIResponse(results: [FontResult](), nextPageInfo: nextPageInfo)
+        }
         let fontNames = getFontNameResults(forQuery: query)
         
-        var results: [FontResult] = fontNames.compactMap {
-            guard let font = NSFont(name: $0, size: 24.0) else {
-                return nil
+        let maxIndex = fontNames.getMaxIndex(desiredIndexInt: apiConfig.RESULTS_PER_PAGE) // Get the end index of the results capped by the array size
+        var foundResults = [FontResult]()
+        var i = 0
+        for fontName in fontNames where !cachedFoundFontNames.contains(fontName) {
+            if i >= maxIndex {
+                break
             }
-            return FontResult(content: font)
+            guard let font = NSFont(name: fontName, size: 24.0) else {
+                continue
+            }
+            cachedFoundFontNames.insert(fontName)
+            foundResults.append(FontResult(content: font))
+            
+            i+=1 // Only need to update this if we found a result, so continue statement above shouldn't be problematic
         }
         
-        let startingIndexInt = nextPageInfo.nextPageCursor ?? 0 // Cursor isn't updated yet, so next cursor is start
-        let endIndexInt = startingIndexInt+apiConfig.RESULTS_PER_PAGE
-        let startingIndex = results.index(results.startIndex, offsetBy: startingIndexInt)
-        let endingIndex = results.index(results.startIndex, offsetBy: endIndexInt)
-        results = Array(results[startingIndex..<endingIndex])
+        let hasNextPage = foundResults.count+self.results.count < apiConfig.MAX_RESULTS && maxIndex == apiConfig.RESULTS_PER_PAGE // We can't hit max and can't be out of results
+        let nextPageInfo = NextPageInfo<Int>(nextPageCursor: nil, hasNextPage: hasNextPage) // Next page cursor isn't used, since results are derived from unordered sets we use the cache for scrolling
         
-        let hasResultsAvailable = endIndexInt < apiConfig.MAX_RESULTS
-        let nextPageInfo = NextPageInfo(nextPageCursor: endIndexInt, hasNextPage: hasResultsAvailable)
-        
-        return APIResponse(results: results, nextPageInfo: nextPageInfo)
+        return APIResponse(results: foundResults, nextPageInfo: nextPageInfo)
     }
     
     private func getFontNameResults(forQuery query: String) -> [String] {
@@ -67,7 +93,7 @@ final class FontAPI: API {
         let lowerQuery = query.lowercased()
         
         var containingFonts = getFilteredFontNames().compactMap { $0.lowercased().contains(lowerQuery) ? $0 : nil }
-        containingFonts.sort {
+        containingFonts.sort { // Sort by where the query first occurs
             return $0.lowercased().ranges(of: lowerQuery)[0].lowerBound > $1.lowercased().ranges(of: lowerQuery)[0].lowerBound
         }
         

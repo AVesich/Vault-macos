@@ -13,6 +13,7 @@ import Foundation
 final class GitHubAPI: API {
 
     // MARK: - Properties
+    internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
     internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
@@ -26,7 +27,7 @@ final class GitHubAPI: API {
     // avesich: "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"
     // rhit-vesichab: "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"
     internal func postInitSetup() {
-        self.graphQLClient = getGraphQLClient(withEndpointURL: apiConfig.API_URL!, andAuthToken: "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")
+        self.graphQLClient = getGraphQLClient(withEndpointURL: apiConfig.API_URL!, andAuthToken: apiConfig.API_KEY!)
     }
     
     private func getGraphQLClient(withEndpointURL endpointURL: URL, andAuthToken authToken: String) -> ApolloClient {

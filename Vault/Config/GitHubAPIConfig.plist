@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>API_URL</key>
-	<string>Google.com</string>
+	<string>https://api.github.com/graphql</string>
 	<key>API_KEY</key>
-	<string></string>
+	<string>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</string>
 	<key>MAX_RESULTS</key>
 	<integer>100</integer>
 	<key>RESULTS_PER_PAGE</key>
