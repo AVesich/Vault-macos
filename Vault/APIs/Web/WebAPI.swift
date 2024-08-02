@@ -14,12 +14,13 @@ final class WebAPI: API {
     internal var prevQuery: String?
     internal var nextPageInfo: NextPageInfo<Int> = NextPageInfo<Int>(nextPageCursor: nil, hasNextPage: false) // Web API will always return 1-2 results. No pagination.
     internal var isLoadingNewPage: Bool = false
+    internal var loadedPageCount: Int = 0
     private let GOOGLE_QUERY = "https://www.google.com/search?q="
     
     // MARK: - Methods
     internal func postInitSetup() { }
     
-    public func getResultData(for query: String) async -> APIResponse<Int> {
+    public func getResultData(forQuery query: String) async -> APIResponse<Int> {
         var currentResults = [WebResult]()
         
         if let firstURL = query.asOpenableURL() {

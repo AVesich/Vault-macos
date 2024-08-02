@@ -6,8 +6,8 @@
 	<string>Google.com</string>
 	<key>API_KEY</key>
 	<string></string>
-	<key>MAX_RESULTS</key>
-	<integer>100</integer>
+	<key>MAX_PAGE_COUNT</key>
+	<integer>4</integer>
 	<key>RESULTS_PER_PAGE</key>
 	<integer>25</integer>
 </dict>

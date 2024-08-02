@@ -15,10 +15,11 @@ final class GitHubAPI: API {
     // MARK: - Properties
     internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
-    internal var results = [any SearchResult]()
+//    internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
     internal var nextPageInfo: NextPageInfo<String> = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: true)
     internal var isLoadingNewPage: Bool = false
+    internal var loadedPageCount: Int = 0
     private var currentMode: any GitHubAPIMode = .repoMode
     private var graphQLClient: ApolloClient!
     
@@ -45,7 +46,7 @@ final class GitHubAPI: API {
         currentMode = newMode
     }
     
-    internal func getResultData(for query: String) async -> APIResponse<String> {
+    internal func getResultData(forQuery query: String) async -> APIResponse<String> {
         var fetchedResults = [any SearchResult]()
         var fetchedNextPageInfo = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: false)
         isLoadingNewPage = true
@@ -53,14 +54,21 @@ final class GitHubAPI: API {
             isLoadingNewPage = false
         }
         
-        guard let graphQLClient, (results.isEmpty || nextPageInfo.hasNextPage) else {
+        guard let graphQLClient, nextPageInfo.hasNextPage else {
             return APIResponse(results: fetchedResults, nextPageInfo: fetchedNextPageInfo)
         }
         
         do {
             let resultData = try await currentMode.fetch(withGraphQLClient: graphQLClient, query: query, numResults: apiConfig.RESULTS_PER_PAGE, nextCursor: nextPageInfo.nextPageCursor)
+            loadedPageCount += 1
+            
             fetchedResults = resultData.results
-            fetchedNextPageInfo = resultData.nextPageInfo
+            let nextPageCursor = resultData.nextPageInfo.nextPageCursor
+            var hasNextPage = resultData.nextPageInfo.hasNextPage
+            if loadedPageCount >= apiConfig.MAX_PAGE_COUNT { // Override whether we have a next page - the result from fetch() is only based on whether github can supply more results
+                hasNextPage = false
+            }
+            fetchedNextPageInfo = NextPageInfo<String>(nextPageCursor: nextPageCursor, hasNextPage: hasNextPage)
         } catch {
             print("Failed to fetch with error: \(error)")
         }

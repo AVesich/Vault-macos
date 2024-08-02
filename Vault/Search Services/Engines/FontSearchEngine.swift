@@ -40,4 +40,14 @@ class FontSearchEngine: Engine {
                       selectAction: { [weak self] in self?.API.addTraitFilter(.smallCapsFontMask) },
                       deselectAction: { [weak self] in self?.API.removeTraitFilter(.smallCapsFontMask) })]
     }
+    
+    private func addTraitFilter(filter trait: NSFontTraitMask) {
+        API.addTraitFilter(trait)
+        delegate?.engineRequestedResultsReset()
+    }
+    
+    private func removeTraitFilter(filter trait: NSFontTraitMask) {
+        API.removeTraitFilter(trait)
+        delegate?.engineRequestedResultsReset()
+    }
 }

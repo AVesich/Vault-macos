@@ -26,13 +26,12 @@ extension Engine {
     }
     
     public mutating func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {
-        await API.updateResults(forQuery: query)
-//        return API.getResults()
-//        print (API.getResults())
-        delegate?.engineGotResults(results: API.getResults())
+        let nextPageResults = await API.getNextPage(forQuery: query)
+        delegate?.engineRetrievedResults(newResults: nextPageResults)
     }
 }
 
 protocol EngineDelegate {
-    func engineGotResults(results: [any SearchResult])
+    func engineRetrievedResults(newResults: [any SearchResult])
+    func engineRequestedResultsReset()
 }

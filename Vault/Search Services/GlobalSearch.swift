@@ -240,14 +240,24 @@ class GlobalSearch {
     }
     
     private func clearResults() {
+        foundResults.removeAll()
         activeMode.engine.clearResults()
     }
 }
 
 extension GlobalSearch: EngineDelegate {
-    func engineGotResults(results: [any SearchResult]) {
+    func engineRetrievedResults(newResults: [any SearchResult]) {
         DispatchQueue.main.sync { // TODO: - Find workaround to this problem - foundResults being updated by a non-main thread due to the delegate being called from a Task causes the app to crash
-            self.foundResults = results
+            if activeMode.resultUpdateStyle == .active {
+                foundResults.removeAll()
+            }
+            foundResults.append(contentsOf: newResults)
+        }
+    }
+    
+    func engineRequestedResultsReset() {
+        DispatchQueue.main.sync {
+            foundResults.removeAll()
         }
     }
 }

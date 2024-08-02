@@ -48,15 +48,16 @@ final class ModeAPI: LocalAPI {
     // MARK: - Properties
     internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
-    internal var results = [any SearchResult]()
+//    internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
     internal var nextPageInfo: NextPageInfo<Int> = NextPageInfo<Int>(nextPageCursor: nil, hasNextPage: true)
     internal var isLoadingNewPage: Bool = false
+    internal var loadedPageCount: Int = 0
 
     // MARK: - Methods
     internal func postInitSetup() { }
 
-    internal func getResultData(for query: String) async -> APIResponse<Int> {
+    internal func getResultData(forQuery query: String) async -> APIResponse<Int> {
         guard !query.isEmpty && query.first == "/" else {
             return APIResponse(results: [ModeResult](), nextPageInfo: nextPageInfo) // Don't set new values, keep what we have & reject the result
         }

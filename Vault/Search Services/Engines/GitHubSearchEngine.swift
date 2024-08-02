@@ -16,16 +16,21 @@ final class GitHubSearchEngine: Engine {
     public var searchFilters: [SearchFilter] {
         [SearchFilter(name: "Repositories",
                       iconName: "externaldrive.connected.to.line.below.fill",
-                      selectAction: { [weak self] in self?.API.setActiveMode(to: .repoMode) },
+                      selectAction: { [weak self] in self?.changeAPIMode(to: .repoMode) },
                       deselectAction: nil),
          SearchFilter(name: "Users",
                       iconName: "person.fill",
-                      selectAction: { [weak self] in self?.API.setActiveMode(to: .userMode) },
+                      selectAction: { [weak self] in self?.changeAPIMode(to: .userMode) },
                       deselectAction: nil),
          SearchFilter(name: "Pull Requests",
                       iconName: "arrow.trianglehead.pull",
-                      selectAction: { [weak self] in self?.API.setActiveMode(to: .pullRequestMode) },
+                      selectAction: { [weak self] in self?.changeAPIMode(to: .pullRequestMode) },
                       deselectAction: nil)]
     }
     internal let autocompleteMethod: (() -> ())? = nil
+    
+    private func changeAPIMode(to newMode: any GitHubAPIMode) {
+        API.setActiveMode(to: newMode)
+        delegate?.engineRequestedResultsReset()
+    }
 }

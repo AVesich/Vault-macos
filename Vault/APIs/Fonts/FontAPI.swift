@@ -8,7 +8,7 @@
 import Foundation
 import AppKit
 
-final class FontAPI: LocalAPI {
+final class FontAPI: API {
     
     struct HashableFontTrait: Hashable {
         let trait: NSFontTraitMask
@@ -21,10 +21,11 @@ final class FontAPI: LocalAPI {
     // MARK: - Properties
     internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
-    internal var results = [any SearchResult]()
+//    internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
     internal var nextPageInfo: NextPageInfo<Int> = NextPageInfo<Int>(nextPageCursor: nil, hasNextPage: true)
     internal var isLoadingNewPage: Bool = false
+    internal var loadedPageCount: Int = 0
     private var cachedFoundFontNames = Set<String>()
     private var selectedTraits = Set<HashableFontTrait>()
     
@@ -42,7 +43,6 @@ final class FontAPI: LocalAPI {
         cachedFoundFontNames.removeAll()
         // End diff
         
-        results.removeAll()
         prevQuery = nil // Force next search to be new, not loading from a page
         nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
     }
@@ -58,8 +58,8 @@ final class FontAPI: LocalAPI {
     }
 
     // ONLY GET NAMES OF FONTS WE HAVEN'T SEARCHED YET
-    internal func getResultData(for query: String) async -> APIResponse<Int> {
-        if !nextPageInfo.hasNextPage {
+    internal func getResultData(forQuery query: String) async -> APIResponse<Int> {
+        guard nextPageInfo.hasNextPage else  {
             return APIResponse(results: [FontResult](), nextPageInfo: nextPageInfo)
         }
         let fontNames = getFontNameResults(forQuery: query)
@@ -79,8 +79,11 @@ final class FontAPI: LocalAPI {
             
             i+=1 // Only need to update this if we found a result, so continue statement above shouldn't be problematic
         }
+        if !foundResults.isEmpty {
+            loadedPageCount += 1
+        }
         
-        let hasNextPage = foundResults.count+self.results.count < apiConfig.MAX_RESULTS && maxIndex == apiConfig.RESULTS_PER_PAGE // We can't hit max and can't be out of results
+        let hasNextPage = loadedPageCount < apiConfig.MAX_PAGE_COUNT && maxIndex == apiConfig.RESULTS_PER_PAGE // We can't hit max and can't be out of results
         let nextPageInfo = NextPageInfo<Int>(nextPageCursor: nil, hasNextPage: hasNextPage) // Next page cursor isn't used, since results are derived from unordered sets we use the cache for scrolling
         
         return APIResponse(results: foundResults, nextPageInfo: nextPageInfo)

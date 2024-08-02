@@ -6,7 +6,7 @@
 	<string>https://www.google.com/search?q=</string>
 	<key>API_KEY</key>
 	<string></string>
-	<key>MAX_RESULTS</key>
+	<key>MAX_PAGE_COUNT</key>
 	<integer>-1</integer>
 	<key>RESULTS_PER_PAGE</key>
 	<integer>-1</integer>
