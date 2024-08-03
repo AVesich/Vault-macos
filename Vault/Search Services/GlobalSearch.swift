@@ -256,8 +256,6 @@ extension GlobalSearch: EngineDelegate {
     }
     
     func engineRequestedResultsReset() {
-        DispatchQueue.main.sync {
-            foundResults.removeAll()
-        }
+        foundResults.removeAll()
     }
 }

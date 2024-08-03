@@ -31,6 +31,7 @@ final class GitHubSearchEngine: Engine {
     
     private func changeAPIMode(to newMode: any GitHubAPIMode) {
         API.setActiveMode(to: newMode)
+        API.resetQueryCache() // Prevent query staying the same and changing filters from thinking NEW pages should be loaded
         delegate?.engineRequestedResultsReset()
     }
 }
