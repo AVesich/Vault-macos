@@ -251,7 +251,24 @@ extension GlobalSearch: EngineDelegate {
             if activeMode.resultUpdateStyle == .active {
                 foundResults.removeAll()
             }
-            foundResults.append(contentsOf: newResults)
+            if activeMode.engine is UnsplashSearchEngine {
+                var existingURLs = [PhotoURLs]()
+                var newURLs = [PhotoURLs]()
+                
+                if let first = foundResults.first,
+                   let urls = first.content as? [PhotoURLs] {
+                    existingURLs = urls
+                }
+                if let first = newResults.first,
+                   let urls = first.content as? [PhotoURLs] {
+                    newURLs = urls
+                }
+                
+                foundResults.removeAll()
+                foundResults.append(ImagesResult(content: existingURLs + newURLs))
+            } else {
+                foundResults.append(contentsOf: newResults)
+            }
         }
     }
     
