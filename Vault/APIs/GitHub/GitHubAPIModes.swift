@@ -13,17 +13,17 @@ import ApolloAPI
 protocol GitHubAPIMode {
     associatedtype Query: GraphQLQuery
     
-    func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws  -> (results: [any SearchResult], nextPageInfo: NextPageInfo)
+    func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws  -> (results: [any SearchResult], nextPageInfo: NextPageInfo<String>)
     func getQueryWithParams(_ query: String, numResults: Int, startCursor: String?) -> Query
     func getResponseResults<ResponseData>(fromData responseData: ResponseData?) -> [any SearchResult]
-    func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo
+    func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo<String>
 }
 
 // MARK: - Mode Implementations
 final class GitHubAPIRepoMode: GitHubAPIMode {
     typealias Repository = GitHubRepoQuery.Data.Search.Repo.Repo.AsRepository
         
-    public func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws -> (results: [any SearchResult], nextPageInfo: NextPageInfo) {
+    public func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws -> (results: [any SearchResult], nextPageInfo: NextPageInfo<String>) {
         let query = getQueryWithParams(query, numResults: numResults, startCursor: nextCursor)
         let response = try await client.fetchAsync(query: query)
         return (getResponseResults(fromData: response.data), getResponseNextPageInfo(fromData: response.data))
@@ -50,14 +50,14 @@ final class GitHubAPIRepoMode: GitHubAPIMode {
                                                                          ownerAvatarURLString: $0.owner.avatarUrl)) }
     }
     
-    internal func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo {
+    internal func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo<String> {
         guard let responseData = responseData as? GitHubRepoQuery.Data else {
-            return NextPageInfo(nextPageCursor: nil, 
-                                         hasNextPage: false)
+            return NextPageInfo<String>(nextPageCursor: nil,
+                                        hasNextPage: false)
         }
         let pageInfo = responseData.search.pageInfo
         return NextPageInfo(nextPageCursor: pageInfo.endCursor,
-                                     hasNextPage: (pageInfo.endCursor == nil) ? false : pageInfo.hasNextPage)
+                            hasNextPage: (pageInfo.endCursor == nil) ? false : pageInfo.hasNextPage)
     }
 
 }
@@ -65,7 +65,7 @@ final class GitHubAPIRepoMode: GitHubAPIMode {
 final class GitHubAPIUserMode: GitHubAPIMode {
     typealias User = GitHubUserQuery.Data.Search.User.User.AsUser
         
-    public func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws -> (results: [any SearchResult], nextPageInfo: NextPageInfo) {
+    public func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws -> (results: [any SearchResult], nextPageInfo: NextPageInfo<String>) {
         let query = getQueryWithParams(query, numResults: numResults, startCursor: nextCursor)
         let response = try await client.fetchAsync(query: query)
         return (getResponseResults(fromData: response.data), getResponseNextPageInfo(fromData: response.data))
@@ -91,14 +91,14 @@ final class GitHubAPIUserMode: GitHubAPIMode {
                                                                             htmlURLString: $0.url)) }
     }
     
-    internal func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo {
+    internal func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo<String> {
         guard let responseData = responseData as? GitHubUserQuery.Data else {
             return NextPageInfo(nextPageCursor: nil,
                                          hasNextPage: false)
         }
         let pageInfo = responseData.search.pageInfo
         return NextPageInfo(nextPageCursor: pageInfo.endCursor,
-                                     hasNextPage: (pageInfo.endCursor == nil) ? false : pageInfo.hasNextPage)
+                            hasNextPage: (pageInfo.endCursor == nil) ? false : pageInfo.hasNextPage)
     }
 
 }
@@ -106,7 +106,7 @@ final class GitHubAPIUserMode: GitHubAPIMode {
 final class GitHubAPIPullRequestMode: GitHubAPIMode {
     typealias PullRequest = GitHubPRQuery.Data.Viewer.PullRequests.PullRequest.PullRequests
         
-    public func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws -> (results: [any SearchResult], nextPageInfo: NextPageInfo) {
+    public func fetch(withGraphQLClient client: ApolloClient, query: String, numResults: Int, nextCursor: String?) async throws -> (results: [any SearchResult], nextPageInfo: NextPageInfo<String>) {
         let query = getQueryWithParams(query, numResults: numResults, startCursor: nextCursor)
         let response = try await client.fetchAsync(query: query)
         return (getResponseResults(fromData: response.data), getResponseNextPageInfo(fromData: response.data))
@@ -136,14 +136,14 @@ final class GitHubAPIPullRequestMode: GitHubAPIMode {
                                                                                        headRefName: $0.headRefName)) }
     }
     
-    internal func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo {
+    internal func getResponseNextPageInfo<ResponseData>(fromData responseData: ResponseData?) -> NextPageInfo<String> {
         guard let responseData = responseData as? GitHubUserQuery.Data else {
             return NextPageInfo(nextPageCursor: nil,
                                          hasNextPage: false)
         }
         let pageInfo = responseData.search.pageInfo
         return NextPageInfo(nextPageCursor: pageInfo.endCursor,
-                                     hasNextPage: (pageInfo.endCursor == nil) ? false : pageInfo.hasNextPage)
+                            hasNextPage: (pageInfo.endCursor == nil) ? false : pageInfo.hasNextPage)
     }
 
 }

@@ -78,10 +78,13 @@ class GlobalSearch {
     }
     private var foundResults = [any SearchResult]()
     public var canAutocomplete: Bool {
-        let activeMode = activeMode ?? SearchModeEnum.modes
+        let activeMode = activeMode
         return (queryString.isEmpty && foundResults.isEmpty) || activeMode.canAutocomplete // We are only showing history or complete-able results
     }
     private let MAX_HISTORY_SIZE = 5
+    
+    // MARK: - Fields
+    private var isSearching = false
         
     // MARK: - Dependencies
     public var modelContext: ModelContext!
@@ -103,7 +106,7 @@ class GlobalSearch {
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
         if canAutocomplete { // Autocomplete
             let activeMode = activeMode ?? SearchModeEnum.modes
-            if let autocompleteBehavior = activeMode.engine.autocomplete,
+            if let autocompleteBehavior = activeMode.engine.autocompleteMethod,
                !foundResults.isEmpty {
                 autocompleteBehavior()
             } else {
@@ -146,7 +149,14 @@ class GlobalSearch {
     }
 
     private func search(withActiveDirectory activeDirectory: String) {
-        activeMode.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+        if isSearching {
+            return
+        }
+        isSearching = true
+        Task {
+            await activeMode.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+            isSearching = false
+        }
     }
         
     public func refreshResults() {
@@ -230,12 +240,39 @@ class GlobalSearch {
     }
     
     private func clearResults() {
+        foundResults.removeAll()
         activeMode.engine.clearResults()
     }
 }
 
 extension GlobalSearch: EngineDelegate {
-    func engineDidFindResults(results: [any SearchResult]) {
-        self.foundResults = results
+    func engineRetrievedResults(newResults: [any SearchResult]) {
+        DispatchQueue.main.sync { // TODO: - Find workaround to this problem - foundResults being updated by a non-main thread due to the delegate being called from a Task causes the app to crash
+            if activeMode.resultUpdateStyle == .active {
+                foundResults.removeAll()
+            }
+            if activeMode.engine is UnsplashSearchEngine {
+                var existingURLs = [PhotoURLs]()
+                var newURLs = [PhotoURLs]()
+                
+                if let first = foundResults.first,
+                   let urls = first.content as? [PhotoURLs] {
+                    existingURLs = urls
+                }
+                if let first = newResults.first,
+                   let urls = first.content as? [PhotoURLs] {
+                    newURLs = urls
+                }
+                
+                foundResults.removeAll()
+                foundResults.append(ImagesResult(content: existingURLs + newURLs))
+            } else {
+                foundResults.append(contentsOf: newResults)
+            }
+        }
+    }
+    
+    func engineRequestedResultsReset() {
+        foundResults.removeAll()
     }
 }

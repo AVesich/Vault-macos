@@ -10,31 +10,25 @@ import ApolloAPI
 import GitHubAPI
 import Foundation
 
-final class GitHubAPI: API {    
-    
+final class GitHubAPI: API {
+
     // MARK: - Properties
-    internal var MAX_RESULTS: Int!
-    internal var RESULTS_PER_PAGE: Int!
+    internal var isReset: Bool = false
+    internal var apiConfig: APIConfig!
+//    internal var results = [any SearchResult]()
+    internal var prevQuery: String? = nil
+    internal var nextPageInfo: NextPageInfo<String> = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: true)
+    internal var isLoadingNewPage: Bool = false
+    internal var loadedPageCount: Int = 0
     private var currentMode: any GitHubAPIMode = .repoMode
-    internal var results = [any SearchResult]()
-    internal var prevQuery: String?
     private var graphQLClient: ApolloClient!
-    private var isLoadingNewPage: Bool = false
-    private var nextPageInfo: NextPageInfo = .firstPageInfo
     
     // MARK: - Initialization
-    init(MAX_RESULTS: Int, RESULTS_PER_PAGE: Int) {
-        let config = APIConfig(configFileName: "GitHubAPIConfig")
-        guard let apiURL = config.apiURL else {
-            fatalError("Failed to get ApiUrl from Github API config file")
-        }
-        
-        self.MAX_RESULTS = MAX_RESULTS
-        self.RESULTS_PER_PAGE = RESULTS_PER_PAGE
-
-        // avesich: "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"
-        // rhit-vesichab: "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"
-        self.graphQLClient = getGraphQLClient(withEndpointURL: apiURL, andAuthToken: "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")
+    // Keys
+    // avesich: "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"
+    // rhit-vesichab: "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"
+    internal func postInitSetup() {
+        self.graphQLClient = getGraphQLClient(withEndpointURL: apiConfig.API_URL!, andAuthToken: apiConfig.API_KEY!)
     }
     
     private func getGraphQLClient(withEndpointURL endpointURL: URL, andAuthToken authToken: String) -> ApolloClient {
@@ -48,59 +42,36 @@ final class GitHubAPI: API {
     }
     
     // MARK: - Methods
-    public func getResults() -> [any SearchResult] {
-        return results
-    }
-    
-    public func updateResults(for query: String, start: String?, end: String?) async { // No end needed, github wants start key & number to load from there
-        let newQuery = query != prevQuery
-        if newQuery { // Make a new search, NOT a new page
-            nextPageInfo = .firstPageInfo
-        }
-        prevQuery = query
-        
-        let resultData = await getResultData(for: query)
-        if newQuery {
-            results.removeAll()
-        }
-        
-        results.append(contentsOf: resultData.results)
-        nextPageInfo = resultData.nextPageInfo
-    }
-    
     public func setActiveMode(to newMode: any GitHubAPIMode) {
         currentMode = newMode
     }
     
-    internal func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo) {
+    internal func getResultData(forQuery query: String) async -> APIResponse<String> {
         var fetchedResults = [any SearchResult]()
-        var fetchedNextPageInfo = NextPageInfo(nextPageCursor: nil, hasNextPage: false)
+        var fetchedNextPageInfo = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: false)
         isLoadingNewPage = true
         defer {
             isLoadingNewPage = false
         }
         
-        guard let graphQLClient, (results.isEmpty || nextPageInfo.hasNextPage) else {
-            return (fetchedResults, fetchedNextPageInfo)
+        guard let graphQLClient, nextPageInfo.hasNextPage else {
+            return APIResponse(results: fetchedResults, nextPageInfo: fetchedNextPageInfo)
         }
         
         do {
-            let resultData = try await currentMode.fetch(withGraphQLClient: graphQLClient, query: query, numResults: RESULTS_PER_PAGE, nextCursor: nextPageInfo.nextPageCursor)
+            let resultData = try await currentMode.fetch(withGraphQLClient: graphQLClient, query: query, numResults: apiConfig.RESULTS_PER_PAGE, nextCursor: nextPageInfo.nextPageCursor)
+            loadedPageCount += 1
+            
             fetchedResults = resultData.results
-            fetchedNextPageInfo = resultData.nextPageInfo
+            let nextPageCursor = resultData.nextPageInfo.nextPageCursor
+            var hasNextPage = resultData.nextPageInfo.hasNextPage
+            if loadedPageCount >= apiConfig.MAX_PAGE_COUNT { // Override whether we have a next page - the result from fetch() is only based on whether github can supply more results
+                hasNextPage = false
+            }
+            fetchedNextPageInfo = NextPageInfo<String>(nextPageCursor: nextPageCursor, hasNextPage: hasNextPage)
         } catch {
             print("Failed to fetch with error: \(error)")
         }
-        return (fetchedResults, fetchedNextPageInfo)
+        return APIResponse(results: fetchedResults, nextPageInfo: fetchedNextPageInfo)
     }
-    
-//    internal func getNextPageOfResults(startingAt start: String) -> [any SearchResult] {
-//        guard let graphQLClient, let prevQuery, results.count < MAX_RESULTS else {
-//            return []
-//        }
-//        
-//        let apiResults = graphQLClient.fetch(query: GitHubRepoQuery(query: prevQuery, numResults: RESULTS_PER_PAGE, afterCursor: GraphQLNullable<String>(stringLiteral: nextPageKey)))
-//        
-//        return []
-//    }
 }

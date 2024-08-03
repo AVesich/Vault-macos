@@ -2,36 +2,36 @@
 //  Engine.swift
 //  Vault
 //
+//  The purpose of the engine is to act as a bridge between the global search system and each search mode's api.
+//  The engine controls the api through filters, makes searches, and gives search results to a delegate (the global search system).
+//  This abstracts api-specific behaviors from the GlobalSearch class, keeping it's focus on core search bar behaviors.
+//
 //  Created by Austin Vesich on 6/2/24.
 //
 
 import Foundation
 
 protocol Engine {
-    associatedtype ResultType
+    associatedtype EngineAPI: API
     
-    var name: String { get }
     var delegate: EngineDelegate? { get set }
-    var searchResults: [ResultType] { get set }
+    var API: EngineAPI! { get set }
     var searchFilters: [SearchFilter] { get }
-    var autocomplete: (() -> ())? { get }
-    
-    mutating func search(withQuery query: String, inActiveDirectory activeDirectory: String)
+    var autocompleteMethod: (() -> ())? { get }
 }
 
 extension Engine {
-    var RESULTS_PER_PAGE: Int {
-        return PlistHelper.get(value: name+"_RESULTS_PER_PAGE", from: "EngineConfig")
+    public mutating func clearResults() {
+        API.resetQueryCache()
     }
-    var MAX_RESULTS: Int {
-        return PlistHelper.get(value: name+"_MAX_RESULTS", from: "EngineConfig")
-    }
-        
-    mutating func clearResults() {
-        searchResults.removeAll()
+    
+    public mutating func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {
+        let nextPageResults = await API.getNextPage(forQuery: query)
+        delegate?.engineRetrievedResults(newResults: nextPageResults)
     }
 }
 
 protocol EngineDelegate {
-    func engineDidFindResults(results: [any SearchResult])
+    func engineRetrievedResults(newResults: [any SearchResult])
+    func engineRequestedResultsReset()
 }

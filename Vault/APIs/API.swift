@@ -6,22 +6,68 @@
 //
 
 protocol API {
-    var results: [any SearchResult] { get set }
-    var prevQuery: String? { get set }
-    var MAX_RESULTS: Int! { get set }
-    var RESULTS_PER_PAGE: Int! { get set }
-    // Pagination page tracking changes from API to API, so it isn't a field
+    associatedtype PageCursorType
     
-    associatedtype APIPageMarker
-    func getResults() -> [any SearchResult]
-    func updateResults(for query: String, start: APIPageMarker?, end: APIPageMarker?) async // Appends results onto the result list, either a new page or a new query
-    func getResultData(for query: String) async -> (results: [any SearchResult], nextPageInfo: NextPageInfo)
+    var isReset: Bool { get set }
+    var apiConfig: APIConfig! { get set }
+//    var results: [any SearchResult] { get set }
+    var prevQuery: String? { get set }
+    var nextPageInfo: NextPageInfo<PageCursorType> { get set }
+    var isLoadingNewPage: Bool { get set }
+    var loadedPageCount: Int { get set }
+    
+    init()
+    init(configFileName: String, apiHasURL: Bool, apiNeedsKey: Bool)
+    
+    func postInitSetup()
+    func getResultData(forQuery query: String) async -> APIResponse<PageCursorType>
 }
 
-struct NextPageInfo {
-    let nextPageCursor: String?
-    let hasNextPage: Bool
+extension API {
+    init(configFileName: String, apiHasURL: Bool = false, apiNeedsKey: Bool = false) {
+        self.init()
+        apiConfig = APIConfig(configFileName: configFileName, apiHasURL: apiHasURL, apiNeedsKey: apiNeedsKey)
+        if apiHasURL && apiConfig.API_URL==nil {
+            fatalError("Failed to get ApiUrl from config file \(configFileName)")
+        }
+        postInitSetup()
+    }
     
-    static let firstPageInfo = NextPageInfo(nextPageCursor: nil, hasNextPage: true)
+//    public func getResults() -> [any SearchResult] {
+//        return results
+//    }
+    
+    public mutating func resetQueryCache() {
+        if isReset { // Multiple things can cause a reset, so this value is used to prevent 2x and 3x resets
+            return
+        }
+        isReset = true
+//        results.removeAll()
+        prevQuery = nil // Force next search to be new, not loading from a page
+        nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
+    }
+    
+    public mutating func getNextPage(forQuery query: String) async -> [any SearchResult] {
+        let newQuery = query != prevQuery
+        if newQuery { // Make a new search, NOT a new page
+//            nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
+            resetQueryCache()
+        }
+        prevQuery = query
+        isReset = false // Set isReset to false once a meaningful change (prevQuery being cached) is made
+        
+        let resultData = await getResultData(forQuery: query)
+//        if newQuery {
+//            results.removeAll()
+//        }
+        
+        nextPageInfo = resultData.nextPageInfo
+        return resultData.results
+    }
+}
+
+struct NextPageInfo<CursorType> {
+    let nextPageCursor: CursorType?
+    let hasNextPage: Bool
 }
 

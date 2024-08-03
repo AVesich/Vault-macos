@@ -9,65 +9,29 @@ import Foundation
 import SwiftUI
 
 // MARK: - Engine
-class GitHubSearchEngine: Engine {
-    enum FilterMode {
-        case repos
-        case users
-        case prs
-        
-        var urlSuffix: String {
-            switch self {
-            case .repos:
-                return "/search/repositories"
-            case .users:
-                return "/search/users"
-            case .prs:
-                return "/search/repositories"
-            }
-        }
-    }
-    
+final class GitHubSearchEngine: Engine {
     // MARK: - Properties
-    internal let name = "GitHub"
     public var delegate: EngineDelegate?
-    internal var searchResults = [any SearchResult]() {
-        didSet {
-            delegate?.engineDidFindResults(results: searchResults)
-        }
-    }
-    public var autocomplete: (() -> ())? = nil
-//    private let API_URL = "https://api.github.com"
-//    private let RESULTS_PER_PAGE = 15
-    private var api: GitHubAPI!
-    
-    // MARK: - Search Filters
-//    private var activeFilter: FilterMode = .repos
+    internal var API: GitHubAPI! = GitHubAPI(configFileName: "GitHubAPIConfig", apiHasURL: true, apiNeedsKey: true)
     public var searchFilters: [SearchFilter] {
         [SearchFilter(name: "Repositories",
                       iconName: "externaldrive.connected.to.line.below.fill",
-                      selectAction: { [weak self] in self?.api.setActiveMode(to: .repoMode) },
+                      selectAction: { [weak self] in self?.changeAPIMode(to: .repoMode) },
                       deselectAction: nil),
          SearchFilter(name: "Users",
                       iconName: "person.fill",
-                      selectAction: { [weak self] in self?.api.setActiveMode(to: .userMode) },
+                      selectAction: { [weak self] in self?.changeAPIMode(to: .userMode) },
                       deselectAction: nil),
          SearchFilter(name: "Pull Requests",
                       iconName: "arrow.trianglehead.pull",
-                      selectAction: { [weak self] in self?.api.setActiveMode(to: .pullRequestMode) },
+                      selectAction: { [weak self] in self?.changeAPIMode(to: .pullRequestMode) },
                       deselectAction: nil)]
     }
+    internal let autocompleteMethod: (() -> ())? = nil
     
-    init() {
-        // Result constants are provided by the Engine default values extension; they are not shown in this file
-        api = GitHubAPI(MAX_RESULTS: self.MAX_RESULTS,
-                        RESULTS_PER_PAGE: self.RESULTS_PER_PAGE)
-    }
-
-    // MARK: - Methods
-    public func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
-        Task {
-            await api.updateResults(for: query, start: nil, end: nil)
-            searchResults = api.results
-        }
+    private func changeAPIMode(to newMode: any GitHubAPIMode) {
+        API.setActiveMode(to: newMode)
+        API.resetQueryCache() // Prevent query staying the same and changing filters from thinking NEW pages should be loaded
+        delegate?.engineRequestedResultsReset()
     }
 }

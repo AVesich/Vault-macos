@@ -8,23 +8,8 @@
 import Foundation
 
 class UnsplashSearchEngine: Engine {
-    internal let name = "Unsplash"
     public var delegate: EngineDelegate?
-    internal var searchResults = [ImagesResult]() {
-        didSet {
-            delegate?.engineDidFindResults(results: searchResults)
-        }
-    }
+    internal var API: UnsplashAPI! = UnsplashAPI(configFileName: "UnsplashAPIConfig", apiHasURL: true, apiNeedsKey: true)
+    public var autocompleteMethod: (() -> ())? = nil
     public var searchFilters = [SearchFilter]()
-    public var autocomplete: (() -> ())? = nil
-    private let API = UnsplashAPI()
-    
-    func search(withQuery query: String, inActiveDirectory activeDirectory: String) {
-        Task {
-            let resultPhotoURLs = await API.searchPhotos(withQuery: query)
-            searchResults = [ImagesResult(content: resultPhotoURLs)]
-        }
-    }
 }
-
-protocol UnsplashSearchEngineDelegate: EngineDelegate {}
