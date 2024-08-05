@@ -14,6 +14,7 @@ protocol SearchResult: Identifiable {
     
     var id: UUID { get }
     var content: SearchContent { get }
+    var activityIcon: Image { get }
     var view: V { get }
     
     init (content: SearchContent)
@@ -22,6 +23,7 @@ protocol SearchResult: Identifiable {
 struct TextResult: SearchResult {
     let id = UUID()
     let content: String
+    let activityIcon = Image(systemName: "return")
     var view: some View {
         Text(content)
     }
@@ -30,6 +32,7 @@ struct TextResult: SearchResult {
 struct HistoryResult: SearchResult {
     let id = UUID()
     let content: Search
+    let activityIcon = Image(systemName: "return")
     var view: some View {
         TextResultView(result: self,
                        text: content.text)
@@ -39,6 +42,7 @@ struct HistoryResult: SearchResult {
 struct ModeResult: SearchResult {
     let id = UUID()
     let content: SearchMode
+    let activityIcon = Image(systemName: "return")
     var view: some View {
         TextResultView(result: self,
                        text: content.name)
@@ -48,6 +52,7 @@ struct ModeResult: SearchResult {
 struct FileResult: SearchResult {
     let id = UUID()
     let content: URL
+    let activityIcon = Image(systemName: "arrow.up.right.square")
     var view: some View {
         FilePathResultView(filePath: content)
     }
@@ -56,6 +61,7 @@ struct FileResult: SearchResult {
 struct ColorResult: SearchResult {
     let id = UUID()
     let content: [Color]
+    let activityIcon = Image(systemName: "document.on.document.fill")
     var view: some View {
         ColorResultView(colors: content)
     }
@@ -64,6 +70,7 @@ struct ColorResult: SearchResult {
 struct FontResult: SearchResult {
     let id = UUID()
     let content: NSFont
+    let activityIcon = Image(systemName: "document.on.document.fill")
     var view: some View {
         FontResultView(font: content)
     }
@@ -72,6 +79,7 @@ struct FontResult: SearchResult {
 struct ImagesResult: SearchResult {
     let id = UUID()
     let content: [PhotoURLs]
+    let activityIcon = Image(systemName: "app.fill")
     var view: some View {
         ImagesResultView(photoURLs: content)
     }
@@ -80,6 +88,7 @@ struct ImagesResult: SearchResult {
 struct GitHubRepoResult: SearchResult {
     let id = UUID()
     let content: GitHubRepoAPIResult
+    let activityIcon = Image(systemName: "link")
     var view: some View {
         GitHubRepoResultView(repoResult: content)
     }
@@ -88,6 +97,7 @@ struct GitHubRepoResult: SearchResult {
 struct GitHubUserResult: SearchResult {
     let id = UUID()
     let content: GitHubUserAPIResult
+    let activityIcon = Image(systemName: "link")
     var view: some View {
         GitHubUserResultView(userResult: content)
     }
@@ -96,6 +106,7 @@ struct GitHubUserResult: SearchResult {
 struct GitHubPullRequestResult: SearchResult {
     let id = UUID()
     let content: GitHubPullRequestAPIResult
+    let activityIcon = Image(systemName: "link")
     var view: some View {
         GitHubPullRequestResultView(pullRequestResult: content)
     }
@@ -104,6 +115,7 @@ struct GitHubPullRequestResult: SearchResult {
 struct WebResult: SearchResult {
     let id = UUID()
     let content: String
+    let activityIcon = Image(systemName: "link")
     var view: some View {
         WebResultView(urlString: content)
     }

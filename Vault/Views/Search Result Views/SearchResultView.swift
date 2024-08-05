@@ -15,7 +15,7 @@ struct SearchResultView: View {
     public var isSelected: Bool
     private var backgroundColor: Color {
         if isHovering && !(searchResult is ImagesResult) {
-            return .white.opacity(0.2)
+            return .white.opacity(0.3)
         } else if isSelected {
             return .white.opacity(0.1)
         } else {
@@ -25,8 +25,8 @@ struct SearchResultView: View {
     
     var body: some View {
         HStack(spacing: 8.0) {
-            if isSelected && canAutocomplete {
-                Image(systemName: "return")
+            if (isSelected || isHovering) && !(searchResult is ImagesResult) { //&& canAutocomplete {
+                searchResult.activityIcon
                     .imageScale(.small)
             }
             AnyView(searchResult.view)

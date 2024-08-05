@@ -11,7 +11,6 @@ import SwiftData
 struct TextResultView: View {
     
     @Environment(GlobalSearch.self) var searchModel
-    @State private var isHovering: Bool = false
     var result: any SearchResult
     var text: String
 

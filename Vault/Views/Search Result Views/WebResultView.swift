@@ -9,7 +9,6 @@ import SwiftUI
 
 struct WebResultView: View {
     
-    @State private var isHovering: Bool = false
     var urlString: String
     private let GOOGLE_API_URL = "https://www.google.com/s2/favicons?"
     private let GOOGLE_QUERY_URL = "https://www.google.com/search?q="
@@ -34,14 +33,6 @@ struct WebResultView: View {
                 .font(.manrope(16.0))
             
             Spacer()
-            
-            if isHovering {
-                Image(systemName: "link")
-            }
-        }
-        .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: isHovering)
-        .onHover { hovering in
-            isHovering = hovering
         }
 //        .onTapGesture {
 //            if let url = URLUtil.getURLToOpen(fromString: urlString) {

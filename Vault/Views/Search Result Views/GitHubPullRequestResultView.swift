@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GitHubPullRequestResultView: View {
     
-    @State private var isHovering: Bool = false
     public var pullRequestResult: GitHubPullRequestAPIResult
     
     var body: some View {
@@ -46,16 +45,8 @@ struct GitHubPullRequestResultView: View {
             }
             
             Spacer()
-            
-            if isHovering {
-                Image(systemName: "link")
-            }
         }
         .padding(.top, 4.0)
-        .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: isHovering)
-        .onHover { hovering in
-            isHovering = hovering
-        }
         .onTapGesture {
             if let url = URL(string: pullRequestResult.htmlURLString) {
                 NSWorkspace.shared.open(url)

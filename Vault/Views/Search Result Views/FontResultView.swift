@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FontResultView: View {
     
-    @State private var hovering: Bool = false
     var font: NSFont
     
     var body: some View {
@@ -25,22 +24,8 @@ struct FontResultView: View {
             }
 
             Spacer()
-            
-            if hovering {
-                Button {
-                    // TODO: - Add copy name on click
-                } label: {
-                    Image(systemName: "document.on.document.fill")
-                        .frame(width: 24.0, height: 24.0)
-                }
-                .buttonStyle(.borderless)
-            }
         }
-        .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: hovering)
         .padding(.vertical, 8.0)
-        .onHover { hover in
-            hovering = hover
-        }
         .onTapGesture {
             // TODO: - Add copy colors on click
         }

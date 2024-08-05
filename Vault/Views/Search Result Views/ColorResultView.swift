@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ColorResultView: View {
     
-    @State private var hovering: Bool = false
     var colors: [Color]
     
     var body: some View {
@@ -26,23 +25,10 @@ struct ColorResultView: View {
                     }
                 }
             }
-            .onHover { hover in
-                hovering = hover
-            }
             .onTapGesture {
                 // TODO: - Add copy colors on click
             }
-            
-            if hovering {
-                Button {
-                    // TODO: - Add copy colors on click
-                } label: {
-                    Image(systemName: "doc.on.doc")
-                }
-                .buttonStyle(.borderless)
-            }
         }
-        .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: hovering)
     }
 }
 

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct GitHubUserResultView: View {
     
-    @State private var isHovering: Bool = false
     public var userResult: GitHubUserAPIResult
     
     var body: some View {
@@ -28,14 +27,6 @@ struct GitHubUserResultView: View {
                 .font(.manrope(16.0))
             
             Spacer()
-            
-            if isHovering {
-                Image(systemName: "link")
-            }
-        }
-        .animation(.spring(response: 0.25, dampingFraction: 0.55, blendDuration: 1.0), value: isHovering)
-        .onHover { hovering in
-            isHovering = hovering
         }
         .onTapGesture {
             if let url = URL(string: userResult.htmlURLString) {
