@@ -21,14 +21,16 @@ struct ResultsList: View {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack(spacing: 8.0) {
                     ForEach(Array(searchModel.publishedResults.enumerated()), id: \.offset) { (index, searchResult) in
-                        SearchResultView(searchResult: searchResult, canAutocomplete: (index==0 && searchModel.canAutocomplete))
+                        SearchResultView(searchResult: searchResult, canAutocomplete: searchModel.canAutocomplete, isSelected: index == searchModel.selectedIndex)
                         .onTapGesture {
-                            searchModel.autocompleteSearch(fromIndex: index)
+                            searchModel.searchResult(fromIndex: index)
                         }
                     }
                 }
                 .padding(.bottom, 8.0)
-                .getSize {scrollViewSize = $0}
+                .getSize {
+                    scrollViewSize = $0
+                }
 //                ProgressView()
 //                    .controlSize(.small)
             }

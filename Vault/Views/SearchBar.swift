@@ -37,9 +37,6 @@ struct SearchBar: View {
                       prompt: Text("Search...")) {}
                 .font(.manrope(18.0))
                 .textFieldStyle(.plain)
-                .onSubmit {
-                    searchModel.enterPressedSearch(withActiveDirectory: currentProfile.directoryPath)
-                }
             Spacer()
             Button {
                 usingAI.toggle()
@@ -55,6 +52,18 @@ struct SearchBar: View {
             .shadow(color: usingAI ? .black.opacity(0.3) : .clear, radius: 3.0)
         }
         .padding(.vertical, 6.0)
+        .onKeyPress(.return) {
+            searchModel.enterPressedSearch(withActiveDirectory: currentProfile.directoryPath)
+            return .handled
+        }
+        .onKeyPress(.upArrow) {
+            searchModel.moveSelectionUp()
+            return .handled
+        }
+        .onKeyPress(.downArrow) {
+            searchModel.moveSelectionDown()
+            return .handled
+        }
     }
 }
 

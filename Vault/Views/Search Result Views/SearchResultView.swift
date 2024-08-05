@@ -12,10 +12,20 @@ struct SearchResultView: View {
     @State private var isHovering: Bool = false
     public var searchResult: any SearchResult
     public var canAutocomplete: Bool
+    public var isSelected: Bool
+    private var backgroundColor: Color {
+        if isHovering && !(searchResult is ImagesResult) {
+            return .white.opacity(0.2)
+        } else if isSelected {
+            return .white.opacity(0.1)
+        } else {
+            return .clear
+        }
+    }
     
     var body: some View {
         HStack(spacing: 8.0) {
-            if canAutocomplete {
+            if isSelected && canAutocomplete {
                 Image(systemName: "return")
                     .imageScale(.small)
             }
@@ -24,7 +34,7 @@ struct SearchResultView: View {
         .padding(.horizontal, 8.0)
         .background {
             RoundedRectangle(cornerRadius: 8.0)
-                .fill(isHovering && !(searchResult is ImagesResult) ? .white.opacity(0.1) : .clear)
+                .fill(backgroundColor)
                 .animation(.easeOut(duration: 0.1), value: isHovering)
         }
         .onHover { hovering in
@@ -39,5 +49,6 @@ struct SearchResultView: View {
     SearchResultView(searchResult: ModeResult(content: SearchMode(modeType: .github,
                                                                   systemIconName: "cat.fill",
                                                                   engine: GitHubSearchEngine())),
-                     canAutocomplete: true)
+                     canAutocomplete: true,
+                     isSelected: true)
 }

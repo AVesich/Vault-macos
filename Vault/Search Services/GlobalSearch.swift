@@ -85,6 +85,7 @@ class GlobalSearch {
     
     // MARK: - Fields
     private var isSearching = false
+    public var selectedIndex: Int = 0
         
     // MARK: - Dependencies
     public var modelContext: ModelContext!
@@ -110,14 +111,14 @@ class GlobalSearch {
                !foundResults.isEmpty {
                 autocompleteBehavior()
             } else {
-                autocompleteSearch(fromIndex: 0)
+                searchResult(fromIndex: selectedIndex)
             }
         } else {
             makeSearchWithHistory()
         }
     }
     
-    public func autocompleteSearch(fromIndex index: Int) { // Autocomplete a history result or a mode search, make this more general if needed later
+    public func searchResult(fromIndex index: Int) {
         guard index < publishedResults.count else {
             return
         }
@@ -242,6 +243,18 @@ class GlobalSearch {
     private func clearResults() {
         foundResults.removeAll()
         activeMode.engine.clearResults()
+    }
+    
+    public func moveSelectionUp() {
+        if selectedIndex > 0 {
+            selectedIndex -= 1
+        }
+    }
+    
+    public func moveSelectionDown() {
+        if selectedIndex < (publishedResults.count-1) {
+            selectedIndex += 1
+        }
     }
 }
 
