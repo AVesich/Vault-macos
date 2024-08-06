@@ -43,6 +43,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 struct VaultApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
+    @AppStorage("backgroundColor") private var backgroundColor: Color = .clear
     @State private var usingAI: Bool = false
     @State private var showAIGradient: Bool = false
     @State private var searchModel: GlobalSearch
@@ -80,11 +81,13 @@ struct VaultApp: App {
                             activateModeChangeGradient()
                         }
                     }
+                    .glow(color: backgroundColor)
                     .backgroundPulse(enabled: usingAI, color: .purple)
                     .backgroundPulse(enabled: modeChanged, color: .orange)
                     .sizePress(press: usingAI)
 //                    .sizePress(press: modeChanged)
-                    .shadow(color: .black.opacity(0.75), radius: 25.0)
+                    .shadow(color: (backgroundColor.shouldGlow()) ? .clear : .black.opacity(0.75),
+                            radius: 25.0)
 //                    .backgroundPulse(enabled: showModeGradient, color: .red)
 //                    .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
 //                    .shadow(color: showModeGradient ? .red.opacity(0.0) : .red, radius: showModeGradient ? 96.0 : 0.0)
@@ -107,7 +110,8 @@ struct VaultApp: App {
         .defaultPosition(.center)
         .modelContainer(modelContainer)
         MenuBarExtra() {
-            Button("Settings") {
+            SettingsLink {
+                Text("Settings")
             }
             Button("Show Window") {
             }
@@ -116,6 +120,9 @@ struct VaultApp: App {
             }
         } label: {
             Text("🚀")
+        }
+        Settings {
+            SettingsView()
         }
     }
     

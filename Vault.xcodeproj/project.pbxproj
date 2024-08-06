@@ -89,6 +89,10 @@
 		D986A00E2C34D55C00A14DEC /* WebResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D986A00D2C34D55C00A14DEC /* WebResultView.swift */; };
 		D988C71E2C43467400ACA594 /* Apollo+FetchAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */; };
 		D988C7202C435C3500ACA594 /* GitHubAPIModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D988C71F2C435C3100ACA594 /* GitHubAPIModes.swift */; };
+		D9A55FEA2C61BDC000C81296 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A55FE92C61BDC000C81296 /* SettingsView.swift */; };
+		D9A55FED2C61C2DF00C81296 /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A55FEC2C61C2DF00C81296 /* AppearanceSettingsView.swift */; };
+		D9A55FEF2C61C49C00C81296 /* Color+RawRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A55FEE2C61C49100C81296 /* Color+RawRepresentable.swift */; };
+		D9A55FF12C61C94500C81296 /* Glow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A55FF02C61C93F00C81296 /* Glow.swift */; };
 		D9A8770C2C0D3343001EAA1C /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8770B2C0D3343001EAA1C /* Engine.swift */; };
 		D9A8770E2C0D370A001EAA1C /* FileSystemSearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */; };
 		D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */; };
@@ -207,6 +211,10 @@
 		D986A00D2C34D55C00A14DEC /* WebResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebResultView.swift; sourceTree = "<group>"; };
 		D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Apollo+FetchAsync.swift"; sourceTree = "<group>"; };
 		D988C71F2C435C3100ACA594 /* GitHubAPIModes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIModes.swift; sourceTree = "<group>"; };
+		D9A55FE92C61BDC000C81296 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D9A55FEC2C61C2DF00C81296 /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
+		D9A55FEE2C61C49100C81296 /* Color+RawRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+RawRepresentable.swift"; sourceTree = "<group>"; };
+		D9A55FF02C61C93F00C81296 /* Glow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glow.swift; sourceTree = "<group>"; };
 		D9A8770B2C0D3343001EAA1C /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		D9A8770D2C0D370A001EAA1C /* FileSystemSearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemSearchEngine.swift; sourceTree = "<group>"; };
 		D9A877102C0D58C7001EAA1C /* FilePathResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePathResultView.swift; sourceTree = "<group>"; };
@@ -265,6 +273,7 @@
 		D9079F3D2C004AA70055BC7E /* Styles_Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				D9A55FF02C61C93F00C81296 /* Glow.swift */,
 				D917122D2C3B58CA00367174 /* BackgroundPulse.swift */,
 				D917122F2C3B6CE400367174 /* SizePress.swift */,
 				D9079F3E2C004AB50055BC7E /* ToggleStyles.swift */,
@@ -448,6 +457,7 @@
 		D94CAFAE2BF99D4C009AC3E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D9A55FEB2C61C2CA00C81296 /* Settings */,
 				D9A8770F2C0D58B0001EAA1C /* Search Result Views */,
 				D94CAF762BF82801009AC3E1 /* MainSearch.swift */,
 				D94CAFB12BF99DBE009AC3E1 /* DirectorySearchBar.swift */,
@@ -490,14 +500,15 @@
 			children = (
 				D9FD2DED2C55C9D4002B43D4 /* Array+MaxIndex.swift */,
 				D988C71D2C43466A00ACA594 /* Apollo+FetchAsync.swift */,
+				D9A8771A2C164216001EAA1C /* Color+Hex.swift */,
+				D9A55FEE2C61C49100C81296 /* Color+RawRepresentable.swift */,
+				D91712352C42201000367174 /* Color+Vibrance.swift */,
 				D94CAFC22BF9C707009AC3E1 /* Font+Manrope.swift */,
 				D91712312C421FB600367174 /* String+Filepath.swift */,
 				D94CAFC42BFAD3C7009AC3E1 /* String+Similarity.swift */,
 				D91712332C421FB800367174 /* String+Substring.swift */,
 				D97C648C2C4DE07C004A2E59 /* String+URLutils.swift */,
 				D9A877122C0D5B15001EAA1C /* URL+FileIcon.swift */,
-				D9A8771A2C164216001EAA1C /* Color+Hex.swift */,
-				D91712352C42201000367174 /* Color+Vibrance.swift */,
 				D92F3D8E2C23CAD90009A701 /* View+SizePreference.swift */,
 			);
 			path = Extensions;
@@ -542,6 +553,15 @@
 				D93E1FC22C16902500BA309E /* Models */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		D9A55FEB2C61C2CA00C81296 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D9A55FE92C61BDC000C81296 /* SettingsView.swift */,
+				D9A55FEC2C61C2DF00C81296 /* AppearanceSettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		D9A8770A2C0D332C001EAA1C /* Engines */ = {
@@ -748,6 +768,7 @@
 				D92F3D892C228F210009A701 /* TextResultView.swift in Sources */,
 				D9079F432C01B5FA0055BC7E /* DirectoryRecommendationView.swift in Sources */,
 				D9A8771B2C164216001EAA1C /* Color+Hex.swift in Sources */,
+				D9A55FEA2C61BDC000C81296 /* SettingsView.swift in Sources */,
 				D9079F3C2C0049ED0055BC7E /* DirectoryProfile.swift in Sources */,
 				D92F3D8F2C23CAD90009A701 /* View+SizePreference.swift in Sources */,
 				D9079F3F2C004AB50055BC7E /* ToggleStyles.swift in Sources */,
@@ -767,9 +788,11 @@
 				D9C3846D2C43219C003F8DC3 /* AuthInterceptor.swift in Sources */,
 				D97C64902C4DE5C8004A2E59 /* UnsplashAPI.swift in Sources */,
 				D97C648B2C4DDCCD004A2E59 /* WebAPI.swift in Sources */,
+				D9A55FED2C61C2DF00C81296 /* AppearanceSettingsView.swift in Sources */,
 				D9A8770C2C0D3343001EAA1C /* Engine.swift in Sources */,
 				D94CAF752BF82801009AC3E1 /* VaultApp.swift in Sources */,
 				D93062D32C17D75200CDB9FA /* ResultImageView.swift in Sources */,
+				D9A55FEF2C61C49C00C81296 /* Color+RawRepresentable.swift in Sources */,
 				D9E173812C31D43000091752 /* GitHubUserAPIResult.swift in Sources */,
 				D9A877112C0D58C7001EAA1C /* FilePathResultView.swift in Sources */,
 				D9E173832C31DC1300091752 /* GitHubUserResultView.swift in Sources */,
@@ -806,6 +829,7 @@
 				D97C647E2C4CA00A004A2E59 /* ModeAPI.swift in Sources */,
 				D91712302C3B6CE400367174 /* SizePress.swift in Sources */,
 				D93E1FCD2C16AA4800BA309E /* UnsplashSearchEngine.swift in Sources */,
+				D9A55FF12C61C94500C81296 /* Glow.swift in Sources */,
 				D917122E2C3B58DF00367174 /* BackgroundPulse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
