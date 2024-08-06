@@ -10,7 +10,6 @@ protocol API {
     
     var isReset: Bool { get set }
     var apiConfig: APIConfig! { get set }
-//    var results: [any SearchResult] { get set }
     var prevQuery: String? { get set }
     var nextPageInfo: NextPageInfo<PageCursorType> { get set }
     var isLoadingNewPage: Bool { get set }
@@ -32,17 +31,12 @@ extension API {
         }
         postInitSetup()
     }
-    
-//    public func getResults() -> [any SearchResult] {
-//        return results
-//    }
-    
+        
     public mutating func resetQueryCache() {
         if isReset { // Multiple things can cause a reset, so this value is used to prevent 2x and 3x resets
             return
         }
         isReset = true
-//        results.removeAll()
         prevQuery = nil // Force next search to be new, not loading from a page
         nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
     }
@@ -50,16 +44,12 @@ extension API {
     public mutating func getNextPage(forQuery query: String) async -> [any SearchResult] {
         let newQuery = query != prevQuery
         if newQuery { // Make a new search, NOT a new page
-//            nextPageInfo = NextPageInfo<PageCursorType>(nextPageCursor: nil, hasNextPage: true)
             resetQueryCache()
         }
         prevQuery = query
         isReset = false // Set isReset to false once a meaningful change (prevQuery being cached) is made
         
         let resultData = await getResultData(forQuery: query)
-//        if newQuery {
-//            results.removeAll()
-//        }
         
         nextPageInfo = resultData.nextPageInfo
         return resultData.results
