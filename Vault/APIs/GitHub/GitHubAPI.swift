@@ -15,7 +15,6 @@ final class GitHubAPI: API {
     // MARK: - Properties
     internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
-//    internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
     internal var nextPageInfo: NextPageInfo<String> = NextPageInfo<String>(nextPageCursor: nil, hasNextPage: true)
     internal var isLoadingNewPage: Bool = false

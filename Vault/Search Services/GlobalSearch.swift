@@ -76,7 +76,7 @@ class GlobalSearch {
         }
         return foundResults
     }
-    private var foundResults = [any SearchResult]()
+    internal var foundResults = [any SearchResult]()
     public var canAutocomplete: Bool {
         let activeMode = activeMode
         return (queryString.isEmpty && foundResults.isEmpty) || activeMode.canAutocomplete // We are only showing history or complete-able results
@@ -106,10 +106,10 @@ class GlobalSearch {
         
     public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
         if canAutocomplete { // Autocomplete
-            let activeMode = activeMode ?? SearchModeEnum.modes
-            if let autocompleteBehavior = activeMode.engine.autocompleteMethod,
+            let activeMode = activeMode
+            if let modeAction = activeMode.engine.enterAction,
                !foundResults.isEmpty {
-                autocompleteBehavior()
+                modeAction(selectedIndex)
             } else {
                 searchResult(fromIndex: selectedIndex)
             }

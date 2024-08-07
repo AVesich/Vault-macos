@@ -10,7 +10,6 @@ final class WebAPI: API {
     // MARK: - Properties
     internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
-    internal var results = [any SearchResult]()
     internal var prevQuery: String?
     internal var nextPageInfo: NextPageInfo<Int> = NextPageInfo<Int>(nextPageCursor: nil, hasNextPage: false) // Web API will always return 1-2 results. No pagination.
     internal var isLoadingNewPage: Bool = false

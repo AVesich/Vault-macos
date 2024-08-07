@@ -85,14 +85,8 @@ struct VaultApp: App {
                     .backgroundPulse(enabled: usingAI, color: .purple)
                     .backgroundPulse(enabled: modeChanged, color: .orange)
                     .sizePress(press: usingAI)
-//                    .sizePress(press: modeChanged)
                     .shadow(color: (backgroundColor.shouldGlow()) ? .clear : .black.opacity(0.75),
                             radius: 25.0)
-//                    .backgroundPulse(enabled: showModeGradient, color: .red)
-//                    .shadow(color: showAIGradient ? .purple.opacity(0.0) : .purple, radius: showAIGradient ? 96.0 : 0.0)
-//                    .shadow(color: showModeGradient ? .red.opacity(0.0) : .red, radius: showModeGradient ? 96.0 : 0.0)
-//                    .animation(showAIGradient ? .easeOut(duration: 0.65) : .none, value: showAIGradient)
-//                    .animation(showModeGradient ? .easeOut(duration: 0.65) : .none, value: showModeGradient)
             }
             .environment(searchModel)
             .background { // Rectangle at the back of the stack is just meant to give something resizable to allow fullscreening, this actually is the background that allows defocus

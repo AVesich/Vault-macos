@@ -21,7 +21,6 @@ final class FontAPI: API {
     // MARK: - Properties
     internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
-//    internal var results = [any SearchResult]()
     internal var prevQuery: String? = nil
     internal var nextPageInfo: NextPageInfo<Int> = NextPageInfo<Int>(nextPageCursor: nil, hasNextPage: true)
     internal var isLoadingNewPage: Bool = false

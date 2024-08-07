@@ -27,8 +27,8 @@ final class GitHubSearchEngine: Engine {
                       selectAction: { [weak self] in self?.changeAPIMode(to: .pullRequestMode) },
                       deselectAction: nil)]
     }
-    internal let autocompleteMethod: (() -> ())? = nil
-    
+    public var enterAction: ((Int) -> ())? = nil
+
     private func changeAPIMode(to newMode: any GitHubAPIMode) {
         API.setActiveMode(to: newMode)
         API.resetQueryCache() // Prevent query staying the same and changing filters from thinking NEW pages should be loaded

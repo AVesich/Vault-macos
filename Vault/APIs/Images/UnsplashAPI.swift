@@ -12,7 +12,6 @@ final class UnsplashAPI: API {
     // MARK: - Properties
     internal var isReset: Bool = false
     internal var apiConfig: APIConfig!
-//    internal var results = [any SearchResult]()
     internal var prevQuery: String?
     internal var nextPageInfo: NextPageInfo<Int> = .init(nextPageCursor: nil, hasNextPage: true)
     internal var isLoadingNewPage: Bool = false
