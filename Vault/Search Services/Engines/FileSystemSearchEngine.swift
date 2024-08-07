@@ -14,6 +14,6 @@ class FileSystemSearchEngine: Engine {
     public var delegate: EngineDelegate?
     internal var API: FileSystemAPI! = FileSystemAPI(configFileName: "FileSystemAPIConfig")
     public var searchFilters = [SearchFilter]()
-    public var enterAction: ((Int) -> ())? = nil
+    public var specialAction: ((Int) -> ())? = nil
 
 }

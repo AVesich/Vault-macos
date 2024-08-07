@@ -28,11 +28,6 @@ struct GitHubUserResultView: View {
             
             Spacer()
         }
-        .onTapGesture {
-            if let url = URL(string: userResult.htmlURLString) {
-                NSWorkspace.shared.open(url)
-            }
-        }
     }
 }
 

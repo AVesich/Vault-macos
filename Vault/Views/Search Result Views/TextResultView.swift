@@ -28,9 +28,6 @@ struct TextResultView: View {
             Spacer()
         }
         .frame(height: 28.0)
-//        .onTapGesture {
-//            searchModel.activeMode = searchMode
-//        }
     }
 }
 

@@ -23,7 +23,7 @@ struct ResultsList: View {
                     ForEach(Array(searchModel.publishedResults.enumerated()), id: \.offset) { (index, searchResult) in
                         SearchResultView(searchResult: searchResult, canAutocomplete: searchModel.canAutocomplete, isSelected: index == searchModel.selectedIndex)
                         .onTapGesture {
-                            searchModel.searchResult(fromIndex: index)
+                            searchModel.specialAction(withIndex: index)
                         }
                     }
                 }

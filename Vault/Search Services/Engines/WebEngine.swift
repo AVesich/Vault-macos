@@ -10,7 +10,7 @@ import AppKit
 
 final class WebEngine: Engine {
     public var delegate: EngineDelegate?
-    public var enterAction: ((Int) -> ())? { openResultInGoogle }
+    public var specialAction: ((Int) -> ())? { openResultInGoogle }
 //    public var enterAction: (() -> ())?// { openTopResultInGoogle }
     internal var API: WebAPI! = WebAPI(configFileName: "WebAPIConfig", apiHasURL: true)
     public let searchFilters = [SearchFilter]()

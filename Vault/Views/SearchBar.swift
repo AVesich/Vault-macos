@@ -53,7 +53,7 @@ struct SearchBar: View {
         }
         .padding(.vertical, 6.0)
         .onKeyPress(.return) {
-            searchModel.enterPressedSearch(withActiveDirectory: currentProfile.directoryPath)
+            searchModel.specialAction()
             return .handled
         }
         .onKeyPress(.upArrow) {

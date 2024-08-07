@@ -25,9 +25,6 @@ struct ColorResultView: View {
                     }
                 }
             }
-            .onTapGesture {
-                // TODO: - Add copy colors on click
-            }
         }
     }
 }

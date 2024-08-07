@@ -78,8 +78,7 @@ class GlobalSearch {
     }
     internal var foundResults = [any SearchResult]()
     public var canAutocomplete: Bool {
-        let activeMode = activeMode
-        return (queryString.isEmpty && foundResults.isEmpty) || activeMode.canAutocomplete // We are only showing history or complete-able results
+        return foundResults.isEmpty
     }
     private let MAX_HISTORY_SIZE = 5
     
@@ -104,49 +103,55 @@ class GlobalSearch {
         }
     }
         
-    public func enterPressedSearch(withActiveDirectory activeDirectory: String) {
+    public func specialAction(withIndex index: Int = -1) {
+        let usedIndex = (index <= -1) ? selectedIndex : index
+        
         if canAutocomplete { // Autocomplete
-            let activeMode = activeMode
-            if let modeAction = activeMode.engine.enterAction,
-               !foundResults.isEmpty {
-                modeAction(selectedIndex)
-            } else {
-                searchResult(fromIndex: selectedIndex)
-            }
+            searchWithResult(fromIndex: usedIndex)
         } else {
-            makeSearchWithHistory()
+            if let modeAction = activeMode.engine.specialAction {
+                modeAction(usedIndex)
+            }
         }
     }
     
-    public func searchResult(fromIndex index: Int) {
-        guard index < publishedResults.count else {
-            return
-        }
-        
-        if let historyElement = publishedResults[index].content as? Search {
-            if let modeID = historyElement.selectingModeID {
-                activeMode = SearchModeEnum.modeForTypeID(modeID)
-            } else {
-                queryString = historyElement.text
-                search(withActiveDirectory: "")
+    public func searchWithResult(fromIndex resultIndex: Int) {
+        if let historyElement = publishedResults[resultIndex].content as? Search {
+            if historyElement.selectingModeID == nil {
+                
             }
-        } else if let resultMode = publishedResults[index].content as? SearchMode {
-            makeSearchWithHistory() // Adds history & updates mode
         }
+        makeSearchWithHistory(andResultIndex: resultIndex)
     }
         
-    private func makeSearchWithHistory() {
-        if let result = foundResults.first as? ModeResult {
+    private func makeSearchWithHistory(andResultIndex resultIndex: Int = 0) {
+        defer {
+            try? modelContext.save()
+        }
+        
+        // Switch modes if necessary
+        if let result = publishedResults[resultIndex] as? ModeResult { // Switch mode from mode result
             modelContext.insert(Search(text: "/"+result.content.name,
                                        selectingModeID: result.content.modeFilterType.id,
                                        filterModeID: SearchModeType.mode.id))
             activeMode = result.content
-        } else {
-            modelContext.insert(Search(text: queryString,
-                                       filterModeID: activeMode.modeFilterType.id))
-            search(withActiveDirectory: "")
+            return
+        } else if let result = publishedResults[resultIndex] as? HistoryResult,
+                  let modeID = result.content.selectingModeID { // Switch mode from history mode result
+            let newMode = SearchModeEnum.modeForTypeID(modeID)
+            modelContext.insert(Search(text: "/"+newMode.name,
+                                       selectingModeID: modeID,
+                                       filterModeID: SearchModeType.mode.id))
+            activeMode = newMode
+            return
         }
-        try? modelContext.save()
+        
+        if let result = publishedResults[resultIndex] as? HistoryResult { // Search from history
+            queryString = result.content.text
+        }
+        modelContext.insert(Search(text: queryString,
+                                   filterModeID: activeMode.modeFilterType.id))
+        search(withActiveDirectory: "")
     }
 
     private func search(withActiveDirectory activeDirectory: String) {

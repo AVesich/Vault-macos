@@ -34,11 +34,6 @@ struct WebResultView: View {
             
             Spacer()
         }
-//        .onTapGesture {
-//            if let url = URLUtil.getURLToOpen(fromString: urlString) {
-//                NSWorkspace.shared.open(url)
-//            }
-//        }
     }
 }
 

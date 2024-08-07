@@ -47,11 +47,6 @@ struct GitHubPullRequestResultView: View {
             Spacer()
         }
         .padding(.top, 4.0)
-        .onTapGesture {
-            if let url = URL(string: pullRequestResult.htmlURLString) {
-                NSWorkspace.shared.open(url)
-            }
-        }
     }
 }
 

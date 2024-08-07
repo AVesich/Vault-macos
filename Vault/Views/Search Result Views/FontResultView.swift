@@ -26,9 +26,6 @@ struct FontResultView: View {
             Spacer()
         }
         .padding(.vertical, 8.0)
-        .onTapGesture {
-            // TODO: - Add copy colors on click
-        }
     }
 }
 
