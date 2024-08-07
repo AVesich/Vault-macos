@@ -116,11 +116,6 @@ class GlobalSearch {
     }
     
     public func searchWithResult(fromIndex resultIndex: Int) {
-        if let historyElement = publishedResults[resultIndex].content as? Search {
-            if historyElement.selectingModeID == nil {
-                
-            }
-        }
         makeSearchWithHistory(andResultIndex: resultIndex)
     }
         
@@ -196,10 +191,12 @@ class GlobalSearch {
     }
 
     private func queryStringChanged() {
-        if queryString.isEmpty && selectedFilterIndices.isEmpty { // Clear results after deleting the current query, just feels good as feedback
+        let noQuery = queryString.isEmpty
+        let filtersEmpty = !activeMode.allowMultipleFilterSelections || (activeMode.allowMultipleFilterSelections && selectedFilterIndices.isEmpty)
+        if noQuery && filtersEmpty { // Clear results after deleting the current query
             clearResults()
-        } else if queryString.isEmpty && activeMode.resultUpdateStyle == .onQueryOrFilter {
-            if !selectedFilterIndices.isEmpty {
+        } else if noQuery && activeMode.resultUpdateStyle == .onQueryOrFilter {
+            if !filtersEmpty {
                 search(withActiveDirectory: "")
             }
         } else { // Default to mode search & search if mode supports active results
@@ -215,6 +212,7 @@ class GlobalSearch {
     
     private func activeModeWillChange() {
         clearResults()
+        selectedIndex = 0
     }
     
     private func activeModeChanged() {
@@ -223,6 +221,7 @@ class GlobalSearch {
         if activeMode.modeFilterType != .mode { // Don't want to clear the '/'
             queryString = ""
         }
+        
     }
     
     private func resetFilters() {
@@ -243,6 +242,7 @@ class GlobalSearch {
         } else {
             refreshResults()
         }
+        selectedIndex = 0
     }
     
     private func clearResults() {
