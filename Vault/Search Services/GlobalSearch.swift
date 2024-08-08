@@ -71,7 +71,7 @@ class GlobalSearch {
     
     // MARK: - Result Properties
     public var publishedResults: [any SearchResult] {
-        if foundResults.isEmpty && (queryString.isEmpty || queryString=="/") {
+        if foundResults.isEmpty && (queryString.isEmpty || queryString == "/") {
             return getHistory()
         }
         return foundResults
@@ -107,43 +107,42 @@ class GlobalSearch {
         let usedIndex = (index <= -1) ? selectedIndex : index
         
         if canAutocomplete { // Autocomplete
-            searchWithResult(fromIndex: usedIndex)
+            makeSearchWithHistory(andResultIndex: usedIndex)
         } else {
             if let modeAction = activeMode.engine.specialAction {
                 modeAction(usedIndex)
             }
         }
     }
-    
-    public func searchWithResult(fromIndex resultIndex: Int) {
-        makeSearchWithHistory(andResultIndex: resultIndex)
-    }
-        
+            
     private func makeSearchWithHistory(andResultIndex resultIndex: Int = 0) {
         defer {
             try? modelContext.save()
         }
         
-        // Switch modes if necessary
-        if let result = publishedResults[resultIndex] as? ModeResult { // Switch mode from mode result
-            modelContext.insert(Search(text: "/"+result.content.name,
-                                       selectingModeID: result.content.modeFilterType.id,
-                                       filterModeID: SearchModeType.mode.id))
-            activeMode = result.content
-            return
-        } else if let result = publishedResults[resultIndex] as? HistoryResult,
-                  let modeID = result.content.selectingModeID { // Switch mode from history mode result
-            let newMode = SearchModeEnum.modeForTypeID(modeID)
-            modelContext.insert(Search(text: "/"+newMode.name,
-                                       selectingModeID: modeID,
-                                       filterModeID: SearchModeType.mode.id))
-            activeMode = newMode
-            return
+        if !publishedResults.isEmpty {
+            // Switch modes if necessary
+            if let result = publishedResults[resultIndex] as? ModeResult { // Switch mode from mode result
+                modelContext.insert(Search(text: "/"+result.content.name,
+                                           selectingModeID: result.content.modeFilterType.id,
+                                           filterModeID: SearchModeType.mode.id))
+                activeMode = result.content
+                return
+            } else if let result = publishedResults[resultIndex] as? HistoryResult,
+                      let modeID = result.content.selectingModeID { // Switch mode from history mode result
+                let newMode = SearchModeEnum.modeForTypeID(modeID)
+                modelContext.insert(Search(text: "/"+newMode.name,
+                                           selectingModeID: modeID,
+                                           filterModeID: SearchModeType.mode.id))
+                activeMode = newMode
+                return
+            }
+            if let result = publishedResults[resultIndex] as? HistoryResult { // Search from history
+                queryString = result.content.text
+                // No return because we'll search with the query string
+            }
         }
         
-        if let result = publishedResults[resultIndex] as? HistoryResult { // Search from history
-            queryString = result.content.text
-        }
         modelContext.insert(Search(text: queryString,
                                    filterModeID: activeMode.modeFilterType.id))
         search(withActiveDirectory: "")
@@ -265,10 +264,12 @@ class GlobalSearch {
 
 extension GlobalSearch: EngineDelegate {
     func engineRetrievedResults(newResults: [any SearchResult]) {
-        DispatchQueue.main.sync { // TODO: - Find workaround to this problem - foundResults being updated by a non-main thread due to the delegate being called from a Task causes the app to crash
+        DispatchQueue.main.sync {
             if activeMode.resultUpdateStyle == .active {
-                foundResults.removeAll()
+                foundResults = newResults
+                return
             }
+            
             if activeMode.engine is UnsplashSearchEngine {
                 var existingURLs = [PhotoURLs]()
                 var newURLs = [PhotoURLs]()
