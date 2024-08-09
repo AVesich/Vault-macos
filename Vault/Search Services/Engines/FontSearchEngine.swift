@@ -14,7 +14,7 @@ class FontSearchEngine: Engine {
         
     // MARK: - Declaring properties
     public var delegate: EngineDelegate?
-    public var specialAction: ((Int) -> ())? = nil
+    public var specialAction: ((Int) -> ())? { copyFontName }
     internal var API: FontAPI! = FontAPI(configFileName: "FontAPIConfig")
         
     // MARK: - Mode & Filters
@@ -51,5 +51,28 @@ class FontSearchEngine: Engine {
         API.removeTraitFilter(trait)
         API.resetQueryCache() // Prevent query staying the same and changing filters from thinking NEW pages should be loaded
         delegate?.engineRequestedResultsReset()
+    }
+    
+    private func copyFontName(withIndex index: Int) {
+        if let delegate = delegate as? FontEngineDelegate {
+            delegate.copyFontName(withIndex: index)
+        }
+    }
+}
+
+protocol FontEngineDelegate: EngineDelegate {
+    func copyFontName(withIndex: Int)
+}
+
+extension GlobalSearch: FontEngineDelegate {
+    func copyFontName(withIndex index: Int) {
+        guard index < foundResults.count else {
+            return
+        }
+        
+        if let result = foundResults[index] as? FontResult {
+            NSPasteboard.general.declareTypes([.string], owner: nil)
+            NSPasteboard.general.setString(result.content.fontName, forType: .string)
+        }
     }
 }

@@ -16,7 +16,7 @@ struct SearchResultView: View {
     private var backgroundColor: Color {
         if isHovering && !(searchResult is ImagesResult) {
             return .white.opacity(0.2)
-        } else if isSelected {
+        } else if isSelected && !(searchResult is ImagesResult) {
             return .white.opacity(0.1)
         } else {
             return .clear
