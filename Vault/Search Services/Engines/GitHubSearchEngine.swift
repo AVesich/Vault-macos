@@ -27,42 +27,10 @@ final class GitHubSearchEngine: Engine {
                       selectAction: { [weak self] in self?.changeAPIMode(to: .pullRequestMode) },
                       deselectAction: nil)]
     }
-    public var specialAction: ((Int) -> ())? { openGitHubItem }
 
     private func changeAPIMode(to newMode: any GitHubAPIMode) {
         API.setActiveMode(to: newMode)
         API.resetQueryCache() // Prevent query staying the same and changing filters from thinking NEW pages should be loaded
         delegate?.engineRequestedResultsReset()
-    }
-    
-    private func openGitHubItem(withIndex index: Int) {
-        if let delegate = delegate as? GitHubEngineDelegate {
-            delegate.openGitHubItem(withIndex: index)
-        }
-    }
-}
-
-protocol GitHubEngineDelegate: EngineDelegate {
-    func openGitHubItem(withIndex: Int)
-}
-
-extension GlobalSearch: GitHubEngineDelegate {
-    func openGitHubItem(withIndex index: Int) {
-        guard index < foundResults.count else {
-            return
-        }
-        
-        var url: URL?
-        if let result = foundResults[index] as? GitHubRepoResult {
-            url = URL(string: result.content.htmlURLString)
-        } else if let result = foundResults[index] as? GitHubUserResult {
-            url = URL(string: result.content.htmlURLString)
-        } else if let result = foundResults[index] as? GitHubPullRequestResult {
-            url = URL(string: result.content.htmlURLString)
-        }
-        
-        if let url {
-            NSWorkspace.shared.open(url)
-        }
     }
 }

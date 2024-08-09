@@ -161,7 +161,7 @@
             startingLineNumber = "213"
             endingLineNumber = "213"
             landmarkName = "activeModeWillChange()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -177,7 +177,7 @@
             startingLineNumber = "163"
             endingLineNumber = "163"
             landmarkName = "refreshResults()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -247,22 +247,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "80DD2F7E-BE63-4857-9248-825C5BAC15B2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Vault/Search Services/GlobalSearch.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "specialAction(withIndex:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "BBB5F642-03A0-4C39-9A18-5E918ABE85AA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -273,7 +257,7 @@
             startingLineNumber = "133"
             endingLineNumber = "133"
             landmarkName = "makeSearchWithHistory(andResultIndex:)"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

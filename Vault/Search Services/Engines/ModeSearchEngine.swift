@@ -9,5 +9,4 @@ class ModeSearchEngine: Engine {
     public var delegate: EngineDelegate?
     internal var API: ModeAPI! = ModeAPI(configFileName: "ModeAPIConfig")
     public let searchFilters = [SearchFilter]()
-    public var specialAction: ((Int) -> ())? = nil
 }

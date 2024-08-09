@@ -17,7 +17,6 @@ protocol Engine {
     var delegate: EngineDelegate? { get set }
     var API: EngineAPI! { get set }
     var searchFilters: [SearchFilter] { get }
-    var specialAction: ((Int) -> ())? { get }
 }
 
 extension Engine {

@@ -109,8 +109,8 @@ class GlobalSearch {
         if canAutocomplete { // Autocomplete
             makeSearchWithHistory(andResultIndex: usedIndex)
         } else {
-            if let modeAction = activeMode.engine.specialAction {
-                modeAction(usedIndex)
+            if let actionFunction = publishedResults[usedIndex].actionFunction {
+                actionFunction()
             }
         }
     }
