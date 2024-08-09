@@ -78,7 +78,7 @@ class GlobalSearch {
     }
     internal var foundResults = [any SearchResult]()
     public var canAutocomplete: Bool {
-        return foundResults.isEmpty
+        return foundResults.isEmpty || queryString.first == "/"
     }
     private let MAX_HISTORY_SIZE = 5
     
