@@ -14,7 +14,7 @@ class FontSearchEngine: Engine {
         
     // MARK: - Declaring properties
     public var delegate: EngineDelegate?
-    internal var API: FontAPI! = FontAPI(configFileName: "FontAPIConfig")
+    internal var API: FontAPI! = FontAPI(configFileName: "FontsConfig")
         
     // MARK: - Mode & Filters
     public var searchFilters: [SearchFilter] {

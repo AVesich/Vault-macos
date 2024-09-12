@@ -51,11 +51,6 @@ final class UnsplashAPI: API {
 //        }
         
         if !photoURLs.isEmpty {
-            // Rare occurance that we touch the existing results. DON'T DO THIS NORMALLY.
-//            if let images = results.first?.content as? [PhotoURLs] {
-//                photoURLs.insert(contentsOf: images, at: 0) // We build the new page onto the end of the old page
-//                results.removeAll() // Remove the first result, as it is to be replaced with the new result (only 1 result with many images is shown for unsplash)
-//            }
             loadedPageCount += 1
             
             let result = ImagesResult(content: photoURLs)
@@ -69,7 +64,6 @@ final class UnsplashAPI: API {
     }
     
     private func getSearchPhotosRequest(forURLString urlString: String, withQuery query: String) -> URLRequest {
-        dump(nextPageInfo.nextPageCursor)
         searchParams["page"] = String((nextPageInfo.nextPageCursor ?? 1))
         searchParams["query"] = query
         if var request = APIJSONHelpers.getURLRequest(withURLString: urlString, andParams: searchParams) {

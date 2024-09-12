@@ -11,6 +11,6 @@ import AppKit
 final class WebEngine: Engine {
     
     public var delegate: EngineDelegate?
-    internal var API: WebAPI! = WebAPI(configFileName: "WebAPIConfig", apiHasURL: true)
+    internal var API: WebAPI! = WebAPI(configFileName: "WebConfig", apiHasURL: true)
     public let searchFilters = [SearchFilter]()
 }

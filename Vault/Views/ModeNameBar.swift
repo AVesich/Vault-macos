@@ -15,7 +15,7 @@ struct ModeNameBar: View {
     var body: some View {
         if searchModel.activeMode.modeFilterType != .mode {
             HStack(spacing: 8.0) {
-                Image(systemName: searchModel.activeMode.systemIconName)
+                Image(systemName: searchModel.activeMode.iconName)
                     .imageScale(.medium)
                 Text(searchModel.activeMode.name)
                     .font(.manrope(12.0, weight: .semibold))

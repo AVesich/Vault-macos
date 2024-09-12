@@ -47,7 +47,6 @@ struct SearchResultView: View {
 
 #Preview {
     SearchResultView(searchResult: ModeResult(content: SearchMode(modeType: .github,
-                                                                  systemIconName: "cat.fill",
                                                                   engine: GitHubSearchEngine())),
                      canAutocomplete: true,
                      isSelected: true)

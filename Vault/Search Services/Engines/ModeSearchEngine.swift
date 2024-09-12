@@ -7,6 +7,6 @@
 
 class ModeSearchEngine: Engine {
     public var delegate: EngineDelegate?
-    internal var API: ModeAPI! = ModeAPI(configFileName: "ModeAPIConfig")
+    internal var API: ModeAPI! = ModeAPI(configFileName: "ModesConfig")
     public let searchFilters = [SearchFilter]()
 }

@@ -10,23 +10,10 @@ import SwiftData
 
 struct SearchBar: View {
     
-    // MARK: - Constants
-    private let TEMP_PROFILE_INDEX_OFFSET = 1
-
     // MARK: - Properties
     @Environment(GlobalSearch.self) var searchModel
     @Binding var usingAI: Bool
-    var directoryProfiles: [DirectoryProfile]
-    @Binding var temporaryProfile: DirectoryProfile
-    @Binding var selectedProfileIndex: Int?
     @State private var searchQuery = ""
-
-    private var currentProfile: DirectoryProfile {
-        if selectedProfileIndex == 0 {
-            return temporaryProfile
-        }
-        return directoryProfiles[selectedProfileIndex! - TEMP_PROFILE_INDEX_OFFSET]
-    }
 
     // MARK: - UI
     var body: some View {
@@ -70,9 +57,6 @@ struct SearchBar: View {
 #Preview {
     let dummyContainer = try! ModelContainer(for: Search.self)
 
-    SearchBar(usingAI: .constant(false),
-              directoryProfiles: [],
-              temporaryProfile: .constant(.temporaryProfile),
-              selectedProfileIndex: .constant(0))
-    .environment(GlobalSearch(modelContext: dummyContainer.mainContext))
+    SearchBar(usingAI: .constant(false))
+        .environment(GlobalSearch(modelContext: dummyContainer.mainContext))
 }

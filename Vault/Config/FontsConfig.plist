@@ -2,10 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ICON_NAME</key>
+	<string>textformat</string>
 	<key>API_URL</key>
-	<string>https://api.unsplash.com</string>
+	<string>Google.com</string>
 	<key>API_KEY</key>
-	<string>c_d0ynvcrtU9ujdM9JYKsUAoIDAW8zr-rzPz5jbze2Y</string>
+	<string></string>
 	<key>MAX_PAGE_COUNT</key>
 	<integer>4</integer>
 	<key>RESULTS_PER_PAGE</key>

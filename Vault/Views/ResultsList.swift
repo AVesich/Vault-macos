@@ -26,13 +26,21 @@ struct ResultsList: View {
                             searchModel.specialAction(withIndex: index)
                         }
                     }
+                    // Lazy stack makes this only appear when we are at the bottom
+                    if searchModel.hasNextPageAvailable {
+                        ProgressView()
+                            .controlSize(.small)
+                            .padding(.top, 16.0)
+                            .padding(.bottom, 24.0)
+                            .onAppear {
+                                searchModel.loadNextPage()
+                            }
+                    }
                 }
                 .padding(.bottom, 8.0)
                 .getSize {
                     scrollViewSize = $0
                 }
-//                ProgressView()
-//                    .controlSize(.small)
             }
             .frame(height: scrollViewSize.height<=384.0 ? scrollViewSize.height : 384.0)
         }

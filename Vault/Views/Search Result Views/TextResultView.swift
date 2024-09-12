@@ -35,7 +35,6 @@ struct TextResultView: View {
     let dummyContainer = try! ModelContainer(for: Search.self)
     
     TextResultView(result: ModeResult(content: SearchMode(modeType: .github,
-                                                          systemIconName: "cat.fill",
                                                           engine: GitHubSearchEngine())),
                    text: "GitHub")
         .environment(GlobalSearch(modelContext: dummyContainer.mainContext))

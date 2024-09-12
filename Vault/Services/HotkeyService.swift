@@ -8,7 +8,7 @@
 import CoreGraphics
 import AppKit
 
-class HotkeyLoop {
+class HotkeyService {
     
     init() {
         setupSearchHotkey()
@@ -46,7 +46,7 @@ func checkButtonDownEventForOptS(proxy: CGEventTapProxy, type: CGEventType, even
     let sPressed = event.getIntegerValueField(.keyboardEventKeycode) == 1
     let optionPressed = event.flags.contains(.maskAlternate)
     if type == .keyDown, sPressed, optionPressed {
-        NSApp.activate()
+        NSApp.activate(ignoringOtherApps: true)
         return nil
     }
     return Unmanaged.passUnretained(event)

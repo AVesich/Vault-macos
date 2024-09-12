@@ -11,11 +11,11 @@ import CoreGraphics
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
         
-    var hotkeyLoop: HotkeyLoop!
+    var hotkeyLoop: HotkeyService!
     
     internal func applicationDidFinishLaunching(_ notification: Notification) {
         prepareWindow()
-        hotkeyLoop = HotkeyLoop()
+        hotkeyLoop = HotkeyService()
     }
     
     private func prepareWindow() {
@@ -91,9 +91,9 @@ struct VaultApp: App {
             .environment(searchModel)
             .background { // Rectangle at the back of the stack is just meant to give something resizable to allow fullscreening, this actually is the background that allows defocus
                 Color.black.opacity(0.0001).ignoresSafeArea()
-                    .onTapGesture {
-                        NSApp.hide(nil)
-                    }
+//                    .onTapGesture {
+//                        NSApp.hide(self)
+//                    }
             }
             .onAppear {
                 NSApplication.shared.windows.last?.setFrameOrigin(CGPoint(x: 0, y: 0))

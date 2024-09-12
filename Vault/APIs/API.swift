@@ -22,7 +22,7 @@ protocol API {
     func getResultData(forQuery query: String) async -> APIResponse<PageCursorType>
 }
 
-extension API {
+extension API {    
     init(configFileName: String, apiHasURL: Bool = false, apiNeedsKey: Bool = false) {
         self.init()
         apiConfig = APIConfig(configFileName: configFileName, apiHasURL: apiHasURL, apiNeedsKey: apiNeedsKey)

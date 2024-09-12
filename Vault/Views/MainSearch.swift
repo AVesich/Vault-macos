@@ -13,25 +13,13 @@ struct MainSearch: View {
     @Environment(GlobalSearch.self) var searchModel
     @Environment(\.modelContext) private var modelContext
     @Binding var usingAI: Bool
-    @Query private var directoryProfiles: [DirectoryProfile]
-    @State private var temporaryProfile: DirectoryProfile = .temporaryProfile
-    @State private var selectedProfileIndex: Int? = 0
     @State private var scrollViewSize: CGSize = .zero
 
     var body: some View {
         VStack(spacing: 0.0) {
                 VStack {
-//                    DirectoryUI(usingAI: $usingAI,
-//                                directoryProfiles: directoryProfiles,
-//                                temporaryProfile: $temporaryProfile,
-//                                selectedProfileIndex: $selectedProfileIndex)
-//                    Divider()
-//                        .padding(.top, 2.0)
                     ModeNameBar()
-                    SearchBar(usingAI: $usingAI,
-                              directoryProfiles: directoryProfiles,
-                              temporaryProfile: $temporaryProfile,
-                              selectedProfileIndex: $selectedProfileIndex)
+                    SearchBar(usingAI: $usingAI)
                 }
                 .padding(.horizontal, 16.0)
                 .padding(.vertical, 8.0)
@@ -49,5 +37,4 @@ struct MainSearch: View {
 
     MainSearch(usingAI: .constant(false))
         .environment(GlobalSearch(modelContext: dummyContainer.mainContext))
-        .modelContainer(for: DirectoryProfile.self, inMemory: true)
 }

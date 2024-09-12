@@ -39,6 +39,12 @@ class GlobalSearch {
             activeModeChanged()
         }
     }
+        
+    public var hasNextPageAvailable: Bool {
+        return activeMode.engine.canLoadNextPage
+//        return activeMode.engine.API != nil
+//        return activeMode.engine.API.nextPageInfo.hasNextPage
+    }
     
     // MARK: - Query Properties
     private var queryString: String = "" {
@@ -144,30 +150,31 @@ class GlobalSearch {
         }
         
         modelContext.insert(Search(text: queryString,
-                                   filterModeID: activeMode.modeFilterType.id))
-        search(withActiveDirectory: "")
+                                   filterModeID: activeMode.id))
+        search()
+    }
+    
+    // Public facing search method used ONLY to load following pages
+    public func loadNextPage() {
+        search()
     }
 
-    private func search(withActiveDirectory activeDirectory: String) {
+    private func search() {
         if isSearching {
             return
         }
         isSearching = true
         Task {
-            await activeMode.engine.search(withQuery: queryString, inActiveDirectory: activeDirectory)
+            await activeMode.engine.search(withQuery: queryString)
             isSearching = false
         }
     }
-        
-    public func refreshResults() {
-        search(withActiveDirectory: "")
-    }
-    
+            
     // MARK: - Attribute helpers
     private func getHistory() -> [HistoryResult] {
-        let activeFilterID = activeMode.modeFilterType.id
+        let activeModeID = activeMode.id
         let fetchDiscriptor = FetchDescriptor<Search>(
-            predicate: #Predicate { $0.filterModeID == activeFilterID },
+            predicate: #Predicate { $0.filterModeID == activeModeID },
             sortBy: [SortDescriptor(\.date, order: .reverse)]
         )
         
@@ -196,7 +203,7 @@ class GlobalSearch {
             clearResults()
         } else if noQuery && activeMode.resultUpdateStyle == .onQueryOrFilter {
             if !filtersEmpty {
-                search(withActiveDirectory: "")
+                search()
             }
         } else { // Default to mode search & search if mode supports active results
             if let first = queryString.first,
@@ -204,7 +211,7 @@ class GlobalSearch {
                 self.activeMode = SearchModeEnum.modes
             }
             if activeMode.resultUpdateStyle == .active { // Actively search & update results if the engine wants active results
-                search(withActiveDirectory: "")
+                search()
             }
         }
     }
@@ -239,7 +246,7 @@ class GlobalSearch {
         if selectedFilterIndices.isEmpty && queryString.isEmpty {
             clearResults()
         } else {
-            refreshResults()
+            search()
         }
         selectedIndex = 0
     }

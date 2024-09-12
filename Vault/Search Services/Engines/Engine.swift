@@ -20,11 +20,15 @@ protocol Engine {
 }
 
 extension Engine {
+    public var canLoadNextPage: Bool {
+        return API.nextPageInfo.hasNextPage
+    }
+    
     public mutating func clearResults() {
         API.resetQueryCache()
     }
     
-    public mutating func search(withQuery query: String, inActiveDirectory activeDirectory: String) async {
+    public mutating func search(withQuery query: String) async {
         let nextPageResults = await API.getNextPage(forQuery: query)
         delegate?.engineRetrievedResults(newResults: nextPageResults)
     }
